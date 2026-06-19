@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-script: "1K High Spirited", cursive;
+  --font-hand: "Oooh Baby", cursive;
+  --font-anton: "Anton", sans-serif;
+  --font-kanit: "Kanit", sans-serif;
+  --color-primary: #3c6881;
+  --color-primary-end: #8f9f9a;
+  --background-image-primary-gradient: linear-gradient(
+    135deg,
+    #3c6881 0%,
+    #8f9f9a 100%
+  );
+  --color-secondary: #cfb26e;
+  --color-tertiary: #3a332b;
+  --color-CTA: #cfb26e;
+}
+
+@font-face {
+  font-family: "Rische";
+  src: url("/fonts/rische-demo.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "1K High Spirited";
+  src: url("/fonts/1KHighSpirited.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Set default font-size = 14px (Mobile-first) */
+:root {
+  font-size: 14px;
+}
+
+/* Desktop: Increase root font size for screens 1024px and up */
+@media (min-width: 1024px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  color: #2d3748; /* Màu chữ slate tối thay vì đen kịt */
+  overflow-x: hidden;
+}
+
+/* padding left-right 40px padding top-bottom 20px */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+/* Đẩy các dấu chấm xuống thấp hơn 1 chút */
+.swiper-pagination {
+  bottom: 0px !important;
+  /* Mặc định là 10px, chỉnh về 0 hoặc số âm nếu cần */
+  position: relative !important;
+  /* Chuyển về relative để nó chiếm diện tích riêng, không đè lên chữ */
+  margin-top: 0px;
+  /* Tạo khoảng cách giữa chữ và dấu chấm */
+}
+
+/* Màu cho dấu chấm dang hiển thị (Active) */
+.swiper-pagination-bullet-active {
+  background-color: #1e421e !important;
+  opacity: 1;
+}
+
+/* Màu cho các dấu chấm chờ */
+.swiper-pagination-bullet {
+  background-color: #757575;
+  /* Tương đương gray-300 của Tailwind */
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.6s ease-out;
+}
+
+.custom-swiper .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  opacity: 1 !important;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s ease;
+}
+
+.custom-swiper .swiper-pagination-bullet-active {
+  background-color: #fff !important;
+  transform: scale(1.3);
+}
+
+@media (min-width: 768px) {
+  .custom-swiper .swiper-pagination {
+    bottom: 40px !important;
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -webkit-overflow-scrolling: touch;
+  /* Momentum scrolling for iOS */
+}
+
+/* Custom Swiper Pagination for Gallery */
+.gallery-swiper .swiper-pagination {
+  bottom: 0px !important;
+  position: relative !important;
+  margin-top: 24px;
+}
+
+.gallery-swiper .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  opacity: 1 !important;
+  width: 8px;
+  height: 8px;
+  transition: all 0.3s ease;
+}
+
+.gallery-swiper .swiper-pagination-bullet-active {
+  background-color: #cfb26e !important;
+  transform: scale(1.3);
+}
+
+/* Disabled state for Gallery Swiper buttons */
+.gallery-swiper .swiper-button-disabled {
+  opacity: 0.25 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Custom Styles for React Quill Editor */
+.quill-editor-wrapper {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.quill-editor-wrapper .ql-toolbar.ql-snow {
+  border: 1px solid #cbd5e1 !important;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: #f8fafc;
+  padding: 10px 14px;
+}
+
+.quill-editor-wrapper .ql-container.ql-snow {
+  border: 1px solid #cbd5e1 !important;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-family: inherit;
+}
+
+.quill-editor-wrapper .ql-editor {
+  min-height: 350px;
+  max-height: 650px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #334155;
+  padding: 16px;
+}
+
+.quill-editor-wrapper .ql-editor.ql-blank::before {
+  font-style: normal;
+  color: #94a3b8;
+  left: 16px;
+  right: 16px;
+}
+
+/* Hiệu ứng focus đồng bộ với phong cách form chính */
+.quill-editor-wrapper:focus-within .ql-toolbar.ql-snow {
+  border-color: #263260 !important;
+  transition: border-color 0.2s ease;
+}
+
+.quill-editor-wrapper:focus-within .ql-container.ql-snow {
+  border-color: #263260 !important;
+  transition: border-color 0.2s ease;
+}
+
+/* Elegant thin scrollbar for premium feel */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(60, 104, 129, 0.25) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(60, 104, 129, 0.25);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(60, 104, 129, 0.45);
+}
