@@ -112,8 +112,8 @@ export const Sidebar = ({
                         key={idx}
                         to={child.path}
                         end={
-                          child.path === "/admin/gallery" ||
-                          child.path === "/admin/posts"
+                          child.path === "/domdom/gallery" ||
+                          child.path === "/domdom/posts"
                         }
                         className={subNavLinkClass}
                       >

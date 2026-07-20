@@ -170,7 +170,7 @@ export const UploadImages = () => {
         `Đăng tải thành công ${selectedFiles.length} hình ảnh!`,
         "success",
       );
-      navigate("/admin/gallery");
+      navigate("/domdom/gallery");
     } else {
       showToast(
         `Đã hoàn tất! Thành công: ${uploadedRecords.length}, Thất bại: ${errorsCount}. Vui lòng kiểm tra lại ảnh báo đỏ.`,
@@ -419,7 +419,7 @@ export const UploadImages = () => {
           </button>
           <button
             type="button"
-            onClick={() => navigate("/admin/gallery")}
+            onClick={() => navigate("/domdom/gallery")}
             disabled={uploading}
             className="cursor-pointer rounded-lg border border-slate-300 px-6 text-xs font-bold tracking-widest text-slate-500 uppercase transition-all hover:bg-slate-50 disabled:opacity-50"
           >

@@ -7,8 +7,8 @@ export const SIDEBAR_NAV_ITEMS = [
     icon: FiImage,
     hasDropdown: true,
     children: [
-      { title: "Đăng ảnh", path: "/admin/gallery/upload" },
-      { title: "Xem các hình ảnh", path: "/admin/gallery" },
+      { title: "Đăng ảnh", path: "/domdom/gallery/upload" },
+      { title: "Xem các hình ảnh", path: "/domdom/gallery" },
     ],
   },
   {
@@ -17,22 +17,22 @@ export const SIDEBAR_NAV_ITEMS = [
     icon: FiFileText,
     hasDropdown: true,
     children: [
-      { title: "Đăng bài", path: "/admin/posts/new" },
-      { title: "Xem các bài viết", path: "/admin/posts" },
+      { title: "Đăng bài", path: "/domdom/posts/new" },
+      { title: "Xem các bài viết", path: "/domdom/posts" },
     ],
   },
   {
     id: "contacts",
     title: "Quản lý liên hệ",
     icon: FiPhoneCall,
-    path: "/admin/contacts",
+    path: "/domdom/contacts",
     badgeKey: "pendingContactsCount",
   },
   {
     id: "bookings",
     title: "Quản lý đặt bàn",
     icon: FiCalendar,
-    path: "/admin/bookings",
+    path: "/domdom/bookings",
     badgeKey: "pendingBookingsCount",
   },
 ];

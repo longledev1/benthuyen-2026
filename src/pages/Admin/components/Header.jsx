@@ -28,19 +28,19 @@ export const Header = ({ setSidebarOpen }) => {
 
   // Xác định tiêu đề động theo URL path hiện tại
   const getViewTitle = () => {
-    if (pathname.includes("/admin/gallery/upload")) {
+    if (pathname.includes("/domdom/gallery/upload")) {
       return "Đăng Tải Hình Ảnh Thư Viện Mới";
     }
-    if (pathname.includes("/admin/gallery")) {
+    if (pathname.includes("/domdom/gallery")) {
       return "Danh Sách Hình Ảnh Thư Viện";
     }
-    if (pathname.includes("/admin/posts/new")) {
+    if (pathname.includes("/domdom/posts/new")) {
       return "Soạn Thảo Bài Viết Mới";
     }
-    if (pathname.includes("/admin/posts")) {
+    if (pathname.includes("/domdom/posts")) {
       return "Danh Sách Các Bài Viết";
     }
-    if (pathname.includes("/admin/contacts")) {
+    if (pathname.includes("/domdom/contacts")) {
       return "Danh Sách Ý Kiến Liên Hệ & Phản Hồi";
     }
     return "Trang Tổng Quan Quản Trị";
