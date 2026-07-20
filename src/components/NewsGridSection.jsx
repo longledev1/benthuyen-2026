@@ -136,7 +136,7 @@ export const NewsGridSection = () => {
                   <LazyImage
                     src={post.cover_image_url || post.image}
                     alt={post.title}
-                    className="brightness-95 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-100"
+                    className="object-cover brightness-95 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-100"
                   />
                   {/* Category Tag */}
                   <span className="text-secondary absolute top-4 left-4 z-10 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[9px] font-medium tracking-wider uppercase backdrop-blur-xs">

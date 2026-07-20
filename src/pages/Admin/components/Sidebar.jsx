@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { FiChevronDown, FiChevronUp, FiLogOut, FiX } from "react-icons/fi";
 import { SIDEBAR_NAV_ITEMS } from "../../../constants/sidebarNav";
+import supabase from "../../../lib/supabase";
 
 export const Sidebar = ({
   sidebarOpen,
@@ -9,6 +10,17 @@ export const Sidebar = ({
   pendingContactsCount,
   pendingBookingsCount,
 }) => {
+  const navigate = useNavigate();
+  
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      navigate("/admin/login");
+    } catch (err) {
+      console.error("❌ Logout error:", err);
+      navigate("/admin/login");
+    }
+  };
   // Tự động khởi tạo trạng thái mở dropdown cho các menu có dropdown
   const [menuOpen, setMenuOpen] = useState(
     SIDEBAR_NAV_ITEMS.reduce((acc, item) => {
@@ -112,8 +124,8 @@ export const Sidebar = ({
                         key={idx}
                         to={child.path}
                         end={
-                          child.path === "/domdom/gallery" ||
-                          child.path === "/domdom/posts"
+                          child.path === "/admin/gallery" ||
+                          child.path === "/admin/posts"
                         }
                         className={subNavLinkClass}
                       >
@@ -164,13 +176,21 @@ export const Sidebar = ({
             </div>
           </div>
         )}
-        <Link
-          to="/"
-          className="text-primary flex w-full items-center justify-center space-x-3 rounded-lg bg-white px-3 py-2.5 text-xs font-bold tracking-wider uppercase shadow-sm transition-all hover:scale-[1.02] hover:bg-white/95 active:scale-[0.98] lg:justify-start"
-        >
-          <FiLogOut size={16} className="text-primary" />
-          {sidebarOpen && <span>Về Trang Chủ</span>}
-        </Link>
+        <div className="flex flex-col space-y-2 w-full">
+          <Link
+            to="/"
+            className="text-white hover:text-secondary flex w-full items-center justify-center space-x-3 rounded-lg border border-white/10 px-3 py-2 text-xs font-bold tracking-wider uppercase transition-all lg:justify-start"
+          >
+            {sidebarOpen ? <span>Về Trang Chủ</span> : <span>Home</span>}
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500/10 hover:bg-red-500/20 text-red-400 flex w-full items-center justify-center space-x-3 rounded-lg px-3 py-2.5 text-xs font-bold tracking-wider uppercase shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer lg:justify-start"
+          >
+            <FiLogOut size={16} />
+            {sidebarOpen && <span>Đăng xuất</span>}
+          </button>
+        </div>
       </div>
     </aside>
   );

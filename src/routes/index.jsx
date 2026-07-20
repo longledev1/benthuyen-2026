@@ -17,6 +17,8 @@ import WritePost from "../pages/Admin/WritePost.jsx";
 import EditPost from "../pages/Admin/EditPost.jsx";
 import ManageContacts from "../pages/Admin/ManageContacts.jsx";
 import ManageBookings from "../pages/Admin/ManageBookings.jsx";
+import ProtectedRoute from "../pages/Admin/ProtectedRoute.jsx";
+import LoginPage from "../pages/Admin/LoginPage.jsx";
 
 const router = createBrowserRouter([
   // Main Site Routes
@@ -33,19 +35,31 @@ const router = createBrowserRouter([
       { path: "news/:slug", element: <NewsDetailPage /> }
     ],
   },
+  // Protected Admin Routes
   {
-    path: "/domdom",
-    element: <DashboardLayout />,
+    path: "/admin",
+    element: <ProtectedRoute />,
     children: [
-      { index: true, element: <ManagePosts /> },
-      { path: "gallery", element: <ManageGallery /> },
-      { path: "gallery/upload", element: <UploadImages /> },
-      { path: "posts", element: <ManagePosts /> },
-      { path: "posts/new", element: <WritePost /> },
-      { path: "posts/edit/:id", element: <EditPost /> },
-      { path: "contacts", element: <ManageContacts /> },
-      { path: "bookings", element: <ManageBookings /> }
+      {
+        path: "",
+        element: <DashboardLayout />,
+        children: [
+          { index: true, element: <ManagePosts /> },
+          { path: "gallery", element: <ManageGallery /> },
+          { path: "gallery/upload", element: <UploadImages /> },
+          { path: "posts", element: <ManagePosts /> },
+          { path: "posts/new", element: <WritePost /> },
+          { path: "posts/edit/:id", element: <EditPost /> },
+          { path: "contacts", element: <ManageContacts /> },
+          { path: "bookings", element: <ManageBookings /> }
+        ]
+      }
     ]
+  },
+  // Public Login Route
+  {
+    path: "/admin/login",
+    element: <LoginPage />
   },
   {
     path: "/test",

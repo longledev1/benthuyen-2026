@@ -71,7 +71,7 @@ export const PostTable = ({
                         <FiEye size={13} />
                       </Link>
                       <button
-                        onClick={() => navigate(`/domdom/posts/edit/${p.id}`)}
+                        onClick={() => navigate(`/admin/posts/edit/${p.id}`)}
                         className="hover:bg-primary flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-slate-50 text-slate-500 transition-all hover:text-white"
                         title="Chỉnh sửa"
                       >

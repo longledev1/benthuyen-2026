@@ -94,7 +94,7 @@ export const ManagePosts = () => {
             placeholder="Tìm tiêu đề bài viết..."
           />
           <button
-            onClick={() => navigate("/domdom/posts/new")}
+            onClick={() => navigate("/admin/posts/new")}
             className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center space-x-2 rounded-lg px-4 py-2.5 text-xs font-bold tracking-wider whitespace-nowrap text-white uppercase shadow-sm"
           >
             <FiPlus size={16} />

@@ -88,7 +88,7 @@ const AboutStory = () => {
         </div>
 
         {/* 2. Phần Content chính (Ảnh và Text) */}
-        <div className="mt-12 grid grid-cols-1 items-center gap-8 md:mt-20 md:grid-cols-2 md:gap-16">
+        <div className="mt-12 grid grid-cols-1 items-center gap-8 md:mt-20 md:grid-cols-2 md:gap-22">
           {/* Ảnh lớn bên trái */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -121,12 +121,11 @@ const AboutStory = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-sm leading-relaxed font-normal text-gray-600 md:text-base"
               >
-                <span className="text-primary font-bold">Bến Thuyền</span> được
-                hình thành từ mong muốn tạo nên một điểm hẹn nơi ẩm thực, không
-                gian và cảm xúc hòa quyện. Lấy cảm hứng từ vẻ đẹp của bến cảng
-                và nhịp sống bên dòng sông, mỗi góc nhỏ đều được chăm chút để
-                mang đến cảm giác thư thái, gần gũi nhưng vẫn sang trọng trong
-                từng trải nghiệm.
+                <span className="text-primary font-bold">Bến Thuyền</span> – Nơi
+                ẩm thực, không gian và cảm xúc hòa quyện. Lấy cảm hứng từ nhịp
+                sống yên bình bên bến cảng, mỗi góc nhỏ tại đây được chăm chút
+                kỹ lưỡng và đồng thời thiết lập một không gian thư thái, gần gũi
+                nhưng không kém phần sang trọng.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -135,9 +134,9 @@ const AboutStory = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="text-sm leading-relaxed font-normal text-gray-600 md:text-base"
               >
-                Từng món ăn, từng khoảnh khắc và từng nụ cười phục vụ đều được
-                tạo nên với mong muốn mang đến cho thực khách một trải nghiệm
-                trọn vẹn.
+                Từ hương vị món ăn, cách bày trí cho đến sự tận tâm trong phục
+                vụ, tất cả đều đồng nhất nhằm đảm bảo một trải nghiệm trọn vẹn
+                nhất cho Quý khách.
               </motion.p>
             </div>
           </motion.div>

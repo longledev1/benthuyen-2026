@@ -34,43 +34,33 @@ const MenuSection = () => {
   );
 
   return (
-    <section className="overflow-hidden bg-white">
-      <div className="container mx-auto grid grid-cols-1 items-center gap-16 px-6 md:grid-cols-2">
-        {/* BÊN TRÁI: Nội dung văn bản */}
+    <section className="overflow-hidden bg-white pt-10 pb-10 md:pt-24 md:pb-16">
+      <div className="container mx-auto grid grid-cols-1 items-center gap-10 px-6 md:grid-cols-12 md:gap-16">
+        {/* BÊN TRÁI: Tiêu đề & Nút bấm */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col space-y-8"
+          className="relative md:col-span-5 flex flex-col items-center text-center md:items-start md:text-left justify-center space-y-5 md:space-y-8 z-10"
         >
           <div>
-            <h3 className="text-secondary font-anton mb-4 text-xl tracking-wide uppercase md:text-4xl">
+            <h3 className="text-secondary font-anton mb-2 text-2xl tracking-widest uppercase md:mb-4 md:text-4xl">
               A LÀ CARTE
             </h3>
-            <div className="flex justify-start md:justify-end">
-              {/* Responsive Font: sans trên mobile, script trên desktop */}
-              <p className="md:font-script text-primary max-w-3xl font-sans text-2xl leading-tight italic md:text-[55px] md:leading-[60px] md:not-italic">
-                Những món ăn được chắt lọc từ tinh hoa nguyên liệu và nghệ thuật
-                chế biến
-              </p>
-            </div>
+            <h2 className="text-primary font-kanit md:font-script text-xl sm:text-2xl md:text-[52px] font-light md:font-normal leading-relaxed md:leading-[60px] pb-1">
+              Những món ăn được chắt lọc từ tinh hoa nguyên liệu và nghệ thuật <span className="whitespace-nowrap">chế biến</span>
+            </h2>
           </div>
 
-          <div className="font-normalt space-y-6 text-justify text-sm leading-relaxed text-gray-600 md:text-base">
-            <p>
-              Khám phá thế giới ẩm thực đa dạng tại NS Bến Thuyền, nơi mỗi món
-              ăn là một câu chuyện về hương vị và di sản. Chúng tôi tự hào mang
-              đến thực đơn A La Carte phong phú, kết hợp hài hòa giữa nguồn hải
-              sản tươi sống của vùng biển Cam Ranh và kỹ thuật chế biến đỉnh cao
-              từ đội ngũ đầu bếp tâm huyết.
-            </p>
-            <p>
-              Từng nguyên liệu đều được lựa chọn kỹ lưỡng theo mùa, đảm bảo giữ
-              trọn vẹn sự tươi ngon và giá trị dinh dưỡng. Không gian thưởng
-              thức sang trọng kết hợp cùng mỹ vị tinh tế hứa hẹn sẽ mang đến cho
-              quý khách những trải nghiệm ẩm thực khó quên.
-            </p>
+          <div className="relative z-10 pt-1 md:pt-2 w-full flex justify-center md:justify-start">
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-primary text-white flex items-center justify-center space-x-3 rounded-full px-8 py-3.5 text-xs font-bold uppercase shadow-lg transition-all duration-300 hover:opacity-90 hover:shadow-xl active:scale-95 cursor-pointer w-fit"
+            >
+              <span className="tracking-[0.2em] mr-[-0.2em]">Xem Thực Đơn</span>
+              <IconChevronRight className="h-4 w-4" />
+            </button>
           </div>
         </motion.div>
 
@@ -80,54 +70,55 @@ const MenuSection = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="group/menu relative hidden h-full w-full items-center justify-end md:flex"
+          className="group/menu relative md:col-span-7 flex justify-center md:justify-end w-full"
         >
           {/* Wrapper giới hạn kích thước thực tế của Menu để không bị quá to */}
-          <div className="relative w-full max-w-[380px]">
-            {/* Ảnh Menu */}
-            <div className="relative z-10 overflow-hidden rounded-xl shadow-2xl">
+          <div className="relative w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] p-2">
+            {/* Elegant double border background decoration */}
+            <div className="absolute inset-0 border border-secondary/30 rounded-2xl transform translate-x-2 translate-y-2 md:translate-x-3 md:translate-y-3 -z-10 group-hover/menu:translate-x-1 group-hover/menu:translate-y-1 transition-transform duration-500" />
+            
+            {/* Ảnh Menu (Clickable) */}
+            <div 
+              onClick={() => setShowModal(true)}
+              className="relative overflow-hidden rounded-2xl shadow-2xl bg-white border border-slate-100 cursor-pointer"
+            >
               <LazyImage
                 src="/images/home/menualacarte.png"
                 alt="Menu Food"
-                containerClassName="h-[520px] w-full"
+                containerClassName="h-[370px] sm:h-[430px] md:h-[520px] w-full"
                 className="object-cover transition-transform duration-1000 group-hover/menu:scale-105"
               />
+              
+              {/* Hover overlay for premium action indicator */}
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/menu:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                <span className="bg-white/95 text-primary border border-secondary/20 rounded-full px-5 py-2 text-[10px] font-bold tracking-[0.2em] uppercase shadow-lg transform translate-y-2 group-hover/menu:translate-y-0 transition-transform duration-300">
+                  Xem Menu
+                </span>
+              </div>
             </div>
 
             {/* Nút bấm Popup */}
-            <motion.button
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 20,
-                delay: 0.8,
-              }}
+            <button
               onClick={() => setShowModal(true)}
-              className="group absolute top-1/2 -right-6 z-20 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white shadow-xl transition-all duration-300 hover:bg-[#1A2542] hover:text-white"
+              className="absolute top-1/2 -right-4 z-20 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white shadow-xl transition-all duration-300 hover:bg-[#1A2542] hover:text-white"
             >
-              <IconChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
-            </motion.button>
+              <IconChevronRight className="h-4 w-4" />
+            </button>
           </div>
         </motion.div>
       </div>
 
-      {/* Button Mobile */}
-      <div className="container">
-        <div className="mt-[-10px] flex md:hidden">
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            onClick={() => setShowModal(true)}
-            className="bg-primary hover:bg-secondary flex h-12 w-48 items-center justify-center rounded-sm px-4 text-sm font-bold tracking-[0.2em] text-white uppercase shadow-lg transition-all duration-300 active:scale-95"
-          >
-            Xem Thực Đơn
-          </motion.button>
+      {/* Elegant Gold Divider */}
+      <div className="container mx-auto px-6 pt-10 pb-2 flex items-center justify-center select-none">
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-secondary/30 to-transparent flex-1" />
+        <div className="mx-4 flex items-center justify-center">
+          <svg className="w-5 h-5 text-secondary/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 2L15 8H9L12 2Z" fill="currentColor"/>
+            <path d="M12 22L9 16H15L12 22Z" fill="currentColor"/>
+            <circle cx="12" cy="12" r="2.2" fill="currentColor"/>
+          </svg>
         </div>
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-secondary/30 to-transparent flex-1" />
       </div>
 
       {/* POPUP THÔNG BÁO */}

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
 
 // Import Icons từ react-icons
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
@@ -9,6 +9,7 @@ import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 import { AMBIENCE_DATA } from "../../constants/ambience";
 
@@ -19,44 +20,25 @@ const AmbienceSection = () => {
   const swiperRef = useRef(null);
 
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="container mx-auto">
-        {/* HEADER SECTION */}
-        <div className="mb-10 flex flex-col-reverse items-end justify-between gap-6 md:flex-row md:gap-10">
-          {/* Trái: Mô tả Lorem */}
+    <section className="relative overflow-hidden bg-white pt-12 pb-8 md:pt-16 md:pb-12">
+      <div className="container mx-auto px-6">
+        {/* HEADER SECTION - Centered layout */}
+        <div className="relative mb-12 flex flex-col items-center text-center">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full md:w-1/3"
+            className="max-w-4xl text-center"
           >
-            <p className="font-normalt text-left text-sm leading-relaxed text-gray-500 md:text-justify">
-              Tại Bến Thuyền, mỗi góc nhỏ đều được chăm chút để mang đến cảm
-              giác thư thái và gần gũi. Sự kết hợp giữa kiến trúc Địa Trung Hải,
-              ánh sáng vàng ấm áp cùng những mảng xanh tự nhiên tạo nên một
-              không gian vừa sang trọng, vừa đủ riêng tư cho mọi buổi gặp gỡ.
-            </p>
-          </motion.div>
-
-          {/* Phải: Title và Quote */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full text-left md:w-2/3 md:text-right"
-          >
-            <h3 className="text-secondary font-anton mb-4 text-xl tracking-wide uppercase md:text-4xl">
-              L'{""} Ambiance
+            <h3 className="text-secondary font-anton mb-4 text-2xl tracking-widest uppercase md:text-4xl">
+              L' Ambiance
             </h3>
-            <div className="flex justify-start md:justify-end">
-              {/* Responsive Font: sans trên mobile, script trên desktop */}
-              <p className="md:font-script text-primary max-w-3xl font-sans text-2xl leading-tight italic md:text-[55px] md:leading-[60px] md:not-italic">
-                Không gian được tạo nên từ sự tinh giản, ấm cúng và cảm hứng
-                đương đại
-              </p>
-            </div>
+            <h2 className="text-primary font-kanit md:font-script text-xl sm:text-3xl md:text-[52px] font-light md:font-normal leading-relaxed md:leading-[60px]">
+              Không gian được tạo nên từ sự tinh giản, ấm cúng{" "}
+              <br className="hidden md:block" />
+              và cảm hứng <span className="whitespace-nowrap">đương đại</span>
+            </h2>
           </motion.div>
         </div>
 
@@ -69,22 +51,23 @@ const AmbienceSection = () => {
           className="group relative"
         >
           <Swiper
-            modules={[Navigation, Autoplay]}
+            modules={[Navigation, Autoplay, Pagination]}
             spaceBetween={16}
             slidesPerView={1.2}
             loop={true}
             speed={1000}
+            pagination={{ clickable: true }}
             breakpoints={{
               640: { slidesPerView: 2, spaceBetween: 20 },
               1024: { slidesPerView: 3, spaceBetween: 24 },
             }}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
-            className="!static h-[420px] sm:h-[500px] md:h-[650px]"
+            className="!static h-[380px] sm:h-[460px] md:h-[550px] ambience-swiper"
             /* !static để các nút absolute căn theo thẻ group ngoài cùng */
           >
             {AMBIENCE_DATA.map((item) => (
               <SwiperSlide key={item.id}>
-                <div className="group/item relative h-[543px] w-full overflow-hidden rounded-sm shadow-lg">
+                <div className="group/item relative h-full w-full overflow-hidden rounded-sm shadow-lg">
                   <LazyImage
                     src={item.image}
                     alt={item.title}
@@ -121,12 +104,57 @@ const AmbienceSection = () => {
           </button>
         </motion.div>
       </div>
+
+      {/* Elegant Gold Divider */}
+      <div className="container mx-auto px-6 pt-10 pb-2 flex items-center justify-center select-none">
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-secondary/30 to-transparent flex-1" />
+        <div className="mx-4 flex items-center justify-center">
+          <svg className="w-5 h-5 text-secondary/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 2L15 8H9L12 2Z" fill="currentColor"/>
+            <path d="M12 22L9 16H15L12 22Z" fill="currentColor"/>
+            <circle cx="12" cy="12" r="2.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-secondary/30 to-transparent flex-1" />
+      </div>
       {/* San hô vàng trang trí ở góc dưới bên trái sát mép màn hình */}
       <EdgeDecorator
         type="coral"
         position="bottom-left"
         className="-bottom-20 -left-12 w-40 opacity-65 md:w-60 lg:w-72"
       />
+      {/* Custom Styles for Swiper Pagination on Mobile */}
+      <style>{`
+        .ambience-swiper .swiper-pagination {
+          position: relative !important;
+          margin-top: 24px;
+          bottom: 0 !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 6px;
+        }
+        @media (min-width: 768px) {
+          .ambience-swiper .swiper-pagination {
+            display: none !important;
+          }
+        }
+        .ambience-swiper .swiper-pagination-bullet {
+          background-color: #cbd5e1 !important;
+          opacity: 0.6 !important;
+          width: 7px;
+          height: 7px;
+          border-radius: 9999px;
+          transition: all 0.3s ease;
+          margin: 0 !important;
+        }
+        .ambience-swiper .swiper-pagination-bullet-active {
+          background-color: #cfb26e !important;
+          opacity: 1 !important;
+          width: 18px;
+          border-radius: 4px;
+        }
+      `}</style>
     </section>
   );
 };

@@ -1,11 +1,11 @@
 export const TIMELINE_DATA = [
   {
     id: "startup",
-    label: "Ngày đầu lập nghiệp",
+    label: "Đặt nền móng bản sắc",
     title: "Những ngày lập nghiệp đầu tiên",
     desc: [
-      "NS Bến Thuyền khởi nguồn từ những hoài bão giản dị nhưng đầy quyết tâm. Tại Bến Thuyền, từng chi tiết nhỏ được tạo dựng bằng tâm huyết, đặt nền móng cho phong cách Indochine đặc trưng và tinh thần phục vụ chỉn chu.",
-      "Những vị khách đầu tiên không chỉ là khách hàng mà còn là người đồng hành, giúp chúng tôi định hình giá trị cốt lõi. Chính những ngày tháng mộc mạc ấy đã tạo nên bản sắc riêng cho NS Bến Thuyền hôm nay.",
+      "NS Bến Thuyền khởi nguồn từ tầm nhìn chiến lược và ý chí kiến tạo một biểu tượng ẩm thực vững chắc. Từ những bước đi đầu tiên, từng chi tiết nhỏ đã được tạo dựng bằng tâm huyết vượt trội, khẳng định nền móng vững chãi cho phong cách Indochine đặc trưng và thiết lập tiêu chuẩn phục vụ chỉn chu độc bản.",
+      "Những vị khách đầu tiên chính là những người bạn đồng hành lịch sử, cùng chúng tôi định hình nên hệ giá trị cốt lõi. Giai đoạn khởi đầu kiên cường và đầy kiêu hãnh đó đã đúc kết nên bản sắc riêng biệt, tạo tiền đề cho sự phát triển mạnh mẽ của NS Bến Thuyền ngày hôm nay.",
     ],
     images: [
       "/images/home/startup-1.png",
@@ -20,8 +20,8 @@ export const TIMELINE_DATA = [
     label: "Định hình thương hiệu",
     title: "Khẳng định vị thế Bến Thuyền",
     desc: [
-      "NS Bến Thuyền bước vào giai đoạn phát triển với định hướng rõ ràng về bản sắc và trải nghiệm. Mỗi không gian được thiết kế như một tác phẩm, kết hợp hài hòa giữa kiến trúc Pháp và tinh thần Việt.",
-      "Sự chỉn chu trong dịch vụ và đội ngũ chuyên nghiệp giúp thương hiệu dần khẳng định vị thế. Đây là bước chuyển mình từ khởi đầu khiêm tốn sang hình ảnh sang trọng và tinh tế.",
+      "NS Bến Thuyền bước vào giai đoạn phát triển chiều sâu với định hướng rõ nét về bản sắc văn hóa và trải nghiệm tinh tế. Mỗi không gian được chăm chút như một tác phẩm nghệ thuật, kết hợp hài hòa giữa nét kiến trúc Pháp và tinh thần cốt lõi Việt Nam.",
+      "Sự đồng bộ trong chất lượng dịch vụ cùng đội ngũ chuyên nghiệp chính là điểm tựa để thương hiệu khẳng định vị thế vững chắc trong lòng thực khách. Đây là cột mốc hoàn thiện hình ảnh sang trọng, chỉn chu và tiếp tục phát huy những giá trị di sản vốn có của Ngọc Sương.",
     ],
     images: [
       "/images/home/brand-1.png",
@@ -36,8 +36,8 @@ export const TIMELINE_DATA = [
     label: "Nâng tầm ẩm thực",
     title: "Mỹ vị giao thoa di sản",
     desc: [
-      "Ẩm thực tại NS Bến Thuyền là sự hòa quyện giữa nguyên liệu bản địa và kỹ thuật hiện đại. Mỗi món ăn được chăm chút cả về hương vị lẫn thẩm mỹ, mang lại trải nghiệm trọn vẹn.",
-      "Không chỉ là bữa ăn, đó là hành trình khám phá văn hóa và cảm xúc. Sự tinh tế trong từng chi tiết giúp NS Bến Thuyền khẳng định vị thế trong phân khúc cao cấp.",
+      "Ẩm thực tại NS Bến Thuyền kế thừa trọn vẹn tinh hoa từ nguồn nguyên liệu bản địa, kết hợp cùng kỹ thuật chế biến hiện đại của đội ngũ nghệ nhân. Mỗi món ăn được hoàn thiện chỉn chu từ hương vị đến cách bày trí, đảm bảo tính nguyên bản và chất lượng đồng nhất khi phục vụ thực khách.",
+      "Không dừng lại ở những bữa ăn ngon, chúng tôi định nghĩa lại trải nghiệm ẩm thực di sản bằng sự tinh tế và tâm huyết trong từng chi tiết. Đây chính là lời khẳng định cho giá trị thật và uy tín bền vững mà thương hiệu đã dày công gìn giữ qua nhiều thế hệ.",
     ],
     images: [
       "/images/home/food-1.png",
@@ -52,14 +52,11 @@ export const TIMELINE_DATA = [
     label: "Viết tiếp câu chuyện",
     title: "Vươn mình ra biển lớn",
     desc: [
-      "NS Bến Thuyền tiếp tục hành trình với khát vọng vươn tầm quốc tế, kết hợp đổi mới công nghệ và giá trị truyền thống. Những dự án mới đang được phát triển để nâng cao trải nghiệm.",
-      "Chúng tôi trân trọng sự đồng hành của khách hàng và cam kết không ngừng hoàn thiện. Tương lai là hành trình của sáng tạo, bản sắc và những trải nghiệm đẳng cấp hơn.",
+      "NS Bến Thuyền tiếp tục hành trình phát triển bền vững dựa trên sự kết hợp chặt chẽ giữa công nghệ vận hành hiện đại và các giá trị truyền thống cốt lõi. Những bước đi mới, những dự án mới luôn được triển khai dựa trên tiêu chí tối ưu hóa không gian và nâng cao chất lượng dịch vụ thực tế.",
+      "Chúng tôi trân trọng sự đồng hành lâu dài của Quý khách và khẳng định trách nhiệm gìn giữ uy tín thương hiệu. Tương lai của NS Bến Thuyền là hành trình tiếp nối của sự sáng tạo, gìn giữ bản sắc và khẳng định chất lượng chuẩn mực trong lòng mỗi thực khách.",
     ],
     images: [
-      "/images/home/future-1.png",
-      "/images/home/future-2.png",
-      "/images/home/future-3.png",
-      "/images/home/future-4.png",
+      "/images/home/future.png",
     ],
   },
 ];

@@ -43,7 +43,7 @@ export const WritePost = () => {
       }
 
       showToast("Lưu và xuất bản bài viết thành công!", "success");
-      navigate("/domdom/posts");
+      navigate("/admin/posts");
     } catch (err) {
       console.error("❌ Lỗi khi đăng bài viết:", err);
       showToast(
@@ -63,7 +63,7 @@ export const WritePost = () => {
       saving={saving}
       validationError={validationError}
       onSubmit={handleSaveSubmit}
-      onCancel={() => navigate("/domdom/posts")}
+      onCancel={() => navigate("/admin/posts")}
       titleText="Soạn thảo nội dung bài viết"
       submitButtonText="Lưu & Xuất Bản"
     />

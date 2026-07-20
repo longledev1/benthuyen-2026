@@ -179,7 +179,7 @@ export const ManageGallery = () => {
           onTabChange={handleFilterChange}
         />
         <button
-          onClick={() => navigate("/domdom/gallery/upload")}
+          onClick={() => navigate("/admin/gallery/upload")}
           className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center space-x-2 rounded-lg px-4 py-2.5 text-xs font-bold tracking-wider text-white uppercase shadow-sm"
         >
           <FiPlus size={16} />

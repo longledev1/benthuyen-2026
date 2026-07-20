@@ -43,7 +43,7 @@ const FoodSlide = () => {
           transition={{ duration: 0.8 }}
           className="mx-auto mb-8 max-w-4xl text-center md:mb-16"
         >
-          <h2 className="md:font-script text-primary font-sans text-3xl leading-tight md:text-[55px]">
+          <h2 className="md:font-script text-primary font-kanit text-3xl leading-tight md:text-[55px]">
             <span className="text-secondary block">Những dấu ấn</span>
             <span className="text-primary mt-1 block md:mt-[-25px]">
               Ẩm thực tại Bến Thuyền

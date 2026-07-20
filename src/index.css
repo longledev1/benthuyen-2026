@@ -192,6 +192,23 @@ body {
   padding: 16px;
 }
 
+.quill-editor-wrapper .ql-editor h1,
+.quill-editor-wrapper .ql-editor h2,
+.quill-editor-wrapper .ql-editor h3,
+.quill-editor-wrapper .ql-editor h4 {
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 700;
+  color: #3c6881 !important;
+}
+
+.quill-editor-wrapper .ql-editor h1 *,
+.quill-editor-wrapper .ql-editor h2 *,
+.quill-editor-wrapper .ql-editor h3 *,
+.quill-editor-wrapper .ql-editor h4 * {
+  color: inherit !important;
+  font-family: inherit !important;
+}
+
 .quill-editor-wrapper .ql-editor.ql-blank::before {
   font-style: normal;
   color: #94a3b8;

@@ -41,16 +41,6 @@ const TimelineSection = () => {
 
   return (
     <section className="bg-primary-gradient relative flex min-h-[700px] items-center overflow-hidden py-12 text-white md:min-h-[800px] md:py-24">
-      {/* 👇 LINE FULL HEIGHT - Chỉ hiện trên Desktop */}
-      <motion.div
-        initial={{ scaleY: 0 }}
-        whileInView={{ scaleY: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-        style={{ originY: 0 }}
-        className="pointer-events-none absolute top-0 bottom-0 left-[94.6%] hidden w-[1px] bg-white/30 lg:block"
-      />
-
       <div className="container mx-auto px-6">
         {/* --- LAYOUT CHO MOBILE/TABLET (lg:hidden) --- */}
         <div className="flex flex-col lg:hidden">
@@ -122,43 +112,55 @@ const TimelineSection = () => {
                   ))}
                 </div>
 
-                {/* 3. Slider Ảnh của mốc thời gian đó */}
-                <div className="relative z-20 w-full group/slider">
-                  <Swiper
-                    modules={[Pagination, Navigation]}
-                    pagination={{ clickable: true }}
-                    navigation={{
-                      prevEl: `.prev-btn-${item.id}`,
-                      nextEl: `.next-btn-${item.id}`,
-                    }}
-                    spaceBetween={20}
-                    nested={true} // 👈 Ngăn không cho vuốt ảnh làm chuyển năm (tab lớn)
-                    className="h-[350px] w-full rounded-sm"
-                  >
-                    {item.images.map((img, idx) => (
-                      <SwiperSlide key={idx}>
-                        <LazyImage
-                          src={img}
-                          className="object-cover"
-                          alt="timeline"
-                        />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+                {/* 3. Slider Ảnh của mốc thời gian đó hoặc Ảnh đơn */}
+                <div className="group/slider relative z-20 w-full">
+                  {item.images.length > 1 ? (
+                    <>
+                      <Swiper
+                        modules={[Pagination, Navigation]}
+                        pagination={{ clickable: true }}
+                        navigation={{
+                          prevEl: `.prev-btn-${item.id}`,
+                          nextEl: `.next-btn-${item.id}`,
+                        }}
+                        spaceBetween={20}
+                        nested={true} // 👈 Ngăn không cho vuốt ảnh làm chuyển năm (tab lớn)
+                        className="h-[350px] w-full rounded-sm"
+                      >
+                        {item.images.map((img, idx) => (
+                          <SwiperSlide key={idx}>
+                            <LazyImage
+                              src={img}
+                              className="object-cover"
+                              alt="timeline"
+                            />
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
 
-                  {/* Nút điều hướng ảnh trái/phải trên Mobile/Tablet */}
-                  <button
-                    className={`prev-btn-${item.id} absolute left-3 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/60 active:scale-90 disabled:pointer-events-none disabled:opacity-0`}
-                    aria-label="Ảnh trước"
-                  >
-                    <FiChevronLeft size={20} />
-                  </button>
-                  <button
-                    className={`next-btn-${item.id} absolute right-3 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/60 active:scale-90 disabled:pointer-events-none disabled:opacity-0`}
-                    aria-label="Ảnh sau"
-                  >
-                    <FiChevronRight size={20} />
-                  </button>
+                      {/* Nút điều hướng ảnh trái/phải trên Mobile/Tablet */}
+                      <button
+                        className={`prev-btn-${item.id} absolute top-1/2 left-3 z-30 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/60 active:scale-90 disabled:pointer-events-none disabled:opacity-0`}
+                        aria-label="Ảnh trước"
+                      >
+                        <FiChevronLeft size={20} />
+                      </button>
+                      <button
+                        className={`next-btn-${item.id} absolute top-1/2 right-3 z-30 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/60 active:scale-90 disabled:pointer-events-none disabled:opacity-0`}
+                        aria-label="Ảnh sau"
+                      >
+                        <FiChevronRight size={20} />
+                      </button>
+                    </>
+                  ) : (
+                    <div className="h-[350px] w-full overflow-hidden rounded-sm">
+                      <LazyImage
+                        src={item.images[0]}
+                        className="h-full w-full object-cover object-left"
+                        alt="timeline"
+                      />
+                    </div>
+                  )}
                 </div>
               </SwiperSlide>
             ))}
@@ -190,66 +192,91 @@ const TimelineSection = () => {
             </AnimatePresence>
           </div>
 
-          {/* Ở GIỮA: Mosaic Images */}
+          {/* Ở GIỮA: Mosaic Images hoặc Ảnh lớn đơn lẻ */}
           <div className="col-span-6 flex h-[600px] items-center justify-center">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                className="grid h-full w-full max-w-[600px] grid-cols-2 grid-rows-2 gap-10"
-                initial="initial"
-                animate="animate"
-                exit="exit"
-              >
+              {currentData.images.length > 1 ? (
                 <motion.div
-                  variants={imgVariants(0.1)}
-                  whileHover={{ scale: 1.03, rotate: 1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="translate-y-6 cursor-pointer p-1"
+                  key={activeIndex}
+                  className="grid h-full w-full max-w-[600px] grid-cols-2 grid-rows-2 gap-10"
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                 >
-                  <LazyImage
-                    src={currentData.images[0]}
-                    className="aspect-square object-cover"
-                  />
+                  <motion.div
+                    variants={imgVariants(0.1)}
+                    whileHover={{ scale: 1.03, rotate: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="translate-y-6 cursor-pointer p-1"
+                  >
+                    <LazyImage
+                      src={currentData.images[0]}
+                      className="aspect-square object-cover"
+                    />
+                  </motion.div>
+                  <motion.div
+                    variants={imgVariants(0.3)}
+                    whileHover={{ scale: 1.03, rotate: -1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="cursor-pointer p-1"
+                  >
+                    <LazyImage
+                      src={currentData.images[1]}
+                      className="aspect-square object-cover"
+                    />
+                  </motion.div>
+                  <motion.div
+                    variants={imgVariants(0.5)}
+                    whileHover={{ scale: 1.03, rotate: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="cursor-pointer p-1"
+                  >
+                    <LazyImage
+                      src={currentData.images[2]}
+                      className="aspect-[4/5] object-cover"
+                    />
+                  </motion.div>
+                  <motion.div
+                    variants={imgVariants(0.7)}
+                    whileHover={{ scale: 1.03, rotate: -1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="-translate-y-6 cursor-pointer p-1"
+                  >
+                    <LazyImage
+                      src={currentData.images[3]}
+                      className="aspect-square object-cover"
+                    />
+                  </motion.div>
                 </motion.div>
+              ) : (
                 <motion.div
-                  variants={imgVariants(0.3)}
-                  whileHover={{ scale: 1.03, rotate: -1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="cursor-pointer p-1"
+                  key={activeIndex}
+                  className="flex h-full w-full max-w-[550px] items-center justify-center p-2"
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={singleImgVariants}
                 >
-                  <LazyImage
-                    src={currentData.images[1]}
-                    className="aspect-square object-cover"
-                  />
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="h-[450px] w-full cursor-pointer overflow-hidden shadow-2xl"
+                  >
+                    <LazyImage
+                      src={currentData.images[0]}
+                      className="h-full w-full object-cover object-left"
+                    />
+                  </motion.div>
                 </motion.div>
-                <motion.div
-                  variants={imgVariants(0.5)}
-                  whileHover={{ scale: 1.03, rotate: 1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="cursor-pointer p-1"
-                >
-                  <LazyImage
-                    src={currentData.images[2]}
-                    className="aspect-[4/5] object-cover"
-                  />
-                </motion.div>
-                <motion.div
-                  variants={imgVariants(0.7)}
-                  whileHover={{ scale: 1.03, rotate: -1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="-translate-y-6 cursor-pointer p-1"
-                >
-                  <LazyImage
-                    src={currentData.images[3]}
-                    className="aspect-square object-cover"
-                  />
-                </motion.div>
-              </motion.div>
+              )}
             </AnimatePresence>
           </div>
 
           {/* BÊN PHẢI: Navigation */}
           <div className="relative col-span-2 flex h-full flex-col items-end justify-center py-10">
+            {/* 👇 LINE FULL HEIGHT - Connected to the dots */}
+            <div className="pointer-events-none absolute top-[-150px] right-[0px] bottom-[-150px] hidden w-[1px] bg-white/20 lg:block" />
+
             <div className="flex flex-col items-end space-y-16 pr-8">
               {TIMELINE_DATA.map((item, index) => (
                 <button
@@ -310,5 +337,21 @@ const imgVariants = (delay) => ({
     transition: { duration: 0.4 },
   },
 });
+
+const singleImgVariants = {
+  initial: { opacity: 0, scale: 0.9, filter: "blur(10px)" },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { delay: 0.2, duration: 0.8, ease: "easeOut" },
+  },
+  exit: {
+    opacity: 0,
+    scale: 1.05,
+    filter: "blur(10px)",
+    transition: { duration: 0.4 },
+  },
+};
 
 export default TimelineSection;

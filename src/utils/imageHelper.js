@@ -7,10 +7,11 @@ import imageCompression from "browser-image-compression";
  */
 export const compressToWebP = async (file) => {
   const options = {
-    maxSizeMB: 0.5,
-    maxWidthOrHeight: 1280,
+    maxSizeMB: 2.0, // Tăng lên 2MB để tránh nén quá mức làm mất chi tiết
+    maxWidthOrHeight: 1920, // Tăng lên độ phân giải 1920px (Full HD) để ảnh sắc nét
     useWebWorker: true,
     fileType: "image/webp",
+    initialQuality: 0.9, // Độ phân giải khởi đầu 90% cực kỳ sắc nét
   };
   try {
     const compressedBlob = await imageCompression(file, options);

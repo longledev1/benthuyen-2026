@@ -48,12 +48,12 @@ export const EditPost = () => {
           setOldCoverStoragePath(oldPost.cover_image_storage_path || null);
         } else {
           showToast("Không tìm thấy bài viết cần chỉnh sửa!", "error");
-          navigate("/domdom/posts");
+          navigate("/admin/posts");
         }
       } catch (err) {
         console.error("❌ Lỗi khi tải dữ liệu bài viết chỉnh sửa:", err);
         showToast("Đã xảy ra lỗi khi tải dữ liệu bài viết.", "error");
-        navigate("/domdom/posts");
+        navigate("/admin/posts");
       } finally {
         setLoading(false);
       }
@@ -100,7 +100,7 @@ export const EditPost = () => {
       }
 
       showToast("Cập nhật bài viết thành công!", "success");
-      navigate("/domdom/posts");
+      navigate("/admin/posts");
     } catch (err) {
       console.error("❌ Lỗi khi cập nhật bài viết:", err);
       showToast(
@@ -131,7 +131,7 @@ export const EditPost = () => {
       saving={saving}
       validationError={validationError}
       onSubmit={handleSaveSubmit}
-      onCancel={() => navigate("/domdom/posts")}
+      onCancel={() => navigate("/admin/posts")}
       titleText="Chỉnh sửa bài viết"
       submitButtonText="Lưu thay đổi"
       initialCoverUrl={postData.cover_image_url || ""}

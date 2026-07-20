@@ -1,11 +1,11 @@
 export const slides = [
   {
     id: 1,
-    image: "/images/banner/banner1_homepage.png", // Thay bằng ảnh local của bạn
+    image: "/images/news/event.png", // Thay bằng ảnh local của bạn
     badge: "GRAND RE-OPENING",
-    title: "Một phiên bản hoàn thiện hơn, tinh tế hơn",
+    title: "Một phiên bản hoàn thiện & tinh tế hơn",
     description:
-      "Trở lại với không gian nâng cấp, thực đơn được hoàn thiện và chất lượng phục vụ chỉn chu hơn, mang đến trải nghiệm trọn vẹn trong từng lần ghé thăm",
+      "Sự trở lại lần này gắn liền với một không gian nâng cấp, thực đơn hoàn thiện và chất lượng phục vụ chỉn chu, đảm bảo trải nghiệm trọn vẹn của Quý khách trong từng lần ghé thăm.",
   },
   {
     id: 2,

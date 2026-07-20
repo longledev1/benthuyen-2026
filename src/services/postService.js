@@ -22,7 +22,7 @@ export const postService = {
   async fetchPosts() {
     const { data, error } = await supabase
       .from("posts")
-      .select("*")
+      .select("id, title, slug, category, excerpt, is_published, author, cover_image_url, cover_image_storage_path, created_at")
       .order("created_at", { ascending: false });
 
     if (error) throw error;

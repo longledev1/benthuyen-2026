@@ -410,14 +410,18 @@ export const NewsDetailPage = () => {
           box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
         }
         .prose-custom h2 {
-          font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+          font-family: "Montserrat", sans-serif !important;
           font-size: 1.35rem;
-          color: #263260;
-          font-weight: 500;
+          color: #3c6881 !important;
+          font-weight: 700;
           margin-top: 2rem;
           margin-bottom: 1rem;
           line-height: 1.4;
           letter-spacing: 0.02em;
+        }
+        .prose-custom h2 * {
+          color: inherit !important;
+          font-family: inherit !important;
         }
         @media (min-width: 768px) {
           .prose-custom h2 {
@@ -425,13 +429,17 @@ export const NewsDetailPage = () => {
           }
         }
         .prose-custom h3 {
-          font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+          font-family: "Montserrat", sans-serif !important;
           font-size: 1.15rem;
-          color: #263260;
-          font-weight: 500;
+          color: #3c6881 !important;
+          font-weight: 700;
           margin-top: 1.5rem;
           margin-bottom: 0.75rem;
           line-height: 1.4;
+        }
+        .prose-custom h3 * {
+          color: inherit !important;
+          font-family: inherit !important;
         }
         .prose-custom p {
           margin-bottom: 1.25rem;
