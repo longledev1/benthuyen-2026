@@ -184,7 +184,7 @@ export const WritePost = ({ setCurrentView, setPosts }) => {
           <div className="space-y-2 pt-2">
             <button
               type="submit"
-              className="bg-primary block w-full cursor-pointer rounded-lg py-3.5 text-center text-xs font-bold tracking-widest text-white uppercase shadow-md transition-all hover:bg-[#1f284e]"
+              className="bg-primary hover:bg-primary/90 block w-full cursor-pointer rounded-lg py-3.5 text-center text-xs font-bold tracking-widest text-white uppercase shadow-md transition-all"
             >
               Lưu & Xuất Bản
             </button>

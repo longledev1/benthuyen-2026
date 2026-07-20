@@ -29,6 +29,8 @@ export const MainLayout = () => {
     };
   }, [isContactOpen, isBookingOpen]);
 
+  const shouldHideFooter = pathname.startsWith("/gallery") || pathname.startsWith("/menu");
+
   return (
     <div>
       {/* Notice Modal */}
@@ -42,18 +44,24 @@ export const MainLayout = () => {
       {/* Hero Banner */}
       {/* Main Content */}
       <Outlet />
-      
+
       {/* Contact Modal */}
-      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
 
       {/* Booking Modal */}
-      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
-      
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+      />
+
       {/* Floating Contact Widget */}
-      <FloatingContact />
+      {/* <FloatingContact /> */}
 
       {/* Footer */}
-      <Footer />
+      {!shouldHideFooter && <Footer />}
     </div>
   );
 };

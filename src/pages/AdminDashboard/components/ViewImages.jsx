@@ -37,7 +37,7 @@ export const ViewImages = ({
         />
         <button
           onClick={() => setCurrentView("upload-images")}
-          className="bg-primary flex cursor-pointer items-center space-x-2 rounded-lg px-4 py-2.5 text-xs font-bold tracking-wider text-white uppercase shadow-sm hover:bg-[#1f284e]"
+          className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center space-x-2 rounded-lg px-4 py-2.5 text-xs font-bold tracking-wider text-white uppercase shadow-sm"
         >
           <FiPlus size={16} />
           <span>Đăng ảnh mới</span>

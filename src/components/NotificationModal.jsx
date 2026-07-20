@@ -97,7 +97,7 @@ export const ConfirmModal = ({
                     ? "bg-rose-500 hover:bg-rose-600"
                     : type === "warning"
                       ? "bg-amber-500 hover:bg-amber-600"
-                      : "bg-primary hover:bg-[#1f284e]"
+                      : "bg-primary hover:bg-primary/90"
                 }`}
               >
                 {confirmText}

@@ -406,7 +406,7 @@ export const UploadImages = () => {
           <button
             type="submit"
             disabled={uploading || selectedFiles.length === 0}
-            className="bg-primary flex flex-1 cursor-pointer items-center justify-center space-x-2 rounded-lg py-3.5 text-xs font-bold tracking-widest text-white uppercase shadow-md transition-all hover:bg-[#1f284e] disabled:pointer-events-none disabled:opacity-50"
+            className="bg-primary hover:bg-primary/90 flex flex-1 cursor-pointer items-center justify-center space-x-2 rounded-lg py-3.5 text-xs font-bold tracking-widest text-white uppercase shadow-md transition-all disabled:pointer-events-none disabled:opacity-50"
           >
             {uploading ? (
               <>

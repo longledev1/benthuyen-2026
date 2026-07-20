@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 export const FloatingContact = () => {
   // Lấy hotline thực tế từ FOOTER_CONTACT: 0778.727.894
-  const phone = "0778727894";
-  const zaloUrl = "https://zalo.me/0778727894";
+  const phone = "0909886058";
+  const zaloUrl = "https://zalo.me/0909886058";
   const fbUrl = "https://facebook.com";
 
   // Hiệu ứng hover đặc biệt: Phóng to, nhấc lên, rung nhẹ lò xo (spring) và tỏa hào quang vàng kim

@@ -251,7 +251,7 @@ export const ManageContacts = ({
                   </div>
                   <button
                     onClick={() => setSelectedContact(null)}
-                    className="bg-primary cursor-pointer rounded-lg px-6 py-2.5 text-xs font-bold tracking-wider text-white uppercase transition-colors hover:bg-[#1f284e]"
+                    className="bg-primary hover:bg-primary/90 cursor-pointer rounded-lg px-6 py-2.5 text-xs font-bold tracking-wider text-white uppercase transition-colors"
                   >
                     Đồng ý
                   </button>

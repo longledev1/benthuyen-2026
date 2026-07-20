@@ -13,12 +13,13 @@ import "swiper/css/navigation";
 import { AMBIENCE_DATA } from "../../constants/ambience";
 
 import LazyImage from "../LazyImage";
+import EdgeDecorator from "../EdgeDecorator";
 
 const AmbienceSection = () => {
   const swiperRef = useRef(null);
 
   return (
-    <section className="overflow-hidden bg-white">
+    <section className="relative overflow-hidden bg-white">
       <div className="container mx-auto">
         {/* HEADER SECTION */}
         <div className="mb-10 flex flex-col-reverse items-end justify-between gap-6 md:flex-row md:gap-10">
@@ -31,10 +32,10 @@ const AmbienceSection = () => {
             className="w-full md:w-1/3"
           >
             <p className="font-normalt text-left text-sm leading-relaxed text-gray-500 md:text-justify">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex nam
-              consectetur hic neque accusantium. Rem delectus blanditiis
-              provident ipsam cumque, unde alias! Voluptatem laboriosam aliquam
-              tempore rerum laudantium vel laborum?Lorem ipsum dolor sit, amet
+              Tại Bến Thuyền, mỗi góc nhỏ đều được chăm chút để mang đến cảm
+              giác thư thái và gần gũi. Sự kết hợp giữa kiến trúc Địa Trung Hải,
+              ánh sáng vàng ấm áp cùng những mảng xanh tự nhiên tạo nên một
+              không gian vừa sang trọng, vừa đủ riêng tư cho mọi buổi gặp gỡ.
             </p>
           </motion.div>
 
@@ -120,6 +121,12 @@ const AmbienceSection = () => {
           </button>
         </motion.div>
       </div>
+      {/* San hô vàng trang trí ở góc dưới bên trái sát mép màn hình */}
+      <EdgeDecorator
+        type="coral"
+        position="bottom-left"
+        className="-bottom-20 -left-12 w-40 opacity-65 md:w-60 lg:w-72"
+      />
     </section>
   );
 };

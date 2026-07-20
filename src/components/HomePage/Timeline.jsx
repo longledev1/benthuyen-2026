@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Navigation } from "swiper/modules";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import LazyImage from "../LazyImage";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -122,10 +123,14 @@ const TimelineSection = () => {
                 </div>
 
                 {/* 3. Slider Ảnh của mốc thời gian đó */}
-                <div className="relative z-20 w-full">
+                <div className="relative z-20 w-full group/slider">
                   <Swiper
-                    modules={[Pagination]}
+                    modules={[Pagination, Navigation]}
                     pagination={{ clickable: true }}
+                    navigation={{
+                      prevEl: `.prev-btn-${item.id}`,
+                      nextEl: `.next-btn-${item.id}`,
+                    }}
                     spaceBetween={20}
                     nested={true} // 👈 Ngăn không cho vuốt ảnh làm chuyển năm (tab lớn)
                     className="h-[350px] w-full rounded-sm"
@@ -140,6 +145,20 @@ const TimelineSection = () => {
                       </SwiperSlide>
                     ))}
                   </Swiper>
+
+                  {/* Nút điều hướng ảnh trái/phải trên Mobile/Tablet */}
+                  <button
+                    className={`prev-btn-${item.id} absolute left-3 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/60 active:scale-90 disabled:pointer-events-none disabled:opacity-0`}
+                    aria-label="Ảnh trước"
+                  >
+                    <FiChevronLeft size={20} />
+                  </button>
+                  <button
+                    className={`next-btn-${item.id} absolute right-3 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/60 active:scale-90 disabled:pointer-events-none disabled:opacity-0`}
+                    aria-label="Ảnh sau"
+                  >
+                    <FiChevronRight size={20} />
+                  </button>
                 </div>
               </SwiperSlide>
             ))}

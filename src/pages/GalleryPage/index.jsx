@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { GALLERY_CATEGORIES } from "../../data/galleryData";
@@ -8,6 +8,17 @@ export const GalleryPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [hoveredPanel, setHoveredPanel] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Responsive check
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Tìm category tương ứng dựa trên slug
   const selectedCategory = slug
@@ -27,7 +38,7 @@ export const GalleryPage = () => {
       className={`relative w-full transition-all duration-500 select-none ${
         selectedCategory !== null
           ? "min-h-screen overflow-y-auto"
-          : "h-screen overflow-hidden"
+          : "md:h-screen md:overflow-hidden min-h-screen overflow-y-auto bg-black"
       }`}
     >
       <AnimatePresence mode="wait">
@@ -38,7 +49,7 @@ export const GalleryPage = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
-            className="mt-8 flex h-full w-full flex-col md:flex-row"
+            className="flex min-h-[calc(100vh-70px)] md:h-full w-full flex-col md:flex-row pt-20 md:pt-8"
           >
             {GALLERY_CATEGORIES.map((category, index) => {
               const isHovered = hoveredPanel === index;
@@ -48,12 +59,16 @@ export const GalleryPage = () => {
               return (
                 <div
                   key={category.id}
-                  onMouseEnter={() => setHoveredPanel(index)}
-                  onMouseLeave={() => setHoveredPanel(null)}
+                  onMouseEnter={() => {
+                    if (!isMobile) setHoveredPanel(index);
+                  }}
+                  onMouseLeave={() => {
+                    if (!isMobile) setHoveredPanel(null);
+                  }}
                   onClick={() => navigate(`/gallery/${category.slug}`)}
-                  className="relative flex h-full flex-1 cursor-pointer items-center justify-center overflow-hidden transition-all duration-700 ease-out"
+                  className="relative flex h-[35vh] min-h-[250px] md:h-full flex-1 cursor-pointer items-center justify-center overflow-hidden border-b border-white/10 transition-all duration-700 ease-out md:border-b-0"
                   style={{
-                    flexGrow: isHovered ? 2.0 : isOtherHovered ? 0.5 : 1,
+                    flexGrow: isMobile ? 1 : (isHovered ? 2.0 : isOtherHovered ? 0.5 : 1),
                   }}
                 >
                   {/* Background Image */}
@@ -61,10 +76,10 @@ export const GalleryPage = () => {
                     className="absolute -inset-6 bg-cover bg-center transition-all duration-700 ease-out"
                     style={{
                       backgroundImage: `url('${category.coverImage}')`,
-                      filter: isOtherHovered
+                      filter: !isMobile && isOtherHovered
                         ? "grayscale(40%) blur(2px)"
                         : "none",
-                      transform: isHovered ? "scale(1.05)" : "scale(1)",
+                      transform: !isMobile && isHovered ? "scale(1.05)" : "scale(1)",
                       willChange: "transform, filter",
                     }}
                   />
@@ -73,7 +88,7 @@ export const GalleryPage = () => {
                   <div
                     className="absolute inset-0 bg-black transition-opacity duration-700 ease-out"
                     style={{
-                      opacity: isHovered ? 0.35 : isOtherHovered ? 0.75 : 0.55,
+                      opacity: isMobile ? 0.45 : (isHovered ? 0.35 : isOtherHovered ? 0.75 : 0.55),
                     }}
                   />
 
@@ -81,15 +96,15 @@ export const GalleryPage = () => {
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80" />
 
                   {/* Content Container */}
-                  <div className="relative z-10 flex h-full w-full flex-col items-center justify-between p-8 text-center md:p-12">
+                  <div className="relative z-10 flex h-full w-full flex-col items-center justify-between p-6 text-center md:p-12">
                     {/* Top element: Roman Numeral */}
                     <div
                       className="font-normalt text-secondary font-serif text-lg tracking-[0.3em] transition-all duration-500 ease-out sm:text-xl"
                       style={{
-                        transform: isHovered
+                        transform: isMobile || isHovered
                           ? "translateY(0)"
                           : "translateY(-8px)",
-                        opacity: isOtherHovered ? 0.4 : 1,
+                        opacity: !isMobile && isOtherHovered ? 0.4 : 1,
                       }}
                     >
                       {romanNumerals[index]}
@@ -101,8 +116,8 @@ export const GalleryPage = () => {
                       <h2
                         className="font-serif text-2xl whitespace-nowrap text-white uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out sm:text-3xl md:text-4xl lg:text-[40px]"
                         style={{
-                          transform: isHovered ? "scale(1.04)" : "scale(1)",
-                          letterSpacing: isHovered ? "0.22em" : "0.15em",
+                          transform: !isMobile && isHovered ? "scale(1.04)" : "scale(1)",
+                          letterSpacing: isMobile || isHovered ? "0.22em" : "0.15em",
                         }}
                       >
                         {category.mainTitle}
@@ -115,10 +130,10 @@ export const GalleryPage = () => {
 
                       {/* Line divider */}
                       <div
-                        className="bg-secondary my-5 h-[1px] transition-all duration-500 ease-out sm:my-6"
+                        className="bg-secondary my-4 h-[1px] transition-all duration-500 ease-out sm:my-6"
                         style={{
-                          width: isHovered ? "80px" : "40px",
-                          opacity: isOtherHovered ? 0.3 : 1,
+                          width: isMobile || isHovered ? "80px" : "40px",
+                          opacity: !isMobile && isOtherHovered ? 0.3 : 1,
                         }}
                       />
 
@@ -126,10 +141,10 @@ export const GalleryPage = () => {
                       <div
                         className="font-normalt overflow-hidden font-sans text-xs leading-relaxed tracking-wider text-gray-200 drop-shadow-md transition-all duration-500 ease-out sm:text-sm"
                         style={{
-                          opacity: isHovered ? 1 : 0,
-                          maxHeight: isHovered ? "120px" : "0px",
-                          marginTop: isHovered ? "0px" : "-10px",
-                          visibility: isHovered ? "visible" : "hidden",
+                          opacity: isMobile || isHovered ? 1 : 0,
+                          maxHeight: isMobile || isHovered ? "120px" : "0px",
+                          marginTop: isMobile || isHovered ? "0px" : "-10px",
+                          visibility: isMobile || isHovered ? "visible" : "hidden",
                         }}
                       >
                         {category.desc}
@@ -139,13 +154,13 @@ export const GalleryPage = () => {
                     {/* Bottom element: Call to Action / Explore button */}
                     <div className="flex h-12 items-center justify-center">
                       <div
-                        className="border-secondary text-secondary hover:bg-secondary rounded-full border px-6 py-2.5 text-[11px] font-medium tracking-[0.25em] uppercase transition-all duration-500 ease-out hover:text-black"
+                        className="border-secondary text-secondary hover:bg-secondary rounded-full border px-6 py-2 text-[11px] font-medium tracking-[0.25em] uppercase transition-all duration-500 ease-out hover:text-black"
                         style={{
-                          opacity: isHovered ? 1 : 0,
-                          transform: isHovered
+                          opacity: isMobile || isHovered ? 1 : 0,
+                          transform: isMobile || isHovered
                             ? "translateY(0)"
                             : "translateY(12px)",
-                          visibility: isHovered ? "visible" : "hidden",
+                          visibility: isMobile || isHovered ? "visible" : "hidden",
                         }}
                       >
                         Khám Phá

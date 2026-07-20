@@ -53,8 +53,9 @@ const FeedbackSection = () => {
             </span>
           </h2>
           <p className="font-normalt mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gray-500 md:text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ex nam
-            consectetur hic neque accusatium.
+            Mỗi lời chia sẻ từ thực khách là minh chứng cho sự tận tâm mà Bến
+            Thuyền luôn theo đuổi. Từ hương vị món ăn, chất lượng phục vụ đến
+            không gian thưởng thức
           </p>
         </motion.div>
 

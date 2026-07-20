@@ -13,62 +13,7 @@ import { RiVipCrownLine } from "react-icons/ri";
 import { bookingService } from "../services/bookingService";
 import { CustomSelect } from "./Form/CustomSelect";
 
-// 6 Phòng VIP phong cách biển cả sang trọng
-const VIP_ROOMS = [
-  {
-    id: "haiau",
-    name: "Phòng VIP Hải Âu",
-    desc: "Không gian biển khơi lộng gió, view sông tuyệt mỹ, sức chứa 6-12 khách.",
-    image: "/images/vip/haiau.jpg",
-  },
-  {
-    id: "saobien",
-    name: "Phòng VIP Sao Biển",
-    desc: "Cảm hứng từ rặng sao biển ấm cúng, lung linh lãng mạn, sức chứa 4-8 khách.",
-    image: "/images/vip/saobien.jpg",
-  },
-  {
-    id: "sanho",
-    name: "Phòng VIP San Hô",
-    desc: "Sắc màu huyền ảo của rặng san hô tự nhiên, sức chứa 8-16 khách.",
-    image: "/images/vip/sanho.jpg",
-  },
-  {
-    id: "ngoctrai",
-    name: "Phòng VIP Ngọc Trai",
-    desc: "Tông màu ngọc trai sang trọng, quý phái đẳng cấp, sức chứa 6-10 khách.",
-    image: "/images/vip/ngoctrai.jpg",
-  },
-  {
-    id: "ocbien",
-    name: "Phòng VIP Ốc Biển",
-    desc: "Mô phỏng đường xoắn ốc sâu thẳm độc đáo, ấm cúng, sức chứa 4-8 khách.",
-    image: "/images/vip/ocbien.jpg",
-  },
-  {
-    id: "trungduong",
-    name: "Phòng VIP Trùng Dương",
-    desc: "Không gian đại tiệc đại dương rộng lớn, trang trọng, sức chứa 15-30 khách.",
-    image: "/images/vip/trungduong.jpg",
-  },
-];
-
-// Khung giờ hoạt động từ 10:00 sáng đến 22:00 tối
-const TIME_SLOTS = [
-  { value: "10:00", label: "10:00 Sáng" },
-  { value: "11:00", label: "11:00 Trưa" },
-  { value: "12:00", label: "12:00 Trưa" },
-  { value: "13:00", label: "13:00 Trưa" },
-  { value: "14:00", label: "14:00 Chiều" },
-  { value: "15:00", label: "15:00 Chiều" },
-  { value: "16:00", label: "16:00 Chiều" },
-  { value: "17:00", label: "17:00 Chiều" },
-  { value: "18:00", label: "18:00 Tối" },
-  { value: "19:00", label: "19:00 Tối" },
-  { value: "20:00", label: "20:00 Tối" },
-  { value: "21:00", label: "21:00 Tối" },
-  { value: "22:00", label: "22:00 Tối" },
-];
+import { VIP_ROOMS, TIME_SLOTS, COMMON_HALLS } from "../constants/booking";
 
 export const BookingModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -96,8 +41,8 @@ export const BookingModal = ({ isOpen, onClose }) => {
     setFormData((prev) => ({
       ...prev,
       area: selectedArea,
-      // Reset tên phòng VIP nếu đổi về sảnh chung
-      vip_room_name: selectedArea === "Sảnh chung" ? "" : prev.vip_room_name,
+      // Reset tên phòng VIP/Sảnh chung khi đổi khu vực
+      vip_room_name: "",
     }));
   };
 
@@ -119,6 +64,10 @@ export const BookingModal = ({ isOpen, onClose }) => {
     }
     if (!formData.phone.trim()) {
       setError("Vui lòng nhập số điện thoại liên hệ.");
+      return;
+    }
+    if (formData.area === "Sảnh chung" && !formData.vip_room_name) {
+      setError("Vui lòng chọn 1 tầng Sảnh chung trong danh sách.");
       return;
     }
     if (formData.area === "Phòng VIP" && !formData.vip_room_name) {
@@ -157,24 +106,25 @@ export const BookingModal = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          {/* Backdrop Blur Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={handleClose}
-            className="bg-primary/60 fixed inset-0 cursor-pointer backdrop-blur-md"
-          />
+        <div className="fixed inset-0 z-[100] overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4">
+            {/* Backdrop Blur Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={handleClose}
+              className="bg-primary/60 fixed inset-0 cursor-pointer backdrop-blur-md"
+            />
 
-          {/* Form Modal Content */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 220 }}
-            className="thin-scrollbar relative z-[101] max-h-[90vh] w-full max-w-[760px] overflow-y-auto rounded-2xl border border-black/5 bg-white text-slate-800 shadow-2xl"
-          >
+            {/* Form Modal Content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 220 }}
+              className="relative z-[101] w-full max-w-[760px] rounded-2xl border border-black/5 bg-white text-slate-800 shadow-2xl my-8"
+            >
             {/* Top decorative gold line */}
             <div className="via-secondary h-[4px] w-full bg-gradient-to-r from-transparent to-transparent" />
 
@@ -317,6 +267,7 @@ export const BookingModal = ({ isOpen, onClose }) => {
                         options={TIME_SLOTS}
                         className="w-full"
                         buttonClassName="py-[10.5px] border-slate-300 bg-slate-50 text-slate-800 text-sm font-medium"
+                        placement="bottom"
                       />
                     </div>
 
@@ -379,6 +330,70 @@ export const BookingModal = ({ isOpen, onClose }) => {
                     </div>
                   </div>
 
+                  {/* Common Halls Grid - Show only when Area is Sảnh chung */}
+                  <AnimatePresence>
+                    {formData.area === "Sảnh chung" && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mt-1 border-t border-slate-100 pt-3">
+                          <label className="text-secondary mb-2 block text-xs font-bold tracking-wider uppercase">
+                            Danh sách Sảnh chung ẩm thực
+                          </label>
+                          <div className="thin-scrollbar grid max-h-[300px] grid-cols-2 gap-3 overflow-y-auto pr-1 sm:grid-cols-3">
+                            {COMMON_HALLS.map((hall) => {
+                              const isSelected =
+                                formData.vip_room_name === hall.name;
+                              return (
+                                <div
+                                  key={hall.id}
+                                  onClick={() => handleVipRoomSelect(hall.name)}
+                                  className={`group relative h-20 sm:h-24 cursor-pointer overflow-hidden rounded-xl border transition-all ${
+                                    isSelected
+                                      ? "border-secondary ring-secondary ring-1"
+                                      : "border-slate-200 hover:border-slate-400"
+                                  }`}
+                                >
+                                  {/* Hall image */}
+                                  <img
+                                    src={hall.image}
+                                    alt={hall.name}
+                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    onError={(e) => {
+                                      // Fallback if image fails to load
+                                      e.target.src =
+                                        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300&q=80";
+                                    }}
+                                  />
+                                  {/* Dark Gradient Overlay */}
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/10 transition-opacity group-hover:opacity-90" />
+
+                                  {/* Hall Name Overlay */}
+                                  <div className="absolute inset-x-0 bottom-0 p-2.5 flex flex-col justify-end">
+                                    <h5 className="truncate text-xs sm:text-sm font-bold text-white tracking-wide">
+                                      {hall.name}
+                                    </h5>
+                                  </div>
+
+                                  {/* Selection Checkmark */}
+                                  {isSelected && (
+                                    <div className="absolute top-2 right-2 bg-secondary rounded-full p-1 text-white shadow-md">
+                                      <FiCheck size={12} />
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   {/* VIP Rooms Grid - Show only when Area is Phòng VIP */}
                   <AnimatePresence>
                     {formData.area === "Phòng VIP" && (
@@ -401,40 +416,39 @@ export const BookingModal = ({ isOpen, onClose }) => {
                                 <div
                                   key={room.id}
                                   onClick={() => handleVipRoomSelect(room.name)}
-                                  className={`group relative cursor-pointer overflow-hidden rounded-xl border transition-all ${
+                                  className={`group relative h-20 sm:h-24 cursor-pointer overflow-hidden rounded-xl border transition-all ${
                                     isSelected
-                                      ? "border-secondary bg-secondary/5 ring-secondary ring-1"
-                                      : "border-slate-200 bg-white hover:border-slate-400"
+                                      ? "border-secondary ring-secondary ring-1"
+                                      : "border-slate-200 hover:border-slate-400"
                                   }`}
                                 >
-                                  {/* Room image placeholder/actual */}
-                                  <div className="relative h-16 w-full overflow-hidden bg-slate-100 sm:h-20">
-                                    <img
-                                      src={room.image}
-                                      alt={room.name}
-                                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                      onError={(e) => {
-                                        // Fallback if image fails to load
-                                        e.target.src =
-                                          "https://images.unsplash.com/photo-1544025162-d76694265947?w=300&q=80";
-                                      }}
-                                    />
-                                    {isSelected && (
-                                      <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                                        <div className="bg-secondary rounded-full p-1 text-white">
-                                          <FiCheck size={14} />
-                                        </div>
-                                      </div>
-                                    )}
-                                  </div>
-                                  <div className="p-2 text-left">
-                                    <h5 className="truncate text-xs font-bold text-slate-800">
+                                  {/* Room image */}
+                                  <img
+                                    src={room.image}
+                                    alt={room.name}
+                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    onError={(e) => {
+                                      // Fallback if image fails to load
+                                      e.target.src =
+                                        "https://images.unsplash.com/photo-1544025162-d76694265947?w=300&q=80";
+                                    }}
+                                  />
+                                  {/* Dark Gradient Overlay */}
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/10 transition-opacity group-hover:opacity-90" />
+
+                                  {/* Room Name Overlay */}
+                                  <div className="absolute inset-x-0 bottom-0 p-2.5 flex flex-col justify-end">
+                                    <h5 className="truncate text-xs sm:text-sm font-bold text-white tracking-wide">
                                       {room.name}
                                     </h5>
-                                    <p className="mt-0.5 line-clamp-2 font-sans text-[10px] leading-tight text-slate-400">
-                                      {room.desc}
-                                    </p>
                                   </div>
+
+                                  {/* Selection Checkmark */}
+                                  {isSelected && (
+                                    <div className="absolute top-2 right-2 bg-secondary rounded-full p-1 text-white shadow-md">
+                                      <FiCheck size={12} />
+                                    </div>
+                                  )}
                                 </div>
                               );
                             })}
@@ -481,6 +495,7 @@ export const BookingModal = ({ isOpen, onClose }) => {
               )}
             </div>
           </motion.div>
+          </div>
         </div>
       )}
     </AnimatePresence>

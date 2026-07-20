@@ -1,24 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const MENU_CATEGORIES = [
-  {
-    id: "alacarte",
-    title: "A LÀ CARTE",
-    subTitleLabel: "MENU",
-    subtitle:
-      "Những món ăn được chắt lọc từ tinh hoa nguyên liệu và nghệ thuật chế biến",
-    coverImage: "/images/menu/ala.png",
-  },
-  {
-    id: "catering",
-    title: "CATERING",
-    subTitleLabel: "MENU",
-    subtitle:
-      "Dịch vụ ẩm thực trọn gói, phục vụ hoàn hảo cho mọi quy mô sự kiện",
-    coverImage: "/images/menu/cate.png",
-  },
-];
+import { MENU_CATEGORIES } from "../../constants/menu";
 
 const IconX = ({ className }) => (
   <svg
@@ -37,17 +19,30 @@ const IconX = ({ className }) => (
 export const MenuPage = () => {
   const [hoveredPanel, setHoveredPanel] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Responsive check
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Ký số La Mã cho 2 cột
   const romanNumerals = ["I", "II"];
 
   return (
-    <div className="overflow-hiddenselect-none relative h-screen w-full">
+    <div className={`relative w-full select-none ${
+      isMobile ? "min-h-screen overflow-y-auto bg-black" : "h-screen overflow-hidden"
+    }`}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="mt-8 flex h-full w-full flex-col md:flex-row"
+        className="flex min-h-[calc(100vh-70px)] md:h-full w-full flex-col md:flex-row pt-20 md:pt-8"
       >
         {MENU_CATEGORIES.map((category, index) => {
           const isHovered = hoveredPanel === index;
@@ -58,23 +53,23 @@ export const MenuPage = () => {
             <div
               key={category.id}
               onMouseEnter={() => {
-                if (!showModal) setHoveredPanel(index);
+                if (!showModal && !isMobile) setHoveredPanel(index);
               }}
               onMouseMove={() => {
-                if (!showModal && hoveredPanel !== index) {
+                if (!showModal && !isMobile && hoveredPanel !== index) {
                   setHoveredPanel(index);
                 }
               }}
               onMouseLeave={() => {
-                setHoveredPanel(null);
+                if (!isMobile) setHoveredPanel(null);
               }}
               onClick={() => {
                 setHoveredPanel(null);
                 setShowModal(true);
               }}
-              className="relative flex h-full flex-1 cursor-pointer items-center justify-center overflow-hidden border-b border-white/5 transition-all duration-700 ease-out md:border-r md:border-b-0"
+              className="relative flex h-[45vh] min-h-[300px] md:h-full flex-1 cursor-pointer items-center justify-center overflow-hidden border-b border-white/10 transition-all duration-700 ease-out md:border-r md:border-b-0"
               style={{
-                flexGrow: isHovered ? 1.8 : isOtherHovered ? 0.6 : 1,
+                flexGrow: isMobile ? 1 : (isHovered ? 1.8 : isOtherHovered ? 0.6 : 1),
               }}
             >
               {/* Background Image */}
@@ -82,8 +77,8 @@ export const MenuPage = () => {
                 className="absolute -inset-6 bg-cover bg-center transition-all duration-700 ease-out"
                 style={{
                   backgroundImage: `url('${category.coverImage}')`,
-                  filter: isOtherHovered ? "grayscale(40%) blur(2px)" : "none",
-                  transform: isHovered ? "scale(1.05)" : "scale(1)",
+                  filter: !isMobile && isOtherHovered ? "grayscale(40%) blur(2px)" : "none",
+                  transform: !isMobile && isHovered ? "scale(1.05)" : "scale(1)",
                   willChange: "transform, filter",
                 }}
               />
@@ -92,7 +87,7 @@ export const MenuPage = () => {
               <div
                 className="absolute inset-0 bg-black transition-opacity duration-700 ease-out"
                 style={{
-                  opacity: isHovered ? 0.15 : isOtherHovered ? 0.55 : 0.3,
+                  opacity: isMobile ? 0.35 : (isHovered ? 0.15 : isOtherHovered ? 0.55 : 0.3),
                 }}
               />
 
@@ -100,13 +95,13 @@ export const MenuPage = () => {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
 
               {/* Content Container */}
-              <div className="relative z-10 flex h-full w-full flex-col items-center justify-between p-8 text-center md:p-12">
+              <div className="relative z-10 flex h-full w-full flex-col items-center justify-between p-6 text-center md:p-12">
                 {/* Top element: Roman Numeral */}
                 <div
                   className="font-normalt text-secondary font-serif text-lg tracking-[0.3em] transition-all duration-500 ease-out sm:text-xl"
                   style={{
-                    transform: isHovered ? "translateY(0)" : "translateY(-8px)",
-                    opacity: isOtherHovered ? 0.4 : 1,
+                    transform: isMobile || isHovered ? "translateY(0)" : "translateY(-8px)",
+                    opacity: !isMobile && isOtherHovered ? 0.4 : 1,
                   }}
                 >
                   {romanNumerals[index]}
@@ -118,8 +113,8 @@ export const MenuPage = () => {
                   <h2
                     className="font-serif text-2xl whitespace-nowrap text-white uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out sm:text-3xl md:text-4xl lg:text-[40px]"
                     style={{
-                      transform: isHovered ? "scale(1.04)" : "scale(1)",
-                      letterSpacing: isHovered ? "0.22em" : "0.15em",
+                      transform: !isMobile && isHovered ? "scale(1.04)" : "scale(1)",
+                      letterSpacing: isMobile || isHovered ? "0.22em" : "0.15em",
                     }}
                   >
                     {category.title}
@@ -130,10 +125,10 @@ export const MenuPage = () => {
 
                   {/* Line divider */}
                   <div
-                    className="bg-secondary my-5 h-[1px] transition-all duration-500 ease-out sm:my-6"
+                    className="bg-secondary my-4 h-[1px] transition-all duration-500 ease-out sm:my-6"
                     style={{
-                      width: isHovered ? "80px" : "40px",
-                      opacity: isOtherHovered ? 0.3 : 1,
+                      width: isMobile || isHovered ? "80px" : "40px",
+                      opacity: !isMobile && isOtherHovered ? 0.3 : 1,
                     }}
                   />
 
@@ -141,10 +136,10 @@ export const MenuPage = () => {
                   <div
                     className="font-normalt overflow-hidden font-sans text-xs leading-relaxed tracking-wider text-gray-200 drop-shadow-md transition-all duration-500 ease-out sm:text-sm"
                     style={{
-                      opacity: isHovered ? 1 : 0,
-                      maxHeight: isHovered ? "120px" : "0px",
-                      marginTop: isHovered ? "0px" : "-10px",
-                      visibility: isHovered ? "visible" : "hidden",
+                      opacity: isMobile || isHovered ? 1 : 0,
+                      maxHeight: isMobile || isHovered ? "120px" : "0px",
+                      marginTop: isMobile || isHovered ? "0px" : "-10px",
+                      visibility: isMobile || isHovered ? "visible" : "hidden",
                     }}
                   >
                     {category.subtitle}
@@ -154,13 +149,13 @@ export const MenuPage = () => {
                 {/* Bottom element: Call to Action / Explore button */}
                 <div className="flex h-12 items-center justify-center">
                   <div
-                    className="border-secondary text-secondary hover:bg-secondary rounded-full border px-6 py-2.5 text-[11px] font-medium tracking-[0.25em] uppercase transition-all duration-500 ease-out hover:text-black"
+                    className="border-secondary text-secondary hover:bg-secondary rounded-full border px-6 py-2 text-[11px] font-medium tracking-[0.25em] uppercase transition-all duration-500 ease-out hover:text-black"
                     style={{
-                      opacity: isHovered ? 1 : 0,
-                      transform: isHovered
+                      opacity: isMobile || isHovered ? 1 : 0,
+                      transform: isMobile || isHovered
                         ? "translateY(0)"
                         : "translateY(12px)",
-                      visibility: isHovered ? "visible" : "hidden",
+                      visibility: isMobile || isHovered ? "visible" : "hidden",
                     }}
                   >
                     Khám Phá

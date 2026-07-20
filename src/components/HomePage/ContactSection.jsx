@@ -84,7 +84,7 @@ export const ContactSection = () => {
             <div className="space-y-6">
               {/* CARD 1: ADDRESS */}
               <a
-                href="https://maps.app.goo.gl/baJzsKqt9GsbXwxL6"
+                href="https://maps.app.goo.gl/358aEk2UWNJDj9mv8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-start space-x-5 rounded-2xl border border-slate-100/80 bg-white p-5 transition-all duration-350 hover:border-slate-200 hover:shadow-[0_15px_30px_rgba(0,0,0,0.04)]"
@@ -97,7 +97,7 @@ export const ContactSection = () => {
                     Địa chỉ nhà hàng
                   </h4>
                   <p className="text-sm leading-relaxed text-slate-700 transition-colors group-hover:text-slate-900">
-                    45 Trần Quốc Thảo, Phường Võ Thị Sáu, Quận 3, TP.HCM
+                    21 Nguyễn Văn Trỗi, Phường Phú Nhuận, TP.HCM
                   </p>
                   <span className="text-secondary/70 group-hover:text-secondary inline-block pt-1 text-[11px] underline transition-colors">
                     Xem trên Google Maps →
@@ -125,7 +125,7 @@ export const ContactSection = () => {
 
               {/* CARD 3: HOTLINE */}
               <a
-                href="tel:0778727894"
+                href="tel:0909886058"
                 className="group flex items-start space-x-5 rounded-2xl border border-slate-100/80 bg-white p-5 transition-all duration-350 hover:border-slate-200 hover:shadow-[0_15px_30px_rgba(0,0,0,0.04)]"
               >
                 <div className="bg-opacity-10 group-hover:bg-opacity-20 relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 transition-all duration-350 group-hover:scale-110">
@@ -141,7 +141,7 @@ export const ContactSection = () => {
                     Hotline Liên hệ
                   </h4>
                   <p className="text-lg font-semibold text-emerald-600 transition-colors group-hover:text-emerald-500">
-                    0778.727.894
+                    0909.886.058
                   </p>
                   <p className="text-xs text-slate-500">
                     Hỗ trợ tư vấn đặt tiệc & sự kiện 24/7

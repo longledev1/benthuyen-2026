@@ -60,7 +60,7 @@ const NotFound = () => {
 
           <div className="flex flex-col items-center gap-y-2 md:flex-row md:gap-x-6">
             <a
-              href="tel:0778727894"
+              href="tel:0909886058"
               className="transition-colors hover:text-[#E8DCC4]"
             >
               <span className="tracking-wider">Hotline:</span>{" "}

@@ -50,8 +50,8 @@ const FoodSlide = () => {
             </span>
           </h2>
           <p className="font-normalt mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gray-500 md:text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ex nam
-            consectetur hic neque accusatium.
+            Mỗi món ăn tại Bến Thuyền là sự hòa quyện giữa nguồn hải sản tươi
+            tuyển chọn mỗi ngày và nghệ thuật chế biến tinh tế.
           </p>
         </motion.div>
 

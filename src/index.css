@@ -234,3 +234,32 @@ body {
 .thin-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: rgba(60, 104, 129, 0.45);
 }
+
+/* Edge decorations keyframes & animations */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+}
+
+@keyframes swaySlow {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(3.5deg) scale(1.01);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.animate-sway-slow {
+  animation: swaySlow 12s ease-in-out infinite;
+  transform-origin: top left;
+}
+

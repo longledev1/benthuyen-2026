@@ -133,7 +133,7 @@ export const ContactModal = ({ isOpen, onClose }) => {
                   </p>
                   <button
                     onClick={handleClose}
-                    className="bg-primary mt-6 cursor-pointer rounded-md px-8 py-3 text-xs font-bold tracking-[0.2em] text-white uppercase shadow-md transition-all duration-300 hover:bg-[#1f284e]"
+                    className="bg-primary hover:bg-primary/90 mt-6 cursor-pointer rounded-md px-8 py-3 text-xs font-bold tracking-[0.2em] text-white uppercase shadow-md transition-all duration-300"
                   >
                     Đóng cửa sổ
                   </button>
@@ -255,7 +255,7 @@ export const ContactModal = ({ isOpen, onClose }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="bg-primary flex w-full cursor-pointer items-center justify-center space-x-2 rounded-lg py-3.5 text-xs font-bold tracking-[0.25em] text-white uppercase shadow-lg transition-all hover:bg-[#1f284e] active:scale-98 disabled:pointer-events-none disabled:opacity-50"
+                    className="bg-primary hover:bg-primary/90 flex w-full cursor-pointer items-center justify-center space-x-2 rounded-lg py-3.5 text-xs font-bold tracking-[0.25em] text-white uppercase shadow-lg transition-all active:scale-98 disabled:pointer-events-none disabled:opacity-50"
                   >
                     {loading ? (
                       <>
@@ -286,6 +286,59 @@ export const ContactModal = ({ isOpen, onClose }) => {
                   </button>
                 </form>
               )}
+
+              {/* Hoặc liên hệ trực tiếp */}
+              <div className="mt-8 border-t border-slate-100 pt-6 text-center">
+                <p className="text-primary mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
+                  Hoặc kết nối trực tiếp với chúng tôi
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  {/* Zalo */}
+                  <a
+                    href="https://zalo.me/0909886058"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-slate-150 flex cursor-pointer items-center gap-2.5 rounded-xl border bg-slate-50 px-4 py-2.5 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
+                  >
+                    <img
+                      src="/icon/Zalo.webp"
+                      alt="Zalo"
+                      className="h-5 w-5 object-contain"
+                    />
+                    <span className="text-xs font-bold text-slate-600">
+                      Zalo
+                    </span>
+                  </a>
+
+                  {/* Facebook */}
+                  <a
+                    href="https://facebook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-slate-150 flex cursor-pointer items-center gap-2.5 rounded-xl border bg-slate-50 px-4 py-2.5 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
+                  >
+                    <img
+                      src="/icon/Facebook.webp"
+                      alt="Facebook"
+                      className="h-5 w-5 object-contain"
+                    />
+                    <span className="text-xs font-bold text-slate-600">
+                      Facebook
+                    </span>
+                  </a>
+
+                  {/* Phone */}
+                  <a
+                    href="tel:0909886058"
+                    className="border-slate-150 flex cursor-pointer items-center gap-2.5 rounded-xl border bg-slate-50 px-4 py-2.5 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
+                  >
+                    <FiPhone size={14} className="text-[#3c6881]" />
+                    <span className="text-xs font-bold text-slate-600">
+                      Gọi Hotline
+                    </span>
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

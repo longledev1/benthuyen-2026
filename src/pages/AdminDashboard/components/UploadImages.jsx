@@ -81,7 +81,7 @@ export const UploadImages = ({ setCurrentView, setGallery }) => {
         <div className="flex space-x-4 pt-4">
           <button
             type="submit"
-            className="bg-primary flex-1 cursor-pointer rounded-lg py-3.5 text-xs font-bold tracking-widest text-white uppercase shadow-md transition-all hover:bg-[#1f284e]"
+            className="bg-primary hover:bg-primary/90 flex-1 cursor-pointer rounded-lg py-3.5 text-xs font-bold tracking-widest text-white uppercase shadow-md transition-all"
           >
             Đăng tải hình ảnh
           </button>

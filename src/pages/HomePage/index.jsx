@@ -13,16 +13,16 @@ export const HomePage = () => {
     <>
       <HeroBanner />
       <main className="flex w-full flex-col bg-white">
-        <section className="mt-12 mb-12 md:mt-24 md:mb-24">
+        <section className="mt-12 md:mt-24 md:mb-24">
           <AboutStory />
         </section>
 
         <section className="mb-12 md:mb-24">
-          <TimelineSection />
+          <FoodSlide />
         </section>
 
         <section className="mb-12 md:mb-24">
-          <FoodSlide />
+          <TimelineSection />
         </section>
 
         <section className="mb-12 md:mb-24">
