@@ -74,35 +74,35 @@ export const ContactModal = ({ isOpen, onClose }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 220 }}
-            className="relative z-[101] w-full max-w-2xl overflow-hidden rounded-2xl border border-black/5 bg-white text-slate-800 shadow-2xl"
+            className="relative z-[101] w-full max-w-2xl max-h-[90vh] md:max-h-none overflow-y-auto md:overflow-hidden rounded-2xl border border-black/5 bg-white text-slate-800 shadow-2xl thin-scrollbar"
           >
             {/* Top decorative gold line */}
             <div className="via-secondary h-[4px] w-full bg-gradient-to-r from-transparent to-transparent" />
 
             {/* Header Area */}
-            <div className="p-8 pb-4 text-center">
+            <div className="p-6 md:p-8 pb-3 md:pb-4 text-center">
               <button
                 onClick={handleClose}
-                className="absolute top-6 right-6 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-800"
+                className="absolute top-4 right-4 md:top-6 md:right-6 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-800"
                 aria-label="Đóng"
               >
                 <FiX size={18} />
               </button>
 
-              <span className="text-secondary text-[11px] font-semibold tracking-[0.25em] uppercase">
+              <span className="text-secondary text-[10px] md:text-[11px] font-semibold tracking-[0.25em] uppercase">
                 Liên Hệ & Phản Hồi
               </span>
-              <h3 className="text-primary mt-1 mb-2 text-2xl font-bold tracking-wide">
+              <h3 className="text-primary mt-1 mb-2 text-xl md:text-2xl font-bold tracking-wide">
                 Kết nối với NS Bến Thuyền
               </h3>
-              <p className="font-normalt mx-auto max-w-sm font-sans text-xs leading-relaxed text-slate-500">
+              <p className="font-normal mx-auto max-w-xs md:max-w-sm font-sans text-xs leading-relaxed text-slate-500">
                 Quý khách có thể gửi ý kiến đóng góp, phản hồi hoặc câu hỏi.
                 Chúng tôi sẽ phản hồi trong thời gian sớm nhất.
               </p>
             </div>
 
             {/* Form & Success States */}
-            <div className="px-8 pb-8">
+            <div className="px-6 pb-6 md:px-8 md:pb-8">
               {success ? (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -155,7 +155,7 @@ export const ContactModal = ({ isOpen, onClose }) => {
                   <div>
                     <label
                       htmlFor="contact-name"
-                      className="text-primary mb-1.5 block text-xs font-semibold tracking-wider uppercase"
+                      className="text-primary mb-1 block md:mb-1.5 text-[10px] md:text-xs font-semibold tracking-wider uppercase"
                     >
                       Họ và tên Anh/Chị <span className="text-rose-500">*</span>
                     </label>
@@ -170,18 +170,18 @@ export const ContactModal = ({ isOpen, onClose }) => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Nguyễn Văn A"
-                        className="focus:border-primary focus:ring-primary w-full rounded-lg border border-slate-300 bg-slate-50 py-2.5 pr-4 pl-10 text-sm font-medium text-slate-800 placeholder-slate-400 transition-all focus:bg-white focus:ring-1 focus:outline-none"
+                        className="focus:border-primary focus:ring-primary w-full rounded-lg border border-slate-300 bg-slate-50 py-2 md:py-2.5 pr-4 pl-10 text-sm font-medium text-slate-800 placeholder-slate-400 transition-all focus:bg-white focus:ring-1 focus:outline-none"
                       />
                     </div>
                   </div>
 
                   {/* Input Row: Phone & Email */}
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-3 md:gap-4 sm:grid-cols-2">
                     {/* Input Phone */}
                     <div>
                       <label
                         htmlFor="contact-phone"
-                        className="text-primary mb-1.5 block text-xs font-semibold tracking-wider uppercase"
+                        className="text-primary mb-1 block md:mb-1.5 text-[10px] md:text-xs font-semibold tracking-wider uppercase"
                       >
                         Số điện thoại <span className="text-rose-500">*</span>
                       </label>
@@ -196,7 +196,7 @@ export const ContactModal = ({ isOpen, onClose }) => {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="0901234567"
-                          className="focus:border-primary focus:ring-primary w-full rounded-lg border border-slate-300 bg-slate-50 py-2.5 pr-4 pl-10 text-sm font-medium text-slate-800 placeholder-slate-400 transition-all focus:bg-white focus:ring-1 focus:outline-none"
+                          className="focus:border-primary focus:ring-primary w-full rounded-lg border border-slate-300 bg-slate-50 py-2 md:py-2.5 pr-4 pl-10 text-sm font-medium text-slate-800 placeholder-slate-400 transition-all focus:bg-white focus:ring-1 focus:outline-none"
                         />
                       </div>
                     </div>
@@ -205,7 +205,7 @@ export const ContactModal = ({ isOpen, onClose }) => {
                     <div>
                       <label
                         htmlFor="contact-email"
-                        className="text-primary mb-1.5 block text-xs font-semibold tracking-wider uppercase"
+                        className="text-primary mb-1 block md:mb-1.5 text-[10px] md:text-xs font-semibold tracking-wider uppercase"
                       >
                         Email <span className="text-slate-400">(nếu có)</span>
                       </label>
@@ -220,7 +220,7 @@ export const ContactModal = ({ isOpen, onClose }) => {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="email@example.com"
-                          className="focus:border-primary focus:ring-primary w-full rounded-lg border border-slate-300 bg-slate-50 py-2.5 pr-4 pl-10 text-sm font-medium text-slate-800 placeholder-slate-400 transition-all focus:bg-white focus:ring-1 focus:outline-none"
+                          className="focus:border-primary focus:ring-primary w-full rounded-lg border border-slate-300 bg-slate-50 py-2 md:py-2.5 pr-4 pl-10 text-sm font-medium text-slate-800 placeholder-slate-400 transition-all focus:bg-white focus:ring-1 focus:outline-none"
                         />
                       </div>
                     </div>
@@ -230,7 +230,7 @@ export const ContactModal = ({ isOpen, onClose }) => {
                   <div>
                     <label
                       htmlFor="contact-message"
-                      className="text-primary mb-1.5 block text-xs font-semibold tracking-wider uppercase"
+                      className="text-primary mb-1 block md:mb-1.5 text-[10px] md:text-xs font-semibold tracking-wider uppercase"
                     >
                       Nội dung liên hệ hoặc phản ánh{" "}
                       <span className="text-rose-500">*</span>
@@ -244,9 +244,8 @@ export const ContactModal = ({ isOpen, onClose }) => {
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        rows={4}
                         placeholder="Hãy để lại ý kiến phản hồi hoặc nội dung cần phản ánh của quý khách tại đây..."
-                        className="focus:border-primary focus:ring-primary w-full resize-none rounded-lg border border-slate-300 bg-slate-50 py-2.5 pr-4 pl-10 text-sm leading-relaxed font-medium text-slate-800 placeholder-slate-400 transition-all focus:bg-white focus:ring-1 focus:outline-none"
+                        className="focus:border-primary focus:ring-primary w-full resize-none rounded-lg border border-slate-300 bg-slate-50 py-2.5 pr-4 pl-10 text-sm leading-relaxed font-medium text-slate-800 placeholder-slate-400 transition-all focus:bg-white focus:ring-1 focus:outline-none h-20 md:h-28"
                       />
                     </div>
                   </div>
@@ -255,7 +254,7 @@ export const ContactModal = ({ isOpen, onClose }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="bg-primary hover:bg-primary/90 flex w-full cursor-pointer items-center justify-center space-x-2 rounded-lg py-3.5 text-xs font-bold tracking-[0.25em] text-white uppercase shadow-lg transition-all active:scale-98 disabled:pointer-events-none disabled:opacity-50"
+                    className="bg-primary hover:bg-primary/90 flex w-full cursor-pointer items-center justify-center space-x-2 rounded-lg py-3 md:py-3.5 text-xs font-bold tracking-[0.25em] text-white uppercase shadow-lg transition-all active:scale-98 disabled:pointer-events-none disabled:opacity-50"
                   >
                     {loading ? (
                       <>
@@ -288,24 +287,24 @@ export const ContactModal = ({ isOpen, onClose }) => {
               )}
 
               {/* Hoặc liên hệ trực tiếp */}
-              <div className="mt-8 border-t border-slate-100 pt-6 text-center">
-                <p className="text-primary mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
+              <div className="mt-6 border-t border-slate-100 pt-4 text-center">
+                <p className="text-primary mb-3 text-[10px] font-bold tracking-[0.2em] uppercase">
                   Hoặc kết nối trực tiếp với chúng tôi
                 </p>
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-wrap justify-center gap-2.5 md:gap-4">
                   {/* Zalo */}
                   <a
                     href="https://zalo.me/0909886058"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border-slate-150 flex cursor-pointer items-center gap-2.5 rounded-xl border bg-slate-50 px-4 py-2.5 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
+                    className="border-slate-150 flex cursor-pointer items-center gap-2 md:gap-3 rounded-lg bg-slate-50 px-3 py-2 md:px-7 md:py-3 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
                   >
                     <img
                       src="/icon/Zalo.webp"
                       alt="Zalo"
-                      className="h-5 w-5 object-contain"
+                      className="h-4 w-4 md:h-6 md:w-6 object-contain"
                     />
-                    <span className="text-xs font-bold text-slate-600">
+                    <span className="text-[11px] md:text-sm font-bold text-slate-600">
                       Zalo
                     </span>
                   </a>
@@ -315,14 +314,14 @@ export const ContactModal = ({ isOpen, onClose }) => {
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border-slate-150 flex cursor-pointer items-center gap-2.5 rounded-xl border bg-slate-50 px-4 py-2.5 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
+                    className="border-slate-150 flex cursor-pointer items-center gap-2 md:gap-3 rounded-lg bg-slate-50 px-3 py-2 md:px-7 md:py-3 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
                   >
                     <img
                       src="/icon/Facebook.webp"
                       alt="Facebook"
-                      className="h-5 w-5 object-contain"
+                      className="h-4 w-4 md:h-6 md:w-6 object-contain"
                     />
-                    <span className="text-xs font-bold text-slate-600">
+                    <span className="text-[11px] md:text-sm font-bold text-slate-600">
                       Facebook
                     </span>
                   </a>
@@ -330,10 +329,10 @@ export const ContactModal = ({ isOpen, onClose }) => {
                   {/* Phone */}
                   <a
                     href="tel:0909886058"
-                    className="border-slate-150 flex cursor-pointer items-center gap-2.5 rounded-xl border bg-slate-50 px-4 py-2.5 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
+                    className="border-slate-150 flex cursor-pointer items-center gap-2 md:gap-3 rounded-lg bg-slate-50 px-3 py-2 md:px-7 md:py-3 shadow-sm transition-all hover:bg-slate-100/80 hover:shadow active:scale-95"
                   >
-                    <FiPhone size={14} className="text-[#3c6881]" />
-                    <span className="text-xs font-bold text-slate-600">
+                    <FiPhone className="h-4 w-4 md:h-5 md:w-5 text-[#3c6881]" />
+                    <span className="text-[11px] md:text-sm font-bold text-slate-600">
                       Gọi Hotline
                     </span>
                   </a>

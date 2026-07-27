@@ -16,6 +16,9 @@ import { CustomSelect } from "./Form/CustomSelect";
 import { VIP_ROOMS, TIME_SLOTS, COMMON_HALLS } from "../constants/booking";
 
 export const BookingModal = ({ isOpen, onClose }) => {
+  // CONFIG: Đặt true để hiển thị thông báo "Nhà hàng đang hoàn thiện", đặt false để mở form đặt bàn bình thường.
+  const isUnderCompletion = true;
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -139,20 +142,56 @@ export const BookingModal = ({ isOpen, onClose }) => {
               </button>
 
               <span className="text-secondary text-[11px] font-bold tracking-[0.25em] uppercase">
-                Đặt Bàn Trực Tuyến
+                {isUnderCompletion ? "Thông Báo" : "Đặt Bàn Trực Tuyến"}
               </span>
-              <h3 className="text-primary mt-1 mb-1.5 text-2xl font-bold tracking-wide">
-                Trải nghiệm Ẩm thực Bến Thuyền
+              <h3 className="text-primary mt-1 mb-1.5 text-xl md:text-2xl font-bold tracking-wide">
+                {isUnderCompletion ? "Chưa Mở Nhận Đặt Bàn Trực Tuyến" : "Trải nghiệm Ẩm thực Bến Thuyền"}
               </h3>
-              <p className="mx-auto max-w-md font-sans text-xs leading-relaxed text-slate-500">
-                Quý khách vui lòng điền thông tin đặt bàn dưới đây. Nhà hàng
-                luôn sẵn sàng phục vụ Quý khách chu đáo nhất.
-              </p>
+              {!isUnderCompletion && (
+                <p className="mx-auto max-w-md font-sans text-xs leading-relaxed text-slate-500">
+                  Quý khách vui lòng điền thông tin đặt bàn dưới đây. Nhà hàng
+                  luôn sẵn sàng phục vụ Quý khách chu đáo nhất.
+                </p>
+              )}
             </div>
 
             {/* Form & Success States */}
             <div className="px-6 pb-6">
-              {success ? (
+              {isUnderCompletion ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex flex-col items-center justify-center py-6 md:py-8 text-center"
+                >
+                  <div className="relative mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-secondary/20 bg-secondary/5 text-secondary">
+                    <MdOutlineTableRestaurant className="h-10 w-10 animate-pulse" />
+                    <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white text-[10px] font-bold border-2 border-white">
+                      !
+                    </div>
+                  </div>
+
+                  <p className="max-w-2xl font-sans text-xs md:text-sm leading-relaxed text-slate-500 mb-6">
+                    Nhà hàng NS Bến Thuyền hiện đang trong quá trình hoàn thiện không gian chuẩn bị đi vào hoạt động chính thức. Chức năng đặt bàn trực tuyến sẽ khả dụng ngay khi nhà hàng khai trương để phục vụ Quý khách chu đáo nhất. Xin chân thành cảm ơn <span className="whitespace-nowrap">sự thông cảm của Quý khách!</span>
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
+                    <button
+                      onClick={handleClose}
+                      className="bg-primary hover:bg-primary/90 cursor-pointer rounded-lg px-8 py-3.5 text-xs font-bold tracking-[0.2em] text-white uppercase shadow-md transition-all duration-300 active:scale-95 w-full sm:w-auto"
+                    >
+                      Đóng cửa sổ
+                    </button>
+                    
+                    <a
+                      href="tel:0909886058"
+                      className="border border-slate-200 hover:bg-slate-50 cursor-pointer rounded-lg px-8 py-3.5 text-xs font-bold tracking-[0.2em] text-slate-600 uppercase transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto"
+                    >
+                      <FiPhone size={14} className="text-[#3c6881]" />
+                      Gọi Hotline
+                    </a>
+                  </div>
+                </motion.div>
+              ) : success ? (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
