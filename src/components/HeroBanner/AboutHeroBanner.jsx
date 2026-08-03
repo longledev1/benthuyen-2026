@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const AboutHeroBanner = () => {
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black">
+    <div className="relative h-[calc(100vh-72px)] md:h-[calc(100vh-112px)] w-full overflow-hidden bg-black">
       {/* Background Image & Overlay */}
       <motion.div
         initial={{ opacity: 0, scale: 1.08 }}
@@ -12,7 +12,7 @@ const AboutHeroBanner = () => {
         className="absolute inset-0"
       >
         <div
-          className="absolute inset-0 mt-8 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('/images/about/bg.png')` }}
         />
         {/* Cinematic gradient overlay: Keeps center clear (via-black/25) for signboard visibility, soft dark at top/bottom for UI contrast */}

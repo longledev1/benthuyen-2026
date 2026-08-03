@@ -19,6 +19,7 @@ import ManageContacts from "../pages/Admin/ManageContacts.jsx";
 import ManageBookings from "../pages/Admin/ManageBookings.jsx";
 import ProtectedRoute from "../pages/Admin/ProtectedRoute.jsx";
 import LoginPage from "../pages/Admin/LoginPage.jsx";
+import ManageBanners from "../pages/Admin/ManageBanners.jsx";
 
 const router = createBrowserRouter([
   // Main Site Routes
@@ -51,7 +52,8 @@ const router = createBrowserRouter([
           { path: "posts/new", element: <WritePost /> },
           { path: "posts/edit/:id", element: <EditPost /> },
           { path: "contacts", element: <ManageContacts /> },
-          { path: "bookings", element: <ManageBookings /> }
+          { path: "bookings", element: <ManageBookings /> },
+          { path: "banners", element: <ManageBanners /> }
         ]
       }
     ]

@@ -9,6 +9,7 @@ export const SIDEBAR_NAV_ITEMS = [
     children: [
       { title: "Đăng ảnh", path: "/admin/gallery/upload" },
       { title: "Xem các hình ảnh", path: "/admin/gallery" },
+      { title: "Quản lý Banner", path: "/admin/banners" },
     ],
   },
   {

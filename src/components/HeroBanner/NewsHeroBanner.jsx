@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const NewsHeroBanner = () => {
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black">
+    <div className="relative h-[calc(100vh-72px)] md:h-[calc(100vh-112px)] w-full overflow-hidden bg-black">
       {/* Background Image & Overlay */}
       <motion.div
         initial={{ opacity: 0, scale: 1.08 }}

@@ -94,7 +94,7 @@ export const Sidebar = ({
       </div>
 
       {/* Danh sách Menu điều hướng kết xuất động từ SIDEBAR_NAV_ITEMS */}
-      <nav className="flex-1 space-y-3 overflow-y-auto px-4 py-6">
+      <nav className="flex-1 space-y-3 overflow-y-auto px-4 py-6 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-white/20 scrollbar-thin">
         {SIDEBAR_NAV_ITEMS.map((item) => {
           const IconComponent = item.icon;
 
@@ -161,36 +161,30 @@ export const Sidebar = ({
         })}
       </nav>
 
-      {/* Footer Sidebar: Tài khoản & Đăng xuất */}
+      {/* Footer Sidebar: Điều hướng & Đăng xuất */}
       <div className="flex-shrink-0 space-y-4 border-t border-white/5 p-4">
-        {sidebarOpen && (
-          <div className="flex items-center space-x-3 px-2">
-            <div className="bg-secondary flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-[#0F1524]">
-              BT
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold">Bến Thuyền Admin</p>
-              <p className="truncate text-[10px] text-white/50">
-                admin@nsbenthuyen.vn
-              </p>
-            </div>
-          </div>
-        )}
+
         <div className="flex flex-col space-y-2 w-full">
           <Link
             to="/"
-            className="text-white hover:text-secondary flex w-full items-center justify-center space-x-3 rounded-lg border border-white/10 px-3 py-2 text-xs font-bold tracking-wider uppercase transition-all lg:justify-start"
+            className="bg-primary hover:bg-primary/95 text-white flex w-full items-center justify-center space-x-3 rounded-lg px-3 py-2 text-xs font-bold tracking-wider uppercase shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer lg:justify-start"
           >
             {sidebarOpen ? <span>Về Trang Chủ</span> : <span>Home</span>}
           </Link>
           <button
             onClick={handleLogout}
-            className="bg-red-500/10 hover:bg-red-500/20 text-red-400 flex w-full items-center justify-center space-x-3 rounded-lg px-3 py-2.5 text-xs font-bold tracking-wider uppercase shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer lg:justify-start"
+            className="bg-white hover:bg-white/95 text-primary flex w-full items-center justify-center space-x-3 rounded-lg px-3 py-2.5 text-xs font-bold tracking-wider uppercase shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer lg:justify-start"
           >
             <FiLogOut size={16} />
             {sidebarOpen && <span>Đăng xuất</span>}
           </button>
         </div>
+
+        {sidebarOpen && (
+          <p className="text-center text-[9px] text-white/20 tracking-widest uppercase mt-4 select-none font-sans">
+            NS Bến Thuyền © 2026 | v2.0
+          </p>
+        )}
       </div>
     </aside>
   );

@@ -48,29 +48,17 @@ const Header = ({ onOpenContact, onOpenBooking }) => {
 
   return (
     <>
-      <motion.header
-        layout
-        transition={{
-          type: "spring",
-          stiffness: 140,
-          damping: 20,
-          mass: 0.8,
-        }}
-        className={`fixed right-0 left-0 z-50 mx-auto flex items-center justify-between transition-[background-color,border-color,backdrop-filter,box-shadow] duration-500 ease-in-out ${
-          scrolled
-            ? "top-4 w-[92%] max-w-[1400px] rounded-full border border-slate-100 bg-white/80 backdrop-blur-md px-8 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.06)] md:py-3 lg:w-[94%]"
-            : "top-0 w-full border-b border-slate-100 bg-white/90 px-6 py-4 backdrop-blur-md md:px-10 md:py-6"
+      <header
+        className={`sticky top-0 z-50 w-full border-b border-slate-100 bg-white/90 px-6 py-4 backdrop-blur-md md:px-10 md:py-6 transition-shadow duration-300 flex items-center justify-between ${
+          scrolled ? "shadow-[0_4px_20px_rgba(0,0,0,0.05)]" : ""
         }`}
       >
         {/* LOGO - Luôn hiển thị bên trái */}
         <div className="flex flex-1 items-center justify-start">
-          <motion.img
-            layout
+          <img
             src="/logo/logo_scroll.png"
             alt="NS Bến Thuyền"
-            className={`w-auto object-contain transition-all duration-500 ease-in-out ${
-              scrolled ? "h-8 md:h-11" : "h-10 md:h-16"
-            }`}
+            className="w-auto h-10 md:h-16 object-contain"
           />
         </div>
 
@@ -147,7 +135,7 @@ const Header = ({ onOpenContact, onOpenBooking }) => {
         >
           <HiMenuAlt3 />
         </button>
-      </motion.header>
+      </header>
 
       {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>

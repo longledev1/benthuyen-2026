@@ -1,64 +1,133 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { slides } from "../../constants/slide-banner";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { slides as defaultSlides } from "../../constants/slide-banner";
+import { bannerService } from "../../services/bannerService";
 
 const HeroBanner = () => {
   const [current, setCurrent] = useState(0);
+  const [activeSlides, setActiveSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadBanners = async () => {
+      try {
+        const data = await bannerService.fetchBanners();
+        if (data && data.length > 0) {
+          // Map DB structure to slide structure
+          const formatted = data.map(b => ({
+            id: b.id,
+            image: b.image_url,
+            badge: "", // Canva banners are self-designed, keep text overlays empty
+            title: "",
+            description: ""
+          }));
+          setActiveSlides(formatted);
+        } else {
+          setActiveSlides(defaultSlides);
+        }
+      } catch (err) {
+        console.error("Lỗi khi tải banner từ database:", err);
+        setActiveSlides(defaultSlides);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBanners();
+  }, []);
+
+  const handlePrev = () => {
+    if (activeSlides.length <= 1) return;
+    setCurrent((prev) => (prev === 0 ? activeSlides.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    if (activeSlides.length <= 1) return;
+    setCurrent((prev) => (prev === activeSlides.length - 1 ? 0 : prev + 1));
+  };
+
+  if (loading) {
+    return (
+      <div className="relative w-full h-[320px] sm:h-[450px] md:aspect-[16/9] md:h-auto bg-slate-50 flex items-center justify-center border-b border-slate-100">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  // Nếu không có slide nào
+  if (activeSlides.length === 0) return null;
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black">
+    <div className="relative w-full h-[320px] sm:h-[450px] md:aspect-[16/9] md:h-auto overflow-hidden bg-white">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="absolute inset-0"
         >
-          {/* Background Image & Overlay */}
+          {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${slides[current].image})` }}
+            style={{ backgroundImage: `url(${activeSlides[current].image})` }}
           />
-          <div className="absolute inset-0 bg-black/30" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Content */}
-      <div className="relative z-10 container flex h-full flex-col justify-center">
-        <motion.div
-          key={`content-${current}`}
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="max-w-3xl"
-        >
-          <span className="bg-secondary mt-10 mb-6 inline-block rounded-[20px] p-5 text-[24px] font-bold tracking-widest text-white shadow-lg">
-            {slides[current].badge}
-          </span>
-          <h1 className="mb-6 font-serif text-4xl leading-tight whitespace-pre-line text-white italic md:text-[55px]">
-            {slides[current].title}
-          </h1>
-          <p className="font-normalt max-w-xl text-sm leading-relaxed text-gray-200">
-            {slides[current].description}
-          </p>
-        </motion.div>
-      </div>
-
-      <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 space-x-4">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrent(index)}
-            className="group py-4 focus:outline-none"
+      {/* Content (Render if any text is present in the slide) */}
+      {(activeSlides[current].badge || activeSlides[current].title || activeSlides[current].description) && (
+        <div className="relative z-10 container flex h-full flex-col justify-center">
+          <motion.div
+            key={`content-${current}`}
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="max-w-3xl"
           >
-            <div
-              className={`h-[2px] transition-all duration-500 ${current === index ? "bg-secondary w-24" : "w-12 bg-white group-hover:bg-white"}`}
-            />
+            {activeSlides[current].badge && (
+              <span className="bg-secondary mt-10 mb-6 inline-block rounded-[20px] p-5 text-[24px] font-bold tracking-widest text-white shadow-lg">
+                {activeSlides[current].badge}
+              </span>
+            )}
+            {activeSlides[current].title && (
+              <h1 className="mb-6 font-serif text-4xl leading-tight whitespace-pre-line text-white italic md:text-[55px]">
+                {activeSlides[current].title}
+              </h1>
+            )}
+            {activeSlides[current].description && (
+              <p className="font-normalt max-w-xl text-sm leading-relaxed text-gray-200">
+                {activeSlides[current].description}
+              </p>
+            )}
+          </motion.div>
+        </div>
+      )}
+
+      {/* Chỉ hiển thị các nút điều chuyển slide nếu có từ 2 slide trở lên */}
+      {activeSlides.length > 1 && (
+        <>
+          {/* Left Arrow Button */}
+          <button
+            onClick={handlePrev}
+            className="absolute top-1/2 left-4 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/30 text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white hover:text-slate-900 active:scale-95 md:left-8 md:h-12 md:w-12"
+            aria-label="Previous Slide"
+          >
+            <FiChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
           </button>
-        ))}
-      </div>
+
+          {/* Right Arrow Button */}
+          <button
+            onClick={handleNext}
+            className="absolute top-1/2 right-4 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/30 text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white hover:text-slate-900 active:scale-95 md:right-8 md:h-12 md:w-12"
+            aria-label="Next Slide"
+          >
+            <FiChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+          </button>
+        </>
+      )}
     </div>
   );
 };
