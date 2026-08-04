@@ -210,20 +210,20 @@ export const ContactSection = () => {
                       className="group/map relative h-[380px] w-full overflow-hidden rounded-2xl border border-slate-100 shadow-md md:h-[420px]"
                     >
                       <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4113860504285!2d106.68734537451728!3d10.779770559133077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f306c1fb84f%3A0x4fbe0a94c83e88bd!2zNDUgVHLhuqduIFF14buRYyBUaOG6o28sIFBoxrDhu51uZyA2LCBYdcOibiBIw7JhLCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1776966338240!5m2!1svi!2s"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7838.493292220165!2d106.6774981745174!3d10.7924119588997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528d4f0421beb%3A0x257858ddaeef97f3!2zMjEgxJAuIE5ndXnhu4VuIFbEg24gVHLhu5dpLCBQaMO6IE5odeG6rW4sIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1785832300200!5m2!1svi!2s"
                         className="absolute inset-0 h-full w-full border-0 opacity-95 transition-all duration-350"
-                        allowFullScreen=""
+                        allowFullScreen
                         loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
+                        referrerPolicy="strict-origin-when-cross-origin"
                         title="NS Bến Thuyền Location Map"
-                      ></iframe>
+                      />
                       {/* Frame with hint */}
-                      <div className="pointer-events-none absolute right-4 bottom-4 left-4 flex items-center justify-between rounded-lg border border-slate-800 bg-slate-900/90 px-4 py-2.5 text-left shadow-md">
-                        <span className="text-[10px] tracking-widest text-white/60 uppercase">
+                      <div className="bg-primary/90 pointer-events-none absolute right-4 bottom-4 left-4 flex items-center justify-between rounded-lg px-4 py-2.5 text-left shadow-md">
+                        <span className="text-[10px] font-bold tracking-widest text-white uppercase">
                           BẢN ĐỒ TƯƠNG TÁC
                         </span>
                         <span className="text-secondary text-[10px] font-semibold tracking-widest uppercase">
-                          QUẬN 3 • TP.HCM
+                          Phường Phú Nhuận, TP.HCM
                         </span>
                       </div>
                     </motion.div>
