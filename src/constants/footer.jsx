@@ -11,7 +11,7 @@ export const FOOTER_CONTACT = [
   { icon: <IoMailOutline />, content: "Email: nsbenthuyen@gmail.com" },
   {
     icon: <IoLocationOutline />,
-    content: "Địa chỉ: 21 Nguyễn Văn Trỗi, P.Phú Nhuận, TP.HCM",
+    content: "Địa chỉ: 21S-21T Nguyễn Văn Trỗi, P.Phú Nhuận, TP.HCM",
   },
   { icon: <IoTimeOutline />, content: "Giờ mở cửa: 10:00 - 23:00 Hàng ngày" },
 ];

@@ -97,7 +97,7 @@ export const ContactSection = () => {
                     Địa chỉ nhà hàng
                   </h4>
                   <p className="text-sm leading-relaxed text-slate-700 transition-colors group-hover:text-slate-900">
-                    21 Nguyễn Văn Trỗi, Phường Phú Nhuận, TP.HCM
+                    21S-21T Nguyễn Văn Trỗi, Phường Phú Nhuận, TP.HCM
                   </p>
                   <span className="text-secondary/70 group-hover:text-secondary inline-block pt-1 text-[11px] underline transition-colors">
                     Xem trên Google Maps →
