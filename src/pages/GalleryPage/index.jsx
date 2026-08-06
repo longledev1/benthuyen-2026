@@ -49,7 +49,7 @@ export const GalleryPage = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex min-h-[calc(100vh-70px)] md:h-full w-full flex-col md:flex-row pt-20 md:pt-8"
+            className="flex min-h-[calc(100vh-70px)] md:h-full w-full flex-col md:flex-row"
           >
             {GALLERY_CATEGORIES.map((category, index) => {
               const isHovered = hoveredPanel === index;

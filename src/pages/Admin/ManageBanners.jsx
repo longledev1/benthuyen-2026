@@ -8,13 +8,19 @@ export const ManageBanners = () => {
   const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // States cho Form Upload
+  // States cho Form Upload Desktop
   const [file, setFile] = useState(null);
   const [filePreview, setFilePreview] = useState("");
+  const [validationError, setValidationError] = useState("");
+
+  // States cho Form Upload Mobile
+  const [mobileFile, setMobileFile] = useState(null);
+  const [mobileFilePreview, setMobileFilePreview] = useState("");
+  const [mobileValidationError, setMobileValidationError] = useState("");
+
   const [title, setTitle] = useState("");
   const [uploadStatus, setUploadStatus] = useState(""); // "", "compressing", "uploading", "success", "error"
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [validationError, setValidationError] = useState("");
 
   // Chuẩn hóa và làm sạch số thứ tự hiển thị để đảm bảo là 1, 2, 3 không trùng lặp
   const cleanBannerOrders = async (data) => {
@@ -57,7 +63,7 @@ export const ManageBanners = () => {
     fetchBanners();
   }, []);
 
-  // Đọc file và kiểm tra kích thước ảnh
+  // Đọc file Desktop và kiểm tra kích thước ảnh
   const handleFileChange = async (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
@@ -107,11 +113,68 @@ export const ManageBanners = () => {
     };
   };
 
+  // Đọc file Mobile và kiểm tra kích thước ảnh
+  const handleMobileFileChange = async (e) => {
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    setMobileValidationError("");
+    
+    // Thu hồi URL cũ để tránh rò rỉ bộ nhớ
+    if (mobileFilePreview) {
+      URL.revokeObjectURL(mobileFilePreview);
+    }
+    setMobileFile(null);
+    setMobileFilePreview("");
+
+    // Kiểm tra định dạng ảnh
+    if (!selectedFile.type.startsWith("image/")) {
+      setMobileValidationError("Tệp tin được chọn phải là hình ảnh.");
+      return;
+    }
+
+    // Đọc kích thước ảnh
+    const objectUrl = URL.createObjectURL(selectedFile);
+    const img = new Image();
+    img.src = objectUrl;
+    
+    img.onload = () => {
+      const width = img.width;
+      const height = img.height;
+
+      // Validate kích thước 1080x1920 hoặc 1080x1080
+      const isPortrait = width === 1080 && height === 1920;
+      const isSquare = width === 1080 && height === 1080;
+
+      if (isPortrait || isSquare) {
+        setMobileFile(selectedFile);
+        setMobileFilePreview(objectUrl); // Giữ lại URL để hiển thị preview
+        setMobileValidationError("");
+      } else {
+        setMobileValidationError(
+          `Kích thước ảnh không hợp lệ: ${width}x${height}px. Hệ thống chỉ chấp nhận ảnh Mobile có kích thước chính xác là 1080x1920 px (9:16) hoặc 1080x1080 px (1:1).`
+        );
+        URL.revokeObjectURL(objectUrl); // Xóa URL nếu ảnh sai kích thước
+        e.target.value = null; // Reset input file
+      }
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      setMobileValidationError("Không thể đọc tệp hình ảnh này. Hãy thử ảnh khác.");
+      e.target.value = null;
+    };
+  };
+
   // Xử lý nộp form upload
   const handleUploadSubmit = async (e) => {
     e.preventDefault();
     if (!file) {
-      setValidationError("Vui lòng chọn tệp ảnh hợp lệ.");
+      setValidationError("Vui lòng chọn tệp ảnh Desktop hợp lệ.");
+      return;
+    }
+    if (!mobileFile) {
+      setMobileValidationError("Vui lòng chọn tệp ảnh Mobile hợp lệ.");
       return;
     }
 
@@ -127,6 +190,7 @@ export const ManageBanners = () => {
       // Auto-assign display order as the next index (1, 2, or 3)
       await bannerService.uploadBanner(
         file,
+        mobileFile,
         title,
         banners.length + 1,
         (status, progress) => {
@@ -139,6 +203,8 @@ export const ManageBanners = () => {
       // Reset form
       setFile(null);
       setFilePreview("");
+      setMobileFile(null);
+      setMobileFilePreview("");
       setTitle("");
       setUploadStatus("");
       setUploadProgress(0);
@@ -158,7 +224,7 @@ export const ManageBanners = () => {
       `Bạn có chắc chắn muốn xóa banner này không? Bức ảnh này sẽ bị gỡ bỏ vĩnh viễn khỏi hệ thống.`,
       async () => {
         try {
-          await bannerService.deleteBanner(banner.id, banner.storage_path);
+          await bannerService.deleteBanner(banner.id, banner.storage_path, banner.mobile_storage_path);
           showToast("Xóa banner thành công", "success");
           fetchBanners();
         } catch (err) {
@@ -194,6 +260,52 @@ export const ManageBanners = () => {
     }
   };
 
+  // Tải ảnh mobile trực tiếp cho banner sẵn có từ danh sách
+  const handleDirectMobileUpload = async (banner, selectedFile) => {
+    if (!selectedFile.type.startsWith("image/")) {
+      showToast("Tệp tin được chọn phải là hình ảnh.", "danger");
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    const img = new Image();
+    img.src = objectUrl;
+
+    img.onload = async () => {
+      const width = img.width;
+      const height = img.height;
+
+      const isPortrait = width === 1080 && height === 1920;
+      const isSquare = width === 1080 && height === 1080;
+
+      if (!isPortrait && !isSquare) {
+        showToast(
+          `Kích thước không hợp lệ: ${width}x${height}px. Chỉ chấp nhận ảnh Mobile kích thước 1080x1920 px hoặc 1080x1080 px.`,
+          "danger"
+        );
+        URL.revokeObjectURL(objectUrl);
+        return;
+      }
+
+      URL.revokeObjectURL(objectUrl);
+
+      try {
+        showToast("Đang tải Mobile Banner lên...", "info");
+        await bannerService.updateMobileBanner(banner.id, banner.mobile_storage_path, selectedFile);
+        showToast("Cập nhật Mobile Banner thành công!", "success");
+        fetchBanners();
+      } catch (err) {
+        console.error("Lỗi khi tải ảnh mobile trực tiếp:", err);
+        showToast("Tải ảnh mobile thất bại: " + err.message, "danger");
+      }
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      showToast("Không thể đọc tệp hình ảnh.", "danger");
+    };
+  };
+
   return (
     <div className="space-y-8">
       {/* HEADER PAGE */}
@@ -225,10 +337,10 @@ export const ManageBanners = () => {
               </div>
             ) : (
               <form onSubmit={handleUploadSubmit} className="space-y-4">
-                {/* Drag and Drop / Input File Zone */}
+                {/* Drag and Drop / Input File Zone Desktop */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
-                    Hình ảnh banner (Yêu cầu 1920 x 1080 px) <span className="text-rose-500">*</span>
+                    Hình ảnh banner Desktop (Yêu cầu 1920 x 1080 px) <span className="text-rose-500">*</span>
                   </label>
                   
                   <div className="relative group flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-6 hover:border-primary bg-slate-50/50 hover:bg-white transition-all cursor-pointer overflow-hidden min-h-[160px]">
@@ -254,7 +366,7 @@ export const ManageBanners = () => {
                     ) : (
                       <>
                         <FiUploadCloud className="text-slate-400 group-hover:text-primary mb-3" size={36} />
-                        <p className="text-sm font-semibold text-slate-700">Chọn hoặc Kéo ảnh vào đây</p>
+                        <p className="text-sm font-semibold text-slate-700">Chọn hoặc Kéo ảnh PC vào đây</p>
                         <p className="text-xs text-slate-400 mt-1">Hỗ trợ PNG, JPG, JPEG, WEBP</p>
                         <p className="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200 mt-2">Kích thước bắt buộc: 1920 x 1080</p>
                       </>
@@ -268,7 +380,47 @@ export const ManageBanners = () => {
                   )}
                 </div>
 
+                {/* Drag and Drop / Input File Zone Mobile */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
+                    Hình ảnh banner Mobile (Yêu cầu 1080 x 1920 px hoặc 1080 x 1080 px) <span className="text-rose-500">*</span>
+                  </label>
+                  
+                  <div className="relative group flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-4 hover:border-primary bg-slate-50/50 hover:bg-white transition-all cursor-pointer overflow-hidden min-h-[130px]">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleMobileFileChange}
+                      className="absolute inset-0 opacity-0 cursor-pointer z-10"
+                      disabled={!!uploadStatus}
+                    />
 
+                    {mobileFilePreview ? (
+                      <div className="absolute inset-0 w-full h-full p-2 bg-white flex items-center justify-center">
+                        <img
+                          src={mobileFilePreview}
+                          alt="Mobile Preview"
+                          className="h-full object-contain rounded-lg"
+                        />
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                          <p className="text-white text-xs font-semibold">Nhấn để thay đổi ảnh</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <FiUploadCloud className="text-slate-400 group-hover:text-primary mb-2" size={28} />
+                        <p className="text-xs font-semibold text-slate-700">Chọn hoặc Kéo ảnh Mobile vào đây</p>
+                        <p className="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200 mt-1">1080x1920 (9:16) hoặc 1080x1080 (1:1)</p>
+                      </>
+                    )}
+                  </div>
+
+                  {mobileValidationError && (
+                    <p className="mt-2 text-xs font-medium text-rose-500 bg-rose-50 p-2.5 rounded-lg border border-rose-100">
+                      {mobileValidationError}
+                    </p>
+                  )}
+                </div>
 
                 {/* Ghi chú / Tiêu đề ẩn */}
                 <div>
@@ -306,9 +458,9 @@ export const ManageBanners = () => {
                   ) : (
                     <button
                       type="submit"
-                      disabled={!file}
+                      disabled={!file || !mobileFile}
                       className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold tracking-wide text-white transition-all shadow ${
-                        file
+                        file && mobileFile
                           ? "bg-primary hover:bg-primary/95 cursor-pointer"
                           : "bg-slate-300 cursor-not-allowed"
                       }`}
@@ -351,14 +503,59 @@ export const ManageBanners = () => {
                   >
                     {/* Ảnh Preview */}
                     <div className="flex items-center gap-4 w-full sm:w-auto">
-                      <div className="relative w-28 sm:w-36 aspect-[16/9] bg-slate-100 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0">
-                        <img
-                          src={banner.image_url}
-                          alt="Banner"
-                          className="w-full h-full object-cover"
-                        />
+                      <div className="flex gap-2 items-end">
+                        {/* Desktop Image */}
+                        <div className="relative w-24 sm:w-32 aspect-[16/9] bg-slate-100 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0">
+                          <img
+                            src={banner.image_url}
+                            alt="Banner Desktop"
+                            className="w-full h-full object-cover"
+                          />
+                          <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] px-1 rounded">PC</span>
+                        </div>
+                        
+                        {/* Mobile Image (if exists) */}
+                        {banner.mobile_image_url ? (
+                          <div className="relative group/mobile w-12 sm:w-16 h-[54px] sm:h-[72px] bg-slate-100 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0 flex items-center justify-center cursor-pointer">
+                            <img
+                              src={banner.mobile_image_url}
+                              alt="Banner Mobile"
+                              className="h-full object-contain"
+                            />
+                            {/* Overlay hover to change */}
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/mobile:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                              <span className="text-[8px] text-white font-bold uppercase text-center leading-none px-1">Thay đổi</span>
+                            </div>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="absolute inset-0 opacity-0 cursor-pointer"
+                              onChange={(e) => {
+                                const selected = e.target.files[0];
+                                if (selected) handleDirectMobileUpload(banner, selected);
+                                e.target.value = null; // reset
+                              }}
+                            />
+                            <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] px-1 rounded">MB</span>
+                          </div>
+                        ) : (
+                          <div className="relative group/mobile w-12 sm:w-16 h-[54px] sm:h-[72px] bg-slate-50 hover:bg-slate-100 rounded-lg border border-dashed border-slate-300 hover:border-primary flex-shrink-0 flex flex-col items-center justify-center text-slate-400 cursor-pointer transition-colors">
+                            <FiPlus size={12} className="mb-0.5 text-slate-400 group-hover/mobile:text-primary" />
+                            <span className="text-[8px] font-bold text-center leading-none px-1 group-hover/mobile:text-primary">Thêm MB</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="absolute inset-0 opacity-0 cursor-pointer"
+                              onChange={(e) => {
+                                const selected = e.target.files[0];
+                                if (selected) handleDirectMobileUpload(banner, selected);
+                                e.target.value = null; // reset
+                              }}
+                            />
+                          </div>
+                        )}
                       </div>
-                      
+
                       <div className="min-w-0">
                         <p className="text-xs text-slate-400 font-medium">Slide #{index + 1}</p>
                         <h4 className="text-sm font-bold text-slate-800 truncate mt-0.5">

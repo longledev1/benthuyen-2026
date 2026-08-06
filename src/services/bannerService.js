@@ -37,10 +37,11 @@ export const bannerService = {
    * @param {number} displayOrder - Thứ tự hiển thị
    * @param {Function} onStatusChange - Callback báo tiến trình upload
    */
-  async uploadBanner(file, title, displayOrder = 0, onStatusChange) {
+  async uploadBanner(file, mobileFile, title, displayOrder = 0, onStatusChange) {
     try {
-      if (onStatusChange) onStatusChange("uploading", 20);
+      if (onStatusChange) onStatusChange("uploading", 10);
       
+      // Upload Desktop File
       const fileExt = file.name.split('.').pop() || "png";
       const uniqueFileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
       const storagePath = `banners/${uniqueFileName}`;
@@ -53,18 +54,47 @@ export const bannerService = {
         });
 
       if (uploadError) throw uploadError;
-      if (onStatusChange) onStatusChange("uploading", 80);
+      if (onStatusChange) onStatusChange("uploading", 50);
 
       const { data: { publicUrl } } = supabase.storage
         .from("gallery")
         .getPublicUrl(storagePath);
 
+      // Upload Mobile File nếu có
+      let mobilePublicUrl = null;
+      let mobileStoragePath = null;
+
+      if (mobileFile) {
+        const mobileFileExt = mobileFile.name.split('.').pop() || "png";
+        const mobileUniqueFileName = `mobile-${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${mobileFileExt}`;
+        mobileStoragePath = `banners/${mobileUniqueFileName}`;
+
+        const { error: mobileUploadError } = await supabase.storage
+          .from("gallery")
+          .upload(mobileStoragePath, mobileFile, {
+            cacheControl: "3600",
+            upsert: false
+          });
+
+        if (mobileUploadError) throw mobileUploadError;
+        
+        const { data: { publicUrl: mUrl } } = supabase.storage
+          .from("gallery")
+          .getPublicUrl(mobileStoragePath);
+          
+        mobilePublicUrl = mUrl;
+      }
+
+      if (onStatusChange) onStatusChange("uploading", 80);
+        
       const { data: dbData, error: dbError } = await supabase
         .from("banners")
         .insert([
           {
             image_url: publicUrl,
             storage_path: storagePath,
+            mobile_image_url: mobilePublicUrl,
+            mobile_storage_path: mobileStoragePath,
             title: title || "",
             display_order: displayOrder,
             is_active: true
@@ -85,7 +115,7 @@ export const bannerService = {
   /**
    * Xóa banner khỏi DB và dọn dẹp file trong Storage
    */
-  async deleteBanner(id, storagePath) {
+  async deleteBanner(id, storagePath, mobileStoragePath) {
     // 1. Xóa trong DB
     const { error: dbError } = await supabase
       .from("banners")
@@ -94,11 +124,15 @@ export const bannerService = {
 
     if (dbError) throw dbError;
 
-    // 2. Xóa trong Storage
-    if (storagePath) {
+    // 2. Xóa các file trong Storage
+    const pathsToDelete = [];
+    if (storagePath) pathsToDelete.push(storagePath);
+    if (mobileStoragePath) pathsToDelete.push(mobileStoragePath);
+
+    if (pathsToDelete.length > 0) {
       const { error: storageError } = await supabase.storage
         .from("gallery")
-        .remove([storagePath]);
+        .remove(pathsToDelete);
 
       if (storageError) {
         console.warn("⚠️ Lỗi dọn dẹp file banner trong Storage:", storageError);
@@ -118,6 +152,51 @@ export const bannerService = {
       .select();
 
     if (error) throw error;
+    return data ? data[0] : null;
+  },
+
+  /**
+   * Tải ảnh mobile trực tiếp cho một banner sẵn có
+   */
+  async updateMobileBanner(bannerId, oldMobileStoragePath, mobileFile) {
+    // 1. Xóa file mobile cũ nếu có
+    if (oldMobileStoragePath) {
+      try {
+        await supabase.storage.from("gallery").remove([oldMobileStoragePath]);
+      } catch (e) {
+        console.warn("Lỗi khi xóa file mobile cũ:", e);
+      }
+    }
+
+    // 2. Upload file mới
+    const fileExt = mobileFile.name.split('.').pop() || "png";
+    const mobileUniqueFileName = `mobile-${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+    const mobileStoragePath = `banners/${mobileUniqueFileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("gallery")
+      .upload(mobileStoragePath, mobileFile, {
+        cacheControl: "3600",
+        upsert: false
+      });
+
+    if (uploadError) throw uploadError;
+
+    const { data: { publicUrl } } = supabase.storage
+      .from("gallery")
+      .getPublicUrl(mobileStoragePath);
+
+    // 3. Cập nhật DB
+    const { data, error: dbError } = await supabase
+      .from("banners")
+      .update({
+        mobile_image_url: publicUrl,
+        mobile_storage_path: mobileStoragePath
+      })
+      .eq("id", bannerId)
+      .select();
+
+    if (dbError) throw dbError;
     return data ? data[0] : null;
   }
 };

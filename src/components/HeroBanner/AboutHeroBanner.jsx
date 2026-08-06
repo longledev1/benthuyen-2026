@@ -30,33 +30,49 @@ const AboutHeroBanner = () => {
           {/* Soft ambient dark glow behind the text for perfect readability on bright photo */}
           <div className="pointer-events-none absolute z-[-1] h-[110px] w-[240px] rounded-full bg-black/65 blur-[35px] sm:h-[180px] sm:w-[400px] sm:blur-[60px] md:h-[260px] md:w-[580px] md:blur-[80px]" />
 
-          {/* First Row: KHỞI */}
-          <h1 className="font-serif text-[28px] leading-none font-semibold tracking-[0.15em] text-white uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] select-none sm:text-[48px] md:text-[68px] lg:text-[80px]">
-            KHỞI
-          </h1>
+          {/* LAYOUT CHO DESKTOP (md trở lên) */}
+          <div className="hidden md:flex flex-col items-center w-full">
+            {/* First Row */}
+            <h1 className="font-serif text-[68px] lg:text-[80px] leading-none font-semibold tracking-[0.15em] text-white uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] select-none">
+              KHỞI
+            </h1>
 
-          {/* Second Row: Layout Grid with NGUYÊN in center and taglines on the sides */}
-          <div className="mt-3 grid w-full grid-cols-[1fr_auto_1fr] items-center gap-1.5 select-none sm:gap-2.5 md:gap-3 lg:gap-4">
-            {/* Left text */}
-            <div className="text-right">
-              <span className="font-normalt font-sans text-[8px] tracking-[0.18em] whitespace-nowrap text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] sm:text-[10px] md:text-xs">
-                Di Sản Từ 1955
-              </span>
-            </div>
+            {/* Second Row */}
+            <div className="mt-3 grid w-full grid-cols-[1fr_auto_1fr] items-center gap-3 lg:gap-4 select-none">
+              {/* Left text */}
+              <div className="text-right">
+                <span className="font-normalt font-sans text-xs tracking-[0.18em] whitespace-nowrap text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
+                  Di Sản Từ 1955
+                </span>
+              </div>
 
-            {/* Center word */}
-            <div className="text-center">
-              <span className="-mr-[0.15em] font-serif text-[28px] leading-none font-semibold tracking-[0.15em] text-white uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] sm:text-[48px] md:text-[68px] lg:text-[80px]">
-                NGUYÊN
-              </span>
-            </div>
+              {/* Center word */}
+              <div className="text-center">
+                <span className="-mr-[0.15em] font-serif text-[68px] lg:text-[80px] leading-none font-semibold tracking-[0.15em] text-white uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                  NGUYÊN
+                </span>
+              </div>
 
-            {/* Right text */}
-            <div className="text-left">
-              <span className="font-normalt font-sans text-[8px] tracking-[0.18em] whitespace-nowrap text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] sm:text-[10px] md:text-xs">
-                Chắt Lọc Nên Giá Trị
-              </span>
+              {/* Right text */}
+              <div className="text-left">
+                <span className="font-normalt font-sans text-xs tracking-[0.18em] whitespace-nowrap text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
+                  Chắt Lọc Nên Giá Trị
+                </span>
+              </div>
             </div>
+          </div>
+
+          {/* LAYOUT CHO MOBILE (dưới md) */}
+          <div className="flex md:hidden flex-col items-center w-full">
+            {/* Main Title, very large on mobile */}
+            <h1 className="font-serif text-[38px] sm:text-[48px] leading-none font-semibold tracking-[0.12em] text-white uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] select-none">
+              KHỞI NGUYÊN
+            </h1>
+
+            {/* Poetic description paragraph below */}
+            <p className="mt-5 max-w-xs sm:max-w-md font-sans text-xs tracking-wider leading-relaxed text-gray-200/90 uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">
+              Hành trình gìn giữ di sản ẩm thực truyền thống, chắt lọc tinh hoa và kiến tạo giá trị nguyên bản từ năm 1955.
+            </p>
           </div>
         </motion.div>
       </div>

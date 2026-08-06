@@ -15,12 +15,13 @@ const HeroBanner = () => {
         const data = await bannerService.fetchBanners();
         if (data && data.length > 0) {
           // Map DB structure to slide structure
-          const formatted = data.map(b => ({
+          const formatted = data.map((b) => ({
             id: b.id,
             image: b.image_url,
+            mobileImage: b.mobile_image_url,
             badge: "", // Canva banners are self-designed, keep text overlays empty
             title: "",
-            description: ""
+            description: "",
           }));
           setActiveSlides(formatted);
         } else {
@@ -49,8 +50,8 @@ const HeroBanner = () => {
 
   if (loading) {
     return (
-      <div className="relative w-full h-[320px] sm:h-[450px] md:aspect-[16/9] md:h-auto bg-slate-50 flex items-center justify-center border-b border-slate-100">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="relative flex h-[320px] w-full items-center justify-center border-b border-slate-100 bg-slate-50 sm:h-[450px] md:aspect-[16/9] md:h-auto">
+        <div className="border-primary h-8 w-8 animate-spin rounded-full border-b-2"></div>
       </div>
     );
   }
@@ -58,8 +59,15 @@ const HeroBanner = () => {
   // Nếu không có slide nào
   if (activeSlides.length === 0) return null;
 
+  const currentSlide = activeSlides[current];
+  const hasMobileImage = !!currentSlide?.mobileImage;
+
   return (
-    <div className="relative w-full h-[320px] sm:h-[450px] md:aspect-[16/9] md:h-auto overflow-hidden bg-white">
+    <div className={`relative w-full overflow-hidden bg-white transition-all duration-500 ${
+      hasMobileImage 
+        ? "aspect-[9/16] h-auto md:aspect-[16/9] md:h-auto" 
+        : "h-[320px] sm:h-[450px] md:aspect-[16/9] md:h-auto"
+    }`}>
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -69,16 +77,24 @@ const HeroBanner = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="absolute inset-0"
         >
-          {/* Background Image */}
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${activeSlides[current].image})` }}
-          />
+          {/* Background Image using picture tag for responsive layout */}
+          <picture className="absolute inset-0 w-full h-full">
+            {currentSlide.mobileImage && (
+              <source media="(max-width: 767px)" srcSet={currentSlide.mobileImage} />
+            )}
+            <img
+              src={currentSlide.image}
+              alt={currentSlide.title || "Bến Thuyền Banner"}
+              className="w-full h-full object-cover object-center"
+            />
+          </picture>
         </motion.div>
       </AnimatePresence>
 
       {/* Content (Render if any text is present in the slide) */}
-      {(activeSlides[current].badge || activeSlides[current].title || activeSlides[current].description) && (
+      {(activeSlides[current].badge ||
+        activeSlides[current].title ||
+        activeSlides[current].description) && (
         <div className="relative z-10 container flex h-full flex-col justify-center">
           <motion.div
             key={`content-${current}`}
