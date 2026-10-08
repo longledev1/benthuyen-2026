@@ -50,7 +50,7 @@ export const bookingService = {
       return;
     }
 
-    const adminUrl = "https://facebook.com"; // Link test admin
+    const adminUrl = "https://nsbenthuyen.com/admin/bookings";
     const areaText = formData.area === "Phòng VIP" 
       ? `👑 Phòng VIP (${formData.vip_room_name})` 
       : "🍽️ Sảnh chung";
@@ -64,8 +64,8 @@ export const bookingService = {
 👥 <b>Số lượng khách:</b> ${formData.guest_count} người
 📍 <b>Khu vực:</b> ${areaText}
 ━━━━━━━━━━━━━━━━━━
-🌐 Vui lòng truy cập trang Quản trị để kiểm tra và xử lý.
-👉 <a href="${adminUrl}">Vào trang quản trị</a>
+🌐 Vui lòng truy cập trang Quản trị hoặc liên hệ ngay để kiểm tra và xử lý.
+👉 <a href="${adminUrl}">Vào trang quản trị (nsbenthuyen.com)</a>
     `.trim();
 
     try {

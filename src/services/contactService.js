@@ -51,7 +51,7 @@ export const contactService = {
       return;
     }
 
-    const adminUrl = "https://facebook.com"; // Link test (bạn có thể đổi lại thành link web thật của bạn sau này)
+    const adminUrl = "https://nsbenthuyen.com/admin/contacts";
     const phoneStatusText = formData.isNew !== undefined
       ? (formData.isNew ? " 🟢 (Liên hệ lần đầu)" : ` 🔵 (Liên hệ lần ${formData.submissionCount})`)
       : "";
@@ -65,8 +65,8 @@ export const contactService = {
 💬 <b>Lời nhắn:</b>
 <i>${formData.message.trim()}</i>
 ━━━━━━━━━━━━━━━━━━
-🌐 Vui lòng truy cập trang Quản trị để kiểm tra và xử lý.
-👉 <a href="${adminUrl}">Vào trang quản trị</a>
+🌐 Vui lòng truy cập trang Quản trị hoặc liên hệ ngay để kiểm tra và xử lý.
+👉 <a href="${adminUrl}">Vào trang quản trị (nsbenthuyen.com)</a>
     `.trim();
 
     try {

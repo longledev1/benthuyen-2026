@@ -359,8 +359,13 @@ export const ManageBanners = () => {
                           alt="Preview"
                           className="w-full h-full object-cover rounded-lg"
                         />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                        <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg p-2 text-center">
                           <p className="text-white text-xs font-semibold">Nhấn để thay đổi ảnh</p>
+                          {file && (
+                            <p className="text-white/90 text-[10px] mt-1 bg-black/60 px-2 py-0.5 rounded font-mono">
+                              {(file.size / (1024 * 1024)).toFixed(2)} MB
+                            </p>
+                          )}
                         </div>
                       </div>
                     ) : (
@@ -402,8 +407,13 @@ export const ManageBanners = () => {
                           alt="Mobile Preview"
                           className="h-full object-contain rounded-lg"
                         />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                        <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg p-2 text-center">
                           <p className="text-white text-xs font-semibold">Nhấn để thay đổi ảnh</p>
+                          {mobileFile && (
+                            <p className="text-white/90 text-[10px] mt-1 bg-black/60 px-2 py-0.5 rounded font-mono">
+                              {(mobileFile.size / (1024 * 1024)).toFixed(2)} MB
+                            </p>
+                          )}
                         </div>
                       </div>
                     ) : (
@@ -444,7 +454,11 @@ export const ManageBanners = () => {
                     <div className="space-y-2">
                       <div className="flex justify-between text-xs font-medium text-slate-600">
                         <span>
-                          Đang tải ảnh lên máy chủ...
+                          {uploadStatus === "optimizing"
+                            ? "Đang tối ưu dung lượng ảnh (giữ nguyên độ nét 1920px)..."
+                            : uploadStatus === "saving"
+                            ? "Đang lưu cấu hình banner vào database..."
+                            : "Đang tải ảnh lên máy chủ Supabase..."}
                         </span>
                         <span>{uploadProgress}%</span>
                       </div>

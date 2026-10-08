@@ -1,5 +1,33 @@
 import supabase from "../lib/supabase";
-import { compressToWebP } from "../utils/imageHelper";
+import { optimizeBannerImage } from "../utils/imageHelper";
+
+/**
+ * Helper upload file lên Supabase Storage với retry và contentType rõ ràng
+ */
+const uploadFileToStorage = async (storagePath, file, maxRetries = 1) => {
+  let lastError = null;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const { error } = await supabase.storage
+        .from("gallery")
+        .upload(storagePath, file, {
+          cacheControl: "3600",
+          upsert: true,
+          contentType: file.type || "image/png"
+        });
+
+      if (error) throw error;
+      return;
+    } catch (err) {
+      lastError = err;
+      if (attempt < maxRetries) {
+        console.warn(`⚠️ Lỗi tải ảnh lên Storage lần ${attempt + 1}, đang thử lại...`, err);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+      }
+    }
+  }
+  throw lastError;
+};
 
 export const bannerService = {
   /**
@@ -32,68 +60,70 @@ export const bannerService = {
 
   /**
    * Tải ảnh banner mới lên Supabase Storage và lưu vào database
-   * @param {File} file - File gốc (đã được validate kích thước 1920x1080)
+   * @param {File} file - File Desktop
+   * @param {File} mobileFile - File Mobile
    * @param {string} title - Tiêu đề/chú thích của banner
    * @param {number} displayOrder - Thứ tự hiển thị
    * @param {Function} onStatusChange - Callback báo tiến trình upload
    */
   async uploadBanner(file, mobileFile, title, displayOrder = 0, onStatusChange) {
     try {
-      if (onStatusChange) onStatusChange("uploading", 10);
-      
-      // Upload Desktop File
-      const fileExt = file.name.split('.').pop() || "png";
-      const uniqueFileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
-      const storagePath = `banners/${uniqueFileName}`;
+      if (onStatusChange) onStatusChange("optimizing", 15);
 
-      const { error: uploadError } = await supabase.storage
-        .from("gallery")
-        .upload(storagePath, file, {
-          cacheControl: "3600",
-          upsert: false
-        });
+      // 1. Tối ưu dung lượng ảnh nếu file quá lớn (> 3.5MB từ Canva) để tránh lỗi 408 Timeout
+      const [readyDesktopFile, readyMobileFile] = await Promise.all([
+        optimizeBannerImage(file),
+        mobileFile ? optimizeBannerImage(mobileFile) : Promise.resolve(null)
+      ]);
 
-      if (uploadError) throw uploadError;
-      if (onStatusChange) onStatusChange("uploading", 50);
+      if (onStatusChange) onStatusChange("uploading", 35);
 
-      const { data: { publicUrl } } = supabase.storage
+      // 2. Chuẩn bị đường dẫn Storage
+      const desktopExt = readyDesktopFile.name.split('.').pop() || "png";
+      const desktopFileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${desktopExt}`;
+      const storagePath = `banners/${desktopFileName}`;
+
+      let mobileStoragePath = null;
+      if (readyMobileFile) {
+        const mobileExt = readyMobileFile.name.split('.').pop() || "png";
+        const mobileFileName = `mobile-${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${mobileExt}`;
+        mobileStoragePath = `banners/${mobileFileName}`;
+      }
+
+      // 3. Tải song song cả 2 ảnh lên Supabase Storage (rút ngắn 50% thời gian)
+      const uploadTasks = [
+        uploadFileToStorage(storagePath, readyDesktopFile)
+      ];
+
+      if (readyMobileFile && mobileStoragePath) {
+        uploadTasks.push(uploadFileToStorage(mobileStoragePath, readyMobileFile));
+      }
+
+      await Promise.all(uploadTasks);
+
+      if (onStatusChange) onStatusChange("saving", 85);
+
+      // 4. Lấy Public URL
+      const { data: { publicUrl: desktopUrl } } = supabase.storage
         .from("gallery")
         .getPublicUrl(storagePath);
 
-      // Upload Mobile File nếu có
-      let mobilePublicUrl = null;
-      let mobileStoragePath = null;
-
-      if (mobileFile) {
-        const mobileFileExt = mobileFile.name.split('.').pop() || "png";
-        const mobileUniqueFileName = `mobile-${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${mobileFileExt}`;
-        mobileStoragePath = `banners/${mobileUniqueFileName}`;
-
-        const { error: mobileUploadError } = await supabase.storage
-          .from("gallery")
-          .upload(mobileStoragePath, mobileFile, {
-            cacheControl: "3600",
-            upsert: false
-          });
-
-        if (mobileUploadError) throw mobileUploadError;
-        
+      let mobileUrl = null;
+      if (mobileStoragePath) {
         const { data: { publicUrl: mUrl } } = supabase.storage
           .from("gallery")
           .getPublicUrl(mobileStoragePath);
-          
-        mobilePublicUrl = mUrl;
+        mobileUrl = mUrl;
       }
 
-      if (onStatusChange) onStatusChange("uploading", 80);
-        
+      // 5. Lưu vào Database
       const { data: dbData, error: dbError } = await supabase
         .from("banners")
         .insert([
           {
-            image_url: publicUrl,
+            image_url: desktopUrl,
             storage_path: storagePath,
-            mobile_image_url: mobilePublicUrl,
+            mobile_image_url: mobileUrl,
             mobile_storage_path: mobileStoragePath,
             title: title || "",
             display_order: displayOrder,
@@ -159,7 +189,10 @@ export const bannerService = {
    * Tải ảnh mobile trực tiếp cho một banner sẵn có
    */
   async updateMobileBanner(bannerId, oldMobileStoragePath, mobileFile) {
-    // 1. Xóa file mobile cũ nếu có
+    // 1. Tối ưu ảnh mobile nếu dung lượng > 3.5MB để tránh timeout 408
+    const readyMobileFile = await optimizeBannerImage(mobileFile);
+
+    // 2. Xóa file mobile cũ nếu có
     if (oldMobileStoragePath) {
       try {
         await supabase.storage.from("gallery").remove([oldMobileStoragePath]);
@@ -168,19 +201,12 @@ export const bannerService = {
       }
     }
 
-    // 2. Upload file mới
-    const fileExt = mobileFile.name.split('.').pop() || "png";
+    // 3. Upload file mới
+    const fileExt = readyMobileFile.name.split('.').pop() || "png";
     const mobileUniqueFileName = `mobile-${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
     const mobileStoragePath = `banners/${mobileUniqueFileName}`;
 
-    const { error: uploadError } = await supabase.storage
-      .from("gallery")
-      .upload(mobileStoragePath, mobileFile, {
-        cacheControl: "3600",
-        upsert: false
-      });
-
-    if (uploadError) throw uploadError;
+    await uploadFileToStorage(mobileStoragePath, readyMobileFile);
 
     const { data: { publicUrl } } = supabase.storage
       .from("gallery")
