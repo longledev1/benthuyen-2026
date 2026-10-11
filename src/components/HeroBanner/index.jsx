@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { slides as defaultSlides } from "../../constants/slide-banner";
-import { bannerService } from "../../services/bannerService";
-
 const HeroBanner = () => {
   const [current, setCurrent] = useState(0);
   const [activeSlides, setActiveSlides] = useState(defaultSlides);
@@ -11,6 +9,7 @@ const HeroBanner = () => {
   useEffect(() => {
     const loadBanners = async () => {
       try {
+        const { bannerService } = await import("../../services/bannerService");
         const data = await bannerService.fetchBanners();
         if (data && data.length > 0) {
           // Helper chuyển URL ảnh sang WebP nén nhẹ tự động
