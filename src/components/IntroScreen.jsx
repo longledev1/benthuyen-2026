@@ -50,7 +50,7 @@ const IntroScreen = ({ onComplete }) => {
             >
               {/* Base Logo Image */}
               <img
-                src="/Logo_new.png"
+                src="/Logo_new.webp"
                 alt="NS Bến Thuyền Logo"
                 className="w-full h-auto object-contain select-none brightness-0 invert drop-shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
               />
@@ -58,11 +58,11 @@ const IntroScreen = ({ onComplete }) => {
               {/* Stationary Masked Container */}
               <div 
                 style={{
-                  WebkitMaskImage: "url('/Logo_new.png')",
+                  WebkitMaskImage: "url('/Logo_new.webp')",
                   WebkitMaskSize: "contain",
                   WebkitMaskRepeat: "no-repeat",
                   WebkitMaskPosition: "center",
-                  maskImage: "url('/Logo_new.png')",
+                  maskImage: "url('/Logo_new.webp')",
                   maskSize: "contain",
                   maskRepeat: "no-repeat",
                   maskPosition: "center"

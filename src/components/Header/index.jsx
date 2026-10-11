@@ -56,7 +56,7 @@ const Header = ({ onOpenContact, onOpenBooking }) => {
         {/* LOGO - Luôn hiển thị bên trái */}
         <div className="flex flex-1 items-center justify-start">
           <img
-            src="/logo/logo_scroll.png"
+            src="/logo/logo_scroll.webp"
             alt="NS Bến Thuyền"
             className="w-auto h-10 md:h-16 object-contain"
           />

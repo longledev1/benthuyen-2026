@@ -68,7 +68,7 @@ export const RestaurantNoticeModal = () => {
             {/* Logo Center */}
             <div className="mb-6 flex justify-center">
               <img
-                src="/logo/logo_scroll.png"
+                src="/logo/logo_scroll.webp"
                 alt="NS Bến Thuyền Logo"
                 className="h-16 w-auto object-contain md:h-24"
               />

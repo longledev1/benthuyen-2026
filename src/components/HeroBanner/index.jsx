@@ -19,8 +19,8 @@ const HeroBanner = () => {
             if (!url) return url;
             // Nếu là ảnh từ Supabase Storage, tận dụng image-delivery CDN nhẹ nhàng
             if (url.includes("supabase.co/storage/v1/object/public/")) {
-              // Dùng Cloudflare / wsrv.nl CDN proxy miễn phí nén WebP Full HD siêu nhẹ tức thì
-              return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=1600&output=webp&q=82`;
+              // Dùng wsrv.nl CDN proxy nén WebP kích thước tối ưu 1280px & chất lượng 75
+              return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=1280&output=webp&q=75`;
             }
             return url;
           };
