@@ -169,6 +169,7 @@ const FoodSlide = () => {
             <button
               onClick={() => swiperRef.current?.slidePrev()}
               disabled={isBeginning}
+              aria-label="Xem món ăn trước"
               className={`flex h-12 w-12 items-center justify-center rounded-full border border-gray-100 shadow-sm transition-all duration-300 ${
                 isBeginning
                   ? "cursor-not-allowed opacity-20"
@@ -185,6 +186,7 @@ const FoodSlide = () => {
             <button
               onClick={() => swiperRef.current?.slideNext()}
               disabled={isEnd}
+              aria-label="Xem món ăn tiếp theo"
               className={`flex h-12 w-12 items-center justify-center rounded-full border border-gray-100 shadow-sm transition-all duration-300 ${
                 isEnd
                   ? "cursor-not-allowed opacity-20"

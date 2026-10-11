@@ -28,11 +28,11 @@ const IntroScreen = ({ onComplete }) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          style={{ background: "linear-gradient(135deg, #254a5f 0%, #122530 100%)" }}
+          style={{ background: "linear-gradient(135deg, #3c6881 0%, #8f9f9a 100%)" }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-between py-16 px-6 overflow-hidden"
         >
           {/* Subtle Ambient Light Glow in Background */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_60%)] pointer-events-none" />
 
           {/* Top Spacer to balance the layout */}
           <div className="h-10" />
@@ -46,23 +46,23 @@ const IntroScreen = ({ onComplete }) => {
                 duration: 1.6,
                 ease: [0.16, 1, 0.3, 1] // Custom luxury ease-out
               }}
-              className="relative z-10 w-60 sm:w-80"
+              className="relative z-10 w-52 sm:w-64"
             >
               {/* Base Logo Image */}
               <img
-                src="/logo/nsbenthuyen_white.png"
+                src="/Logo_new.png"
                 alt="NS Bến Thuyền Logo"
-                className="w-full h-auto object-contain select-none"
+                className="w-full h-auto object-contain select-none brightness-0 invert drop-shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
               />
 
               {/* Stationary Masked Container */}
               <div 
                 style={{
-                  WebkitMaskImage: "url('/logo/nsbenthuyen_white.png')",
+                  WebkitMaskImage: "url('/Logo_new.png')",
                   WebkitMaskSize: "contain",
                   WebkitMaskRepeat: "no-repeat",
                   WebkitMaskPosition: "center",
-                  maskImage: "url('/logo/nsbenthuyen_white.png')",
+                  maskImage: "url('/Logo_new.png')",
                   maskSize: "contain",
                   maskRepeat: "no-repeat",
                   maskPosition: "center"

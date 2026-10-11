@@ -72,7 +72,7 @@ export const ContactSection = () => {
           {/* LEFT COLUMN: BRAND INFO & INFO DECK */}
           <div className="flex flex-col space-y-10 text-left lg:col-span-5">
             <div>
-              <h2 className="text-secondary text-4xl leading-tight font-bold italic md:text-5xl">
+              <h2 className="text-[#937328] text-4xl leading-tight font-bold italic md:text-5xl">
                 Chúng tôi luôn <br />
                 <span className="text-primary font-bold italic">
                   đón chờ quý khách
@@ -93,13 +93,13 @@ export const ContactSection = () => {
                   <FiMapPin size={20} />
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-primary text-[11px] font-extrabold tracking-[0.2em] uppercase">
+                  <h3 className="text-primary text-[11px] font-extrabold tracking-[0.2em] uppercase">
                     Địa chỉ nhà hàng
-                  </h4>
+                  </h3>
                   <p className="text-sm leading-relaxed text-slate-700 transition-colors group-hover:text-slate-900">
                     21S-21T Nguyễn Văn Trỗi, Phường Phú Nhuận, TP.HCM
                   </p>
-                  <span className="text-secondary/70 group-hover:text-secondary inline-block pt-1 text-[11px] underline transition-colors">
+                  <span className="text-[#937328] group-hover:text-[#7b5f20] font-medium inline-block pt-1 text-[11px] underline transition-colors">
                     Xem trên Google Maps →
                   </span>
                 </div>
@@ -111,9 +111,9 @@ export const ContactSection = () => {
                   <FiClock size={20} />
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-primary text-[11px] font-extrabold tracking-[0.2em] uppercase">
+                  <h3 className="text-primary text-[11px] font-extrabold tracking-[0.2em] uppercase">
                     Thời gian hoạt động
-                  </h4>
+                  </h3>
                   <p className="text-sm leading-relaxed text-slate-700">
                     Thứ 2 - Chủ Nhật: 10:00 AM - 23:00 PM
                   </p>
@@ -128,7 +128,7 @@ export const ContactSection = () => {
                 href="tel:0909886058"
                 className="group flex items-start space-x-5 rounded-2xl border border-slate-100/80 bg-white p-5 transition-all duration-350 hover:border-slate-200 hover:shadow-[0_15px_30px_rgba(0,0,0,0.04)]"
               >
-                <div className="bg-opacity-10 group-hover:bg-opacity-20 relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 transition-all duration-350 group-hover:scale-110">
+                <div className="bg-opacity-10 group-hover:bg-opacity-20 relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 transition-all duration-350 group-hover:scale-110">
                   <FiPhoneCall size={20} />
                   {/* Glowing Pulse Dot */}
                   <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
@@ -137,10 +137,10 @@ export const ContactSection = () => {
                   </span>
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-[11px] font-bold tracking-[0.2em] text-emerald-600 uppercase">
+                  <h3 className="text-[11px] font-bold tracking-[0.2em] text-emerald-700 uppercase">
                     Hotline Liên hệ
-                  </h4>
-                  <p className="text-lg font-semibold text-emerald-600 transition-colors group-hover:text-emerald-500">
+                  </h3>
+                  <p className="text-lg font-semibold text-emerald-700 transition-colors group-hover:text-emerald-800">
                     0909.886.058
                   </p>
                   <p className="text-xs text-slate-500">
@@ -164,7 +164,7 @@ export const ContactSection = () => {
                   className={`relative flex items-center space-x-2 pb-2 text-xs font-bold tracking-[0.2em] uppercase transition-all ${
                     activeTab === "map"
                       ? "text-primary"
-                      : "text-slate-400 hover:text-slate-600"
+                      : "text-slate-500 hover:text-slate-700"
                   }`}
                 >
                   <FiMap size={14} />
@@ -183,7 +183,7 @@ export const ContactSection = () => {
                   className={`relative flex items-center space-x-2 pb-2 text-xs font-bold tracking-[0.2em] uppercase transition-all ${
                     activeTab === "message"
                       ? "text-primary"
-                      : "text-slate-400 hover:text-slate-600"
+                      : "text-slate-500 hover:text-slate-700"
                   }`}
                 >
                   <FiSend size={14} />

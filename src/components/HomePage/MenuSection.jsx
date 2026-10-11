@@ -100,6 +100,7 @@ const MenuSection = () => {
             {/* Nút bấm Popup */}
             <button
               onClick={() => setShowModal(true)}
+              aria-label="Xem thực đơn Alacarte"
               className="absolute top-1/2 -right-4 z-20 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white shadow-xl transition-all duration-300 hover:bg-[#1A2542] hover:text-white"
             >
               <IconChevronRight className="h-4 w-4" />

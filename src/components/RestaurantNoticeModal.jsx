@@ -75,7 +75,7 @@ export const RestaurantNoticeModal = () => {
             </div>
 
             {/* Subtitle */}
-            <span className="text-secondary mb-2 block text-center text-[10px] font-bold tracking-[0.3em] uppercase md:text-xs">
+            <span className="text-[#937328] mb-2 block text-center text-[10px] font-bold tracking-[0.3em] uppercase md:text-xs">
               Thư Ngỏ Gửi Quý Khách
             </span>
 
@@ -109,7 +109,7 @@ export const RestaurantNoticeModal = () => {
                 câu chuyện thương hiệu.
               </p>
               <div className="mt-5 border-t border-neutral-100 pt-4">
-                <p className="text-secondary text-center text-[11px] font-semibold tracking-wider md:text-xs">
+                <p className="text-[#937328] text-center text-[11px] font-semibold tracking-wider md:text-xs">
                   * Ngày khai trương chính thức và thông tin đặt bàn sẽ được cập
                   nhật tại đây
                 </p>

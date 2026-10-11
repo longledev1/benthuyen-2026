@@ -90,6 +90,7 @@ const AmbienceSection = () => {
           {/* Nút Prev */}
           <button
             onClick={() => swiperRef.current?.slidePrev()}
+            aria-label="Xem không gian trước"
             className="text-primary absolute top-1/2 left-0 z-30 hidden h-12 w-12 -translate-x-6 -translate-y-1/2 items-center justify-center rounded-full bg-white opacity-0 shadow-2xl transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 hover:bg-[#1A2542] hover:text-white md:left-4 md:flex"
           >
             <IoChevronBackOutline size={24} />
@@ -98,6 +99,7 @@ const AmbienceSection = () => {
           {/* Nút Next - Fix lỗi đẩy lề phải */}
           <button
             onClick={() => swiperRef.current?.slideNext()}
+            aria-label="Xem không gian tiếp theo"
             className="text-primary absolute top-1/2 right-0 z-30 hidden h-12 w-12 translate-x-6 -translate-y-1/2 items-center justify-center rounded-full bg-white opacity-0 shadow-2xl transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 hover:bg-[#1A2542] hover:text-white md:right-4 md:flex"
           >
             <IoChevronForwardOutline size={24} />
