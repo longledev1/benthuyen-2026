@@ -40,9 +40,9 @@ export const TIMELINE_DATA = [
       "Không dừng lại ở những bữa ăn ngon, chúng tôi định nghĩa lại trải nghiệm ẩm thực di sản bằng sự tinh tế và tâm huyết trong từng chi tiết. Đây chính là lời khẳng định cho giá trị thật và uy tín bền vững mà thương hiệu đã dày công gìn giữ qua nhiều thế hệ.",
     ],
     images: [
-      "/images/home/food-1.png",
-      "/images/home/food-2.png",
-      "/images/home/food-3.png",
+      "/images/home/food-1.webp",
+      "/images/home/food-2.webp",
+      "/images/home/food-3.webp",
       "/images/home/food-4.webp",
     ],
   },

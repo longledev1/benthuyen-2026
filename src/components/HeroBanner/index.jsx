@@ -6,8 +6,7 @@ import { bannerService } from "../../services/bannerService";
 
 const HeroBanner = () => {
   const [current, setCurrent] = useState(0);
-  const [activeSlides, setActiveSlides] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [activeSlides, setActiveSlides] = useState(defaultSlides);
 
   useEffect(() => {
     const loadBanners = async () => {
@@ -34,14 +33,9 @@ const HeroBanner = () => {
             description: "",
           }));
           setActiveSlides(formatted);
-        } else {
-          setActiveSlides(defaultSlides);
         }
       } catch (err) {
         console.error("Lỗi khi tải banner từ database:", err);
-        setActiveSlides(defaultSlides);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -57,14 +51,6 @@ const HeroBanner = () => {
     if (activeSlides.length <= 1) return;
     setCurrent((prev) => (prev === activeSlides.length - 1 ? 0 : prev + 1));
   };
-
-  if (loading) {
-    return (
-      <div className="relative flex h-[320px] w-full items-center justify-center border-b border-slate-100 bg-slate-50 sm:h-[450px] md:aspect-[16/9] md:h-auto">
-        <div className="border-primary h-8 w-8 animate-spin rounded-full border-b-2"></div>
-      </div>
-    );
-  }
 
   // Nếu không có slide nào
   if (activeSlides.length === 0) return null;
