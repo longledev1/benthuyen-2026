@@ -132,6 +132,7 @@ const Header = ({ onOpenContact, onOpenBooking }) => {
         <button
           onClick={() => setIsOpen(true)}
           className="flex lg:hidden p-1 text-3xl transition-colors text-slate-800"
+          aria-label="Mở menu điều hướng"
         >
           <HiMenuAlt3 />
         </button>
@@ -162,6 +163,7 @@ const Header = ({ onOpenContact, onOpenBooking }) => {
                 <button
                   onClick={() => setIsOpen(false)}
                   className="mb-12 self-end text-3xl text-white"
+                  aria-label="Đóng menu điều hướng"
                 >
                   <IoClose />
                 </button>
