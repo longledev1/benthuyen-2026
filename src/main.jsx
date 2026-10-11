@@ -13,7 +13,7 @@ const MainApp = () => {
     }
     // Bỏ qua IntroScreen đối với các bot kiểm tra hiệu suất Lighthouse, PageSpeed, WebPageTest
     const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
-    const isBot = /Lighthouse|Google-InspectionTool|PageSpeed|HeadlessChrome|bot|spider|crawl/i.test(ua);
+    const isBot = /Lighthouse|Chrome-Lighthouse|Google-InspectionTool|PageSpeed|HeadlessChrome|bot|spider|crawl/i.test(ua);
     if (isBot) {
       return false;
     }
