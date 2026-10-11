@@ -8,10 +8,10 @@ export const TIMELINE_DATA = [
       "Những vị khách đầu tiên chính là những người bạn đồng hành lịch sử, cùng chúng tôi định hình nên hệ giá trị cốt lõi. Giai đoạn khởi đầu kiên cường và đầy kiêu hãnh đó đã đúc kết nên bản sắc riêng biệt, tạo tiền đề cho sự phát triển mạnh mẽ của NS Bến Thuyền ngày hôm nay.",
     ],
     images: [
-      "/images/home/startup-1.png",
-      "/images/home/startup-2.png",
-      "/images/home/startup-3.png",
-      "/images/home/startup-4.png",
+      "/images/home/startup-1.webp",
+      "/images/home/startup-2.webp",
+      "/images/home/startup-3.webp",
+      "/images/home/startup-4.webp",
     ],
   },
 

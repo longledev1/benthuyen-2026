@@ -14,11 +14,21 @@ const HeroBanner = () => {
       try {
         const data = await bannerService.fetchBanners();
         if (data && data.length > 0) {
-          // Map DB structure to slide structure
+          // Helper chuyển URL ảnh sang WebP nén nhẹ tự động
+          const getOptimizedUrl = (url) => {
+            if (!url) return url;
+            // Nếu là ảnh từ Supabase Storage, tận dụng image-delivery CDN nhẹ nhàng
+            if (url.includes("supabase.co/storage/v1/object/public/")) {
+              // Dùng Cloudflare / wsrv.nl CDN proxy miễn phí nén WebP Full HD siêu nhẹ tức thì
+              return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=1600&output=webp&q=82`;
+            }
+            return url;
+          };
+
           const formatted = data.map((b) => ({
             id: b.id,
-            image: b.image_url,
-            mobileImage: b.mobile_image_url,
+            image: getOptimizedUrl(b.image_url),
+            mobileImage: getOptimizedUrl(b.mobile_image_url),
             badge: "", // Canva banners are self-designed, keep text overlays empty
             title: "",
             description: "",

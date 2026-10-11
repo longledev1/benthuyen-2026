@@ -69,7 +69,7 @@ const AboutStory = () => {
                 className="absolute -top-20 right-[-40px] z-10 hidden w-48 md:-top-30 md:right-[-60px] md:w-64 lg:block"
               >
                 <motion.img
-                  src="/images/home/boat.png"
+                  src="/images/home/boat.webp"
                   alt="Boat Illustration"
                   width="256"
                   height="370"
@@ -100,7 +100,7 @@ const AboutStory = () => {
             className="aspect-[4/3] w-full overflow-hidden rounded-sm shadow-sm"
           >
             <LazyImage
-              src="/images/banner/banner1.jpg"
+              src="/images/banner/banner1.webp"
               alt="Restaurant Experience"
               className="grayscale-[20%] transition-all duration-1000 hover:grayscale-0"
             />
@@ -153,7 +153,7 @@ const AboutStory = () => {
         className="pointer-events-none absolute top-[500px] right-0 z-10 mr-[-60px] hidden select-none md:block"
       >
         <img
-          src="/images/decorations/sanho.png"
+          src="/images/decorations/sanho.webp"
           className="animate-float-slow w-[300px] opacity-70"
           alt="Starfish Decoration"
           width="300"

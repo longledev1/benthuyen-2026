@@ -83,7 +83,7 @@ const MenuSection = () => {
               className="relative overflow-hidden rounded-2xl shadow-2xl bg-white border border-slate-100 cursor-pointer"
             >
               <LazyImage
-                src="/images/home/menualacarte.png"
+                src="/images/home/menualacarte.webp"
                 alt="Menu Food"
                 containerClassName="h-[370px] sm:h-[430px] md:h-[520px] w-full"
                 className="object-cover transition-transform duration-1000 group-hover/menu:scale-105"
