@@ -5,15 +5,15 @@ const IntroScreen = ({ onComplete }) => {
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    // Thời gian hiển thị logo trước khi bắt đầu fade out (2.8 giây)
+    // Thời gian hiển thị logo trước khi bắt đầu fade out (1.8 giây)
     const fadeTimer = setTimeout(() => {
       setIsFadingOut(true);
-    }, 2800);
+    }, 1800);
 
-    // Thời gian kết thúc hoàn toàn (3.6 giây) để unmount
+    // Thời gian kết thúc hoàn toàn (2.4 giây) để unmount
     const endTimer = setTimeout(() => {
       if (onComplete) onComplete();
-    }, 3600);
+    }, 2400);
 
     return () => {
       clearTimeout(fadeTimer);

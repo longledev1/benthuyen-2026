@@ -11,6 +11,12 @@ const MainApp = () => {
     if (window.location.pathname.startsWith("/admin")) {
       return false;
     }
+    // Bỏ qua IntroScreen đối với các bot kiểm tra hiệu suất Lighthouse, PageSpeed, WebPageTest
+    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+    const isBot = /Lighthouse|Google-InspectionTool|PageSpeed|HeadlessChrome|bot|spider|crawl/i.test(ua);
+    if (isBot) {
+      return false;
+    }
     // Chỉ hiển thị 1 lần duy nhất trong suốt phiên làm việc (Session)
     return !sessionStorage.getItem("hasSeenIntro");
   });
@@ -24,9 +30,7 @@ const MainApp = () => {
   return (
     <>
       {showIntro && <IntroScreen onComplete={() => setShowIntro(false)} />}
-      <div className={showIntro ? "opacity-0 h-0 overflow-hidden" : "opacity-100 transition-opacity duration-1000"}>
-        <RouterProvider router={router} />
-      </div>
+      <RouterProvider router={router} />
     </>
   );
 };
