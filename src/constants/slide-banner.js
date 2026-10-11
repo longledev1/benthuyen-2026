@@ -1,7 +1,7 @@
 export const slides = [
   {
     id: 1,
-    image: "/images/banner/banner_re-opening.png", // Thay bằng ảnh local của bạn
+    image: "/images/banner/banner_re-opening.webp", // Thay bằng ảnh local của bạn
     badge: "",
     title: "",
     description: "",

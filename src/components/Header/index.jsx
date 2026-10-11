@@ -58,6 +58,8 @@ const Header = ({ onOpenContact, onOpenBooking }) => {
           <img
             src="/logo/logo_scroll.webp"
             alt="NS Bến Thuyền"
+            width="107"
+            height="98"
             className="w-auto h-10 md:h-16 object-contain"
           />
         </div>

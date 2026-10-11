@@ -77,6 +77,8 @@ export const RestaurantNoticeModal = () => {
               <img
                 src="/logo/logo_scroll.webp"
                 alt="NS Bến Thuyền Logo"
+                width="107"
+                height="98"
                 className="h-16 w-auto object-contain md:h-24"
               />
             </div>

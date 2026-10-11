@@ -58,11 +58,7 @@ const HeroBanner = () => {
   const hasMobileImage = !!currentSlide?.mobileImage;
 
   return (
-    <div className={`relative w-full overflow-hidden bg-white transition-all duration-500 ${
-      hasMobileImage 
-        ? "aspect-[9/16] h-auto md:aspect-[16/9] md:h-auto" 
-        : "h-[320px] sm:h-[450px] md:aspect-[16/9] md:h-auto"
-    }`}>
+    <div className="relative w-full overflow-hidden bg-white aspect-[9/16] sm:aspect-[4/3] md:aspect-[16/9] h-auto">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
