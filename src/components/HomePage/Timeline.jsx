@@ -15,19 +15,24 @@ const TimelineSection = () => {
   const navContainerRef = useRef(null); // Ref cuộn giữa tab active trên mobile
   const currentData = TIMELINE_DATA[activeIndex];
 
-  // Tự động cuộn căn giữa tab mốc thời gian đang active trên Mobile
+  // Tự động cuộn căn giữa tab mốc thời gian đang active trên Mobile (chỉ khi người dùng thay đổi tab)
+  const isFirstRender = useRef(true);
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     if (navContainerRef.current) {
-      const activeEl = navContainerRef.current.querySelector(
-        '[data-active="true"]',
-      );
-      if (activeEl) {
-        activeEl.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center",
-        });
-      }
+      requestAnimationFrame(() => {
+        const activeEl = navContainerRef.current?.querySelector('[data-active="true"]');
+        if (activeEl) {
+          activeEl.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "center",
+          });
+        }
+      });
     }
   }, [activeIndex]);
 

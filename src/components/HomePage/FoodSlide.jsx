@@ -14,13 +14,14 @@ import { FOOD_GALLERY_DATA } from "../../constants/food-slide";
 
 const FoodSlide = () => {
   const swiperRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== "undefined" ? window.innerWidth < 768 : false;
+  });
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
     const checkScreen = () => setIsMobile(window.innerWidth < 768);
-    checkScreen();
     window.addEventListener("resize", checkScreen);
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
