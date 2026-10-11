@@ -15,20 +15,20 @@ const HeroBanner = () => {
         const data = await bannerService.fetchBanners();
         if (data && data.length > 0) {
           // Helper chuyển URL ảnh sang WebP nén nhẹ tự động
-          const getOptimizedUrl = (url) => {
+          const getOptimizedUrl = (url, isMobile = false) => {
             if (!url) return url;
             // Nếu là ảnh từ Supabase Storage, tận dụng image-delivery CDN nhẹ nhàng
             if (url.includes("supabase.co/storage/v1/object/public/")) {
-              // Dùng wsrv.nl CDN proxy nén WebP kích thước tối ưu 1280px & chất lượng 75
-              return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=1280&output=webp&q=75`;
+              const width = isMobile ? 720 : 1280;
+              return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=${width}&output=webp&q=75`;
             }
             return url;
           };
 
           const formatted = data.map((b) => ({
             id: b.id,
-            image: getOptimizedUrl(b.image_url),
-            mobileImage: getOptimizedUrl(b.mobile_image_url),
+            image: getOptimizedUrl(b.image_url, false),
+            mobileImage: getOptimizedUrl(b.mobile_image_url, true),
             badge: "", // Canva banners are self-designed, keep text overlays empty
             title: "",
             description: "",

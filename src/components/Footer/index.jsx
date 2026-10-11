@@ -16,7 +16,7 @@ const Footer = () => {
       {/* Decorative low-opacity watermark in background */}
       <div className="pointer-events-none absolute -bottom-16 -left-16 opacity-[0.15] select-none">
         <img
-          src="/images/home/boat2.png"
+          src="/images/home/boat2.webp"
           alt="Watermark Sailboat"
           width="320"
           height="462"
@@ -33,7 +33,7 @@ const Footer = () => {
             <div className="flex items-center">
               {/* Bigger logo */}
               <img
-                src="/logo/nsbenthuyen_white.png"
+                src="/logo/nsbenthuyen_white.webp"
                 alt="NS Bến Thuyền"
                 className="h-16 w-auto object-contain md:h-20"
               />
