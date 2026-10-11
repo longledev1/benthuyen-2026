@@ -8,7 +8,7 @@ export const slides = [
   },
   {
     id: 2,
-    image: "/images/banner/banner2_homepage.png", // Thay bằng ảnh local của bạn
+    image: "/images/banner/banner2_homepage.webp", // Thay bằng ảnh local của bạn
     badge: "ƯU ĐÃI ĐẶC BIỆT",
     title: "Trải nghiệm không gian mới\nvới ưu đãi 20%",
     description:

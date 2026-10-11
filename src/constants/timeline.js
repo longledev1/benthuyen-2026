@@ -24,10 +24,10 @@ export const TIMELINE_DATA = [
       "Sự đồng bộ trong chất lượng dịch vụ cùng đội ngũ chuyên nghiệp chính là điểm tựa để thương hiệu khẳng định vị thế vững chắc trong lòng thực khách. Đây là cột mốc hoàn thiện hình ảnh sang trọng, chỉn chu và tiếp tục phát huy những giá trị di sản vốn có của Ngọc Sương.",
     ],
     images: [
-      "/images/home/brand-1.png",
-      "/images/home/brand-2.png",
-      "/images/home/brand-3.png",
-      "/images/home/brand-4.png",
+      "/images/home/brand-1.webp",
+      "/images/home/brand-2.webp",
+      "/images/home/brand-3.webp",
+      "/images/home/brand-4.webp",
     ],
   },
 
@@ -43,7 +43,7 @@ export const TIMELINE_DATA = [
       "/images/home/food-1.png",
       "/images/home/food-2.png",
       "/images/home/food-3.png",
-      "/images/home/food-4.png",
+      "/images/home/food-4.webp",
     ],
   },
 
@@ -56,7 +56,7 @@ export const TIMELINE_DATA = [
       "Chúng tôi trân trọng sự đồng hành lâu dài của Quý khách và khẳng định trách nhiệm gìn giữ uy tín thương hiệu. Tương lai của NS Bến Thuyền là hành trình tiếp nối của sự sáng tạo, gìn giữ bản sắc và khẳng định chất lượng chuẩn mực trong lòng mỗi thực khách.",
     ],
     images: [
-      "/images/home/future.png",
+      "/images/home/future.webp",
     ],
   },
 ];
