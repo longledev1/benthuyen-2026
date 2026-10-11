@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MENU_CATEGORIES } from "../../constants/menu";
+import SEO from "../../components/SEO";
 
 const IconX = ({ className }) => (
   <svg
@@ -38,6 +39,12 @@ export const MenuPage = () => {
     <div className={`relative w-full select-none ${
       isMobile ? "min-h-screen overflow-y-auto bg-black" : "h-screen overflow-hidden"
     }`}>
+      <SEO
+        title="Thực Đơn Hải Sản Thượng Hạng & Set Menu Tiệc"
+        description="Khám phá thực đơn hải sản tươi sống chọn lọc, món ngon truyền thống và các set menu tiệc tinh tế tại nhà hàng NS Bến Thuyền. Đặt bàn: 0909.886.058."
+        canonical="/menu"
+      />
+      <h1 className="sr-only">Thực Đơn Hải Sản Thượng Hạng NS Bến Thuyền - Alacarte & Set Menu Đặt Tiệc</h1>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

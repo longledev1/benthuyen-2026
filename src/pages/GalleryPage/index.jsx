@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { GALLERY_CATEGORIES } from "../../data/galleryData";
 import GalleryGrid from "../../components/Gallery/GalleryGrid";
+import SEO from "../../components/SEO";
 
 export const GalleryPage = () => {
   const { slug } = useParams();
@@ -41,6 +42,12 @@ export const GalleryPage = () => {
           : "md:h-screen md:overflow-hidden min-h-screen overflow-y-auto bg-black"
       }`}
     >
+      <SEO
+        title={selectedCategory ? `${selectedCategory.mainTitle} - Thư Viện Hình Ảnh` : "Thư Viện Hình Ảnh Không Gian & Ẩm Thực"}
+        description="Chiêm ngưỡng không gian sảnh tiệc Indochine sang trọng, phòng VIP đẳng cấp và nghệ thuật ẩm thực hải sản tại nhà hàng NS Bến Thuyền."
+        canonical={selectedCategory ? `/gallery/${selectedCategory.slug}` : "/gallery"}
+      />
+      <h1 className="sr-only">Thư Viện Hình Ảnh Không Gian Kiến Trúc & Ẩm Thực NS Bến Thuyền</h1>
       <AnimatePresence mode="wait">
         {selectedCategory === null ? (
           <motion.div

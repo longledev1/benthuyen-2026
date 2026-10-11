@@ -12,6 +12,7 @@ import {
 } from "react-icons/fi";
 import LazyImage from "../../components/LazyImage";
 import { postService } from "../../services/postService";
+import SEO from "../../components/SEO";
 
 const CATEGORY_MAP = {
   "su-kien": "Sự Kiện",
@@ -216,8 +217,46 @@ export const NewsDetailPage = () => {
     );
   }
 
+  const articleSchema = post
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: post.excerpt,
+        image: [
+          post.image?.startsWith("http")
+            ? post.image
+            : `https://nsbenthuyen.com${post.image?.startsWith("/") ? "" : "/"}${post.image || "images/home/food-1.png"}`,
+        ],
+        author: {
+          "@type": "Person",
+          name: post.author || "NS Bến Thuyền",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "NS Bến Thuyền",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://nsbenthuyen.com/logo/nsbenthuyen_white.png",
+          },
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `https://nsbenthuyen.com/news/${post.slug || slug}`,
+        },
+      }
+    : null;
+
   return (
     <div className="mt-12 w-full border-t border-black/5 bg-[#FAF9F5] px-4 pt-28 pb-20 md:px-8">
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        ogImage={post.image}
+        ogType="article"
+        canonical={`/news/${post.slug || slug}`}
+        schema={articleSchema}
+      />
       <div className="mx-auto max-w-[1200px]">
         {/* Nút quay lại danh sách tin tức */}
         <Link

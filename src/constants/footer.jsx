@@ -29,7 +29,7 @@ export const FOOTER_LEGAL = [
 ];
 
 export const SOCIAL_LINKS = [
-  { icon: <FaFacebookF />, href: "https://facebook.com" },
-  { icon: <FaInstagram />, href: "https://instagram.com" },
-  { icon: <IoMailOutline />, href: "mailto:nsgroup@gmail.com" },
+  { icon: <FaFacebookF />, href: "https://www.facebook.com/nsbenthuyen" },
+  { icon: <FaInstagram />, href: "https://www.instagram.com/nsbenthuyen" },
+  { icon: <IoMailOutline />, href: "mailto:nsbenthuyen@gmail.com" },
 ];

@@ -1,0 +1,27 @@
+{
+  "name": "Nhà hàng Hải sản NS Bến Thuyền",
+  "short_name": "NS Bến Thuyền",
+  "description": "Nhà hàng Hải sản NS Bến Thuyền - Di sản ẩm thực từ năm 1955 tại 21S-21T Nguyễn Văn Trỗi, Phú Nhuận, TP.HCM.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1820",
+  "theme_color": "#3c6881",
+  "icons": [
+    {
+      "src": "/logo_benthuyen.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo/logo_scroll.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo/logo_scroll.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

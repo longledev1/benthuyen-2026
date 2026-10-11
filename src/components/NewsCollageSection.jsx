@@ -17,7 +17,7 @@ export const NewsCollageSection = () => {
             <div className="h-[180px] overflow-hidden rounded-sm shadow-md sm:h-[220px] md:h-[300px]">
               <LazyImage
                 src="/images/news/event1.webp"
-                alt="Không gian 1"
+                alt="Không gian tiệc sang trọng tại nhà hàng NS Bến Thuyền"
                 className="cursor-pointer object-cover transition-transform duration-700 hover:scale-105"
                 onClick={() => setSelectedImage("/images/news/event1.webp")}
               />
@@ -25,7 +25,7 @@ export const NewsCollageSection = () => {
             <div className="h-[180px] overflow-hidden rounded-sm shadow-md sm:h-[220px] md:h-[300px]">
               <LazyImage
                 src="/images/news/event2.webp"
-                alt="Bàn tiệc"
+                alt="Bàn tiệc hải sản cao cấp NS Bến Thuyền"
                 className="cursor-pointer object-cover transition-transform duration-700 hover:scale-105"
                 onClick={() => setSelectedImage("/images/news/event2.webp")}
               />
@@ -33,7 +33,7 @@ export const NewsCollageSection = () => {
             <div className="h-[180px] overflow-hidden rounded-sm shadow-md sm:h-[220px] md:h-[300px]">
               <LazyImage
                 src="/images/news/event3.webp"
-                alt="Hải sản"
+                alt="Món ăn hải sản tươi sống đặc trưng NS Bến Thuyền"
                 className="cursor-pointer object-cover transition-transform duration-700 hover:scale-105"
                 onClick={() => setSelectedImage("/images/news/event3.webp")}
               />
@@ -44,7 +44,7 @@ export const NewsCollageSection = () => {
             <div className="h-[120px] overflow-hidden rounded-sm shadow-md sm:h-[160px] md:h-[220px]">
               <LazyImage
                 src="/images/news/event4.webp"
-                alt="Ban công"
+                alt="Không gian thoáng đãng ngoài trời NS Bến Thuyền"
                 className="cursor-pointer object-cover transition-transform duration-700 hover:scale-105"
                 onClick={() => setSelectedImage("/images/news/event4.webp")}
               />
@@ -52,7 +52,7 @@ export const NewsCollageSection = () => {
             <div className="h-[120px] overflow-hidden rounded-sm shadow-md sm:h-[160px] md:h-[220px]">
               <LazyImage
                 src="/images/news/event5.webp"
-                alt="Ấm cúng"
+                alt="Không gian phòng VIP ấm cúng NS Bến Thuyền"
                 className="cursor-pointer object-cover transition-transform duration-700 hover:scale-105"
                 onClick={() => setSelectedImage("/images/news/event5.webp")}
               />

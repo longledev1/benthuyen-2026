@@ -3,10 +3,16 @@ import { motion } from "framer-motion";
 import NewsHeroBanner from "../../components/HeroBanner/NewsHeroBanner";
 import NewsCollageSection from "../../components/NewsCollageSection";
 import NewsGridSection from "../../components/NewsGridSection";
+import SEO from "../../components/SEO";
 
 export const NewsPage = () => {
   return (
     <>
+      <SEO
+        title="Góc Chuyện Trò - Bản Tin & Văn Hóa Ẩm Thực"
+        description="Cập nhật những sự kiện ẩm thực mới nhất, văn hóa thưởng thức hải sản và ưu đãi tiệc đặc biệt tại nhà hàng NS Bến Thuyền."
+        canonical="/news"
+      />
       {/* Hero Banner */}
       <NewsHeroBanner />
 

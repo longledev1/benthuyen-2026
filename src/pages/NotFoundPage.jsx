@@ -1,86 +1,113 @@
 import React from "react";
-// Nhớ import Link nếu bạn dùng react-router-dom
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { FiHome, FiPhone, FiMail, FiMapPin, FiGlobe, FiArrowLeft } from "react-icons/fi";
+import SEO from "../components/SEO";
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return (
-    <div
-      className="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
-      // TODO: Thay thế bằng ảnh phong cảnh thật chill của dự án
-      style={{ backgroundImage: "url('/images/hero/yenbay_retreat_bg.png')" }}
-    >
-      {/* Lớp phủ đen mờ */}
-      <div className="absolute inset-0 bg-black/60"></div>
+    <>
+      <SEO
+        title="404 - Không Tìm Thấy Trang"
+        description="Trang bạn tìm kiếm không tồn tại trên hệ thống NS Bến Thuyền."
+        noindex={true}
+      />
 
-      {/* Nội dung chính */}
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-4 text-center text-white">
-        {/* Số 404 mờ ảo phía sau hoặc nhỏ ở trên */}
-
-        {/* Tiêu đề */}
-        <h1 className="font-heading mb-6 text-4xl font-bold tracking-widest text-[#E8DCC4] uppercase md:text-5xl lg:text-6xl">
-          Bạn đã lạc bước
-        </h1>
-
-        {/* Lời tựa */}
-        <p className="font-montserrat font-normalt mb-10 text-[14px] leading-relaxed text-white/90 md:text-base lg:text-lg">
-          Có vẻ như bạn đã đi chệch khỏi hành trình khám phá{" "}
-          <span className="font-bold">NS GROUP</span>. Trang bạn đang tìm kiếm
-          không tồn tại, đã được thay đổi tên hoặc dời đi. Hãy quay lại trang
-          chủ để tiếp tục trải nghiệm tuyệt tác của chúng tôi.
-        </p>
-
-        {/* Nút quay lại */}
-        {/* Nếu dùng react-router-dom, đổi thẻ <a> thành <Link to="/"> */}
-        <a
-          href="/"
-          className="font-montserrat mb-16 flex items-center gap-x-2 border border-[#E8DCC4] bg-transparent px-8 py-3 text-sm font-semibold tracking-wider text-[#E8DCC4] uppercase transition-all hover:bg-[#E8DCC4] hover:text-black md:px-10 md:py-4 md:text-base"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="h-5 w-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+      <div className="flex min-h-screen flex-col justify-between bg-white text-slate-800">
+        {/* HEADER: Logo nằm góc trái màn hình chuẩn Navigation Bar */}
+        <header className="flex w-full items-center justify-between border-b border-slate-100 px-6 py-4 md:px-12">
+          <Link to="/" className="inline-block transition-opacity hover:opacity-85">
+            <img
+              src="/Logo_new.png"
+              alt="NS Bến Thuyền"
+              className="h-10 w-auto object-contain md:h-12"
             />
-          </svg>
-          Trở về trang chủ
-        </a>
+          </Link>
 
-        {/* Thông tin liên hệ */}
-        <div className="font-montserrat font-normalt flex flex-col items-center gap-y-3 text-[13px] text-white/80 md:text-[15px]">
-          <p className="tracking-wide">
-            Nếu bạn cần hỗ trợ thêm thông tin, Quý khách vui lòng liên hệ:
+          {/* Nút quay lại nhanh ở góc phải */}
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 transition-colors hover:text-[#3c6881] md:text-sm"
+          >
+            <FiArrowLeft className="h-4 w-4" />
+            <span>Trang chủ</span>
+          </Link>
+        </header>
+
+        {/* TRUNG TÂM: Nội dung 404 cân đối, tự nhiên */}
+        <main className="flex flex-1 flex-col items-center justify-center px-4 py-12 text-center">
+          <span className="font-serif text-6xl font-bold tracking-tight bg-primary-gradient bg-clip-text text-transparent leading-none md:text-7xl">
+            404
+          </span>
+
+          <h1 className="mt-4 text-xl font-bold uppercase tracking-wider text-slate-800 md:text-2xl">
+            Không Tìm Thấy Trang
+          </h1>
+
+          <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-slate-500 md:text-sm">
+            Trang bạn đang truy cập không tồn tại, đã bị xóa hoặc đường dẫn đã có sự thay đổi.
           </p>
 
-          <div className="flex flex-col items-center gap-y-2 md:flex-row md:gap-x-6">
+          <div className="mt-6">
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary-gradient px-7 py-3 text-xs font-semibold tracking-wider text-white uppercase shadow-md shadow-[#3c6881]/25 transition-all duration-200 hover:brightness-105 hover:shadow-lg md:text-sm"
+            >
+              <FiHome className="h-4 w-4" />
+              <span>Trở về trang chủ</span>
+            </Link>
+          </div>
+        </main>
+
+        {/* PHÍA DƯỚI (BOTTOM): Địa chỉ, Website, SĐT, Email */}
+        <footer className="w-full border-t border-slate-200 py-6">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center text-xs text-slate-600 md:text-sm">
+            {/* Địa chỉ */}
+            <div className="flex items-center gap-2 px-3 py-1.5 md:px-5">
+              <FiMapPin className="h-4 w-4 shrink-0 text-[#3c6881]" />
+              <span>21S - 21T Nguyễn Văn Trỗi, P. Phú Nhuận, TP.HCM</span>
+            </div>
+
+            <span className="hidden h-3.5 w-px bg-slate-300 md:inline-block" />
+
+            {/* Số điện thoại */}
             <a
               href="tel:0909886058"
-              className="transition-colors hover:text-[#E8DCC4]"
+              className="flex items-center gap-2 px-3 py-1.5 transition-colors hover:text-[#3c6881] md:px-5"
             >
-              <span className="tracking-wider">Hotline:</span>{" "}
-              <span className="font-medium">0778.727.894</span>
+              <FiPhone className="h-4 w-4 shrink-0 text-[#3c6881]" />
+              <span>0909.886.058</span>
             </a>
 
-            <span className="hidden md:block">|</span>
+            <span className="hidden h-3.5 w-px bg-slate-300 md:inline-block" />
 
+            {/* Website */}
             <a
-              href="mailto:nsgroup@gmail.com"
-              className="transition-colors hover:text-[#E8DCC4]"
+              href="https://nsbenthuyen.com"
+              className="flex items-center gap-2 px-3 py-1.5 transition-colors hover:text-[#3c6881] md:px-5"
             >
-              <span className="tracking-wider">Email:</span>{" "}
-              <span className="font-medium">nsgroup@gmail.com</span>
+              <FiGlobe className="h-4 w-4 shrink-0 text-[#3c6881]" />
+              <span>nsbenthuyen.com</span>
+            </a>
+
+            <span className="hidden h-3.5 w-px bg-slate-300 md:inline-block" />
+
+            {/* Email */}
+            <a
+              href="mailto:nsbenthuyen@gmail.com"
+              className="flex items-center gap-2 px-3 py-1.5 transition-colors hover:text-[#3c6881] md:px-5"
+            >
+              <FiMail className="h-4 w-4 shrink-0 text-[#3c6881]" />
+              <span>nsbenthuyen@gmail.com</span>
             </a>
           </div>
-        </div>
+
+          <p className="mt-3 text-center text-[12px] text-slate-400">
+            © {new Date().getFullYear()} NS Bến Thuyền. All rights reserved.
+          </p>
+        </footer>
       </div>
-    </div>
+    </>
   );
 };
 
-export default NotFound;
+export default NotFoundPage;
