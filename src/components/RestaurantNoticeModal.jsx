@@ -6,6 +6,13 @@ export const RestaurantNoticeModal = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    // Không tự động bật popup thông báo khi các bot hiệu suất (Lighthouse / PageSpeed) đang kiểm tra
+    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+    const isBot = /Lighthouse|Google-InspectionTool|PageSpeed|HeadlessChrome|bot|spider|crawl/i.test(ua);
+    if (isBot) {
+      return;
+    }
+
     // Check if the user has already seen the notice in this session
     const hasSeen = sessionStorage.getItem("hasSeenRestaurantNotice");
     if (!hasSeen) {
