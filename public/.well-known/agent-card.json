@@ -1,0 +1,16 @@
+{
+  "name": "Nhà hàng Hải sản NS Bến Thuyền",
+  "description": "Nhà hàng hải sản thượng hạng và di sản ẩm thực truyền thống hơn 70 năm tại Phú Nhuận, TP.HCM.",
+  "url": "https://nsbenthuyen.com",
+  "version": "1.0.0",
+  "capabilities": [
+    "table-booking",
+    "menu-inquiry",
+    "restaurant-info"
+  ],
+  "contact": {
+    "telephone": "+84909886058",
+    "email": "nsbenthuyen@gmail.com",
+    "address": "21S-21T Nguyễn Văn Trỗi, Phường Phú Nhuận, TP.HCM"
+  }
+}

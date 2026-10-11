@@ -1,41 +1,22 @@
 {
   "specVersion": "1.0",
   "host": {
+    "identifier": "did:web:nsbenthuyen.com",
     "displayName": "Nhà hàng Hải sản NS Bến Thuyền",
     "documentationUrl": "https://nsbenthuyen.com"
   },
   "entries": [
     {
-      "name": "Thực đơn hải sản NS Bến Thuyền",
-      "description": "Tra cứu danh sách món ăn, hải sản tươi sống và thực đơn A la carte tại nhà hàng NS Bến Thuyền.",
-      "type": "website",
-      "url": "https://nsbenthuyen.com/menu",
-      "representativeQueries": [
-        "Thực đơn nhà hàng NS Bến Thuyền có những món gì?",
-        "Giá hải sản tại NS Bến Thuyền",
-        "Tôm hùm và cua hoàng đế tại NS Bến Thuyền"
-      ]
-    },
-    {
-      "name": "Thông tin đặt bàn & liên hệ",
-      "description": "Đặt bàn tiệc, phòng VIP và liên hệ tư vấn ẩm thực tại 21S-21T Nguyễn Văn Trỗi, Phú Nhuận.",
-      "type": "website",
-      "url": "https://nsbenthuyen.com",
+      "identifier": "urn:air:nsbenthuyen.com:agent-card:customer-service",
+      "displayName": "Dịch vụ Đặt bàn & Hỗ trợ Khách hàng NS Bến Thuyền",
+      "type": "application/agent-card+json",
+      "url": "https://nsbenthuyen.com/.well-known/agent-card.json",
+      "description": "Tra cứu thực đơn hải sản, đặt bàn tiệc, phòng VIP và hỗ trợ tư vấn ẩm thực tại 21S-21T Nguyễn Văn Trỗi, Phú Nhuận.",
       "representativeQueries": [
         "Cách đặt bàn tại nhà hàng NS Bến Thuyền",
-        "Số điện thoại đặt bàn NS Bến Thuyền Phú Nhuận",
-        "Địa chỉ nhà hàng hải sản NS Bến Thuyền"
-      ]
-    },
-    {
-      "name": "Giới thiệu & Di sản ẩm thực",
-      "description": "Lịch sử và câu chuyện ẩm thực truyền thống hơn 70 năm từ năm 1955 của NS Bến Thuyền.",
-      "type": "website",
-      "url": "https://nsbenthuyen.com/gioi-thieu",
-      "representativeQueries": [
-        "Lịch sử nhà hàng NS Bến Thuyền",
-        "NS Bến Thuyền có từ năm nào?",
-        "Nhà hàng hải sản truyền thống Sài Gòn"
+        "Thực đơn nhà hàng NS Bến Thuyền có những món gì",
+        "Số điện thoại hotline đặt tiệc NS Bến Thuyền Phú Nhuận",
+        "Địa chỉ và giờ mở cửa nhà hàng NS Bến Thuyền"
       ]
     }
   ]
