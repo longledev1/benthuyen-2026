@@ -86,6 +86,9 @@ const HeroBanner = () => {
               src={currentSlide.image}
               alt={currentSlide.title || "Bến Thuyền Banner"}
               className="w-full h-full object-cover object-center"
+              fetchpriority={current === 0 ? "high" : "auto"}
+              loading={current === 0 ? "eager" : "lazy"}
+              decoding="async"
             />
           </picture>
         </motion.div>

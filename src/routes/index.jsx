@@ -1,25 +1,40 @@
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "../layouts/MainLayout.jsx";
 import { HomePage } from "../pages/HomePage/index.jsx";
-import NotFound from "../pages/NotFoundPage.jsx";
-import VillaSequence from "../components/VillaSquence.jsx";
-import ReverieBeachLanding from "../components/VillaSquence.jsx";
-import AboutPage from "../pages/AboutPage/index.jsx";
-import GalleryPage from "../pages/GalleryPage/index.jsx";
-import MenuPage from "../pages/MenuPage/index.jsx";
-import NewsPage from "../pages/NewsPage/index.jsx";
-import NewsDetailPage from "../pages/NewsDetailPage/index.jsx";
-import DashboardLayout from "../pages/Admin/DashboardLayout.jsx";
-import ManageGallery from "../pages/Admin/ManageGallery.jsx";
-import UploadImages from "../pages/Admin/UploadImages.jsx";
-import ManagePosts from "../pages/Admin/ManagePosts.jsx";
-import WritePost from "../pages/Admin/WritePost.jsx";
-import EditPost from "../pages/Admin/EditPost.jsx";
-import ManageContacts from "../pages/Admin/ManageContacts.jsx";
-import ManageBookings from "../pages/Admin/ManageBookings.jsx";
-import ProtectedRoute from "../pages/Admin/ProtectedRoute.jsx";
-import LoginPage from "../pages/Admin/LoginPage.jsx";
-import ManageBanners from "../pages/Admin/ManageBanners.jsx";
+
+// Loading spinner / placeholder tối giản, nhẹ
+const PageLoader = () => (
+  <div className="flex min-h-[50vh] w-full items-center justify-center">
+    <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-[#3c6881]" />
+  </div>
+);
+
+const LazyLoad = ({ children }) => (
+  <Suspense fallback={<PageLoader />}>{children}</Suspense>
+);
+
+// Lazy-load các trang công khai con
+const AboutPage = lazy(() => import("../pages/AboutPage/index.jsx"));
+const GalleryPage = lazy(() => import("../pages/GalleryPage/index.jsx"));
+const MenuPage = lazy(() => import("../pages/MenuPage/index.jsx"));
+const NewsPage = lazy(() => import("../pages/NewsPage/index.jsx"));
+const NewsDetailPage = lazy(() => import("../pages/NewsDetailPage/index.jsx"));
+const NotFound = lazy(() => import("../pages/NotFoundPage.jsx"));
+
+// Lazy-load toàn bộ cụm Admin và trình soạn thảo nặng
+const ProtectedRoute = lazy(() => import("../pages/Admin/ProtectedRoute.jsx"));
+const LoginPage = lazy(() => import("../pages/Admin/LoginPage.jsx"));
+const DashboardLayout = lazy(() => import("../pages/Admin/DashboardLayout.jsx"));
+const ManagePosts = lazy(() => import("../pages/Admin/ManagePosts.jsx"));
+const ManageGallery = lazy(() => import("../pages/Admin/ManageGallery.jsx"));
+const UploadImages = lazy(() => import("../pages/Admin/UploadImages.jsx"));
+const WritePost = lazy(() => import("../pages/Admin/WritePost.jsx"));
+const EditPost = lazy(() => import("../pages/Admin/EditPost.jsx"));
+const ManageContacts = lazy(() => import("../pages/Admin/ManageContacts.jsx"));
+const ManageBookings = lazy(() => import("../pages/Admin/ManageBookings.jsx"));
+const ManageBanners = lazy(() => import("../pages/Admin/ManageBanners.jsx"));
+const ReverieBeachLanding = lazy(() => import("../components/VillaSquence.jsx"));
 
 const router = createBrowserRouter([
   // Main Site Routes
@@ -28,48 +43,173 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "gioi-thieu", element: <AboutPage /> },
-      { path: "gallery", element: <GalleryPage /> },
-      { path: "gallery/:slug", element: <GalleryPage /> },
-      { path: "menu", element: <MenuPage /> },
-      { path: "news", element: <NewsPage /> },
-      { path: "news/:slug", element: <NewsDetailPage /> }
+      {
+        path: "gioi-thieu",
+        element: (
+          <LazyLoad>
+            <AboutPage />
+          </LazyLoad>
+        ),
+      },
+      {
+        path: "gallery",
+        element: (
+          <LazyLoad>
+            <GalleryPage />
+          </LazyLoad>
+        ),
+      },
+      {
+        path: "gallery/:slug",
+        element: (
+          <LazyLoad>
+            <GalleryPage />
+          </LazyLoad>
+        ),
+      },
+      {
+        path: "menu",
+        element: (
+          <LazyLoad>
+            <MenuPage />
+          </LazyLoad>
+        ),
+      },
+      {
+        path: "news",
+        element: (
+          <LazyLoad>
+            <NewsPage />
+          </LazyLoad>
+        ),
+      },
+      {
+        path: "news/:slug",
+        element: (
+          <LazyLoad>
+            <NewsDetailPage />
+          </LazyLoad>
+        ),
+      },
     ],
   },
-  // Protected Admin Routes
+  // Protected Admin Routes (Tách hoàn toàn khỏi Bundle Trang chủ)
   {
     path: "/admin",
-    element: <ProtectedRoute />,
+    element: (
+      <LazyLoad>
+        <ProtectedRoute />
+      </LazyLoad>
+    ),
     children: [
       {
         path: "",
-        element: <DashboardLayout />,
+        element: (
+          <LazyLoad>
+            <DashboardLayout />
+          </LazyLoad>
+        ),
         children: [
-          { index: true, element: <ManagePosts /> },
-          { path: "gallery", element: <ManageGallery /> },
-          { path: "gallery/upload", element: <UploadImages /> },
-          { path: "posts", element: <ManagePosts /> },
-          { path: "posts/new", element: <WritePost /> },
-          { path: "posts/edit/:id", element: <EditPost /> },
-          { path: "contacts", element: <ManageContacts /> },
-          { path: "bookings", element: <ManageBookings /> },
-          { path: "banners", element: <ManageBanners /> }
-        ]
-      }
-    ]
+          {
+            index: true,
+            element: (
+              <LazyLoad>
+                <ManagePosts />
+              </LazyLoad>
+            ),
+          },
+          {
+            path: "gallery",
+            element: (
+              <LazyLoad>
+                <ManageGallery />
+              </LazyLoad>
+            ),
+          },
+          {
+            path: "gallery/upload",
+            element: (
+              <LazyLoad>
+                <UploadImages />
+              </LazyLoad>
+            ),
+          },
+          {
+            path: "posts",
+            element: (
+              <LazyLoad>
+                <ManagePosts />
+              </LazyLoad>
+            ),
+          },
+          {
+            path: "posts/new",
+            element: (
+              <LazyLoad>
+                <WritePost />
+              </LazyLoad>
+            ),
+          },
+          {
+            path: "posts/edit/:id",
+            element: (
+              <LazyLoad>
+                <EditPost />
+              </LazyLoad>
+            ),
+          },
+          {
+            path: "contacts",
+            element: (
+              <LazyLoad>
+                <ManageContacts />
+              </LazyLoad>
+            ),
+          },
+          {
+            path: "bookings",
+            element: (
+              <LazyLoad>
+                <ManageBookings />
+              </LazyLoad>
+            ),
+          },
+          {
+            path: "banners",
+            element: (
+              <LazyLoad>
+                <ManageBanners />
+              </LazyLoad>
+            ),
+          },
+        ],
+      },
+    ],
   },
   // Public Login Route
   {
     path: "/admin/login",
-    element: <LoginPage />
+    element: (
+      <LazyLoad>
+        <LoginPage />
+      </LazyLoad>
+    ),
   },
   {
     path: "/test",
-    element: <ReverieBeachLanding />,
+    element: (
+      <LazyLoad>
+        <ReverieBeachLanding />
+      </LazyLoad>
+    ),
   },
   {
     path: "*",
-    element: <NotFound />,
+    element: (
+      <LazyLoad>
+        <NotFound />
+      </LazyLoad>
+    ),
   },
 ]);
 

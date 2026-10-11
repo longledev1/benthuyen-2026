@@ -18,6 +18,9 @@ const Footer = () => {
         <img
           src="/images/home/boat2.png"
           alt="Watermark Sailboat"
+          width="320"
+          height="462"
+          loading="lazy"
           className="h-auto w-80 -scale-x-100 object-contain brightness-0 invert"
         />
       </div>

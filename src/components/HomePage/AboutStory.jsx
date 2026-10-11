@@ -71,6 +71,8 @@ const AboutStory = () => {
                 <motion.img
                   src="/images/home/boat.png"
                   alt="Boat Illustration"
+                  width="256"
+                  height="370"
                   className="w-full opacity-80"
                   animate={{
                     y: [0, -10, 0],
@@ -98,7 +100,7 @@ const AboutStory = () => {
             className="aspect-[4/3] w-full overflow-hidden rounded-sm shadow-sm"
           >
             <LazyImage
-              src="/images/banner/banner1.png"
+              src="/images/banner/banner1.jpg"
               alt="Restaurant Experience"
               className="grayscale-[20%] transition-all duration-1000 hover:grayscale-0"
             />
@@ -154,6 +156,9 @@ const AboutStory = () => {
           src="/images/decorations/sanho.png"
           className="animate-float-slow w-[300px] opacity-70"
           alt="Starfish Decoration"
+          width="300"
+          height="450"
+          loading="lazy"
         />
       </motion.div>
     </section>
