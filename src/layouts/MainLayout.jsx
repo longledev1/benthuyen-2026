@@ -58,7 +58,7 @@ export const MainLayout = () => {
       />
 
       {/* Floating Contact Widget */}
-      {/* <FloatingContact /> */}
+      <FloatingContact />
 
       {/* Footer */}
       {!shouldHideFooter && <Footer />}

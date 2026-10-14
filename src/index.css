@@ -280,3 +280,60 @@ body {
   transform-origin: top left;
 }
 
+/* Floating contact bell ring & wave pulse animations */
+@keyframes bellRing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  5%, 15% {
+    transform: rotate(-15deg);
+  }
+  10%, 20% {
+    transform: rotate(15deg);
+  }
+  25% {
+    transform: rotate(-9deg);
+  }
+  30% {
+    transform: rotate(9deg);
+  }
+  35% {
+    transform: rotate(-4deg);
+  }
+  40% {
+    transform: rotate(4deg);
+  }
+  45%, 90% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes wavePulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  60% {
+    transform: scale(1.45);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.animate-bell-ring {
+  animation: bellRing 2.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+  transform-origin: 50% 15%;
+}
+
+.animate-wave-pulse {
+  animation: wavePulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-wave-pulse-delayed {
+  animation: wavePulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation-delay: 0.8s;
+}
+
